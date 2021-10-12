@@ -6,16 +6,16 @@ namespace DataAccessLogic
     public interface IRepository
     {
         /// <summary>
-        /// It will add a restaurant in our database
+        /// It will add a Customer in our database
         /// </summary>
-        /// <param name="p_rest">This is the restaurant we will be adding to the database</param>
-        /// <returns>It will just return the restaurant we are adding</returns>
-        Restaurant AddRestaurant(Restaurant p_rest);
+        /// <param name="p_rest">This is the Customer we will be adding to the database</param>
+        /// <returns>It will just return the Customer we are adding</returns>
+        Customer AddCustomer(Customer p_rest);
 
         /// <summary>
-        /// This will return a list of restaurants stored in the database
+        /// This will return a list of Customers stored in the database
         /// </summary>
-        /// <returns>It will return a list of restaurants</returns>
-        List<Restaurant> GetAllRestaurant();
+        /// <returns>It will return a list of Customers</returns>
+        List<Customer> GetAllCustomer();
     }
 }

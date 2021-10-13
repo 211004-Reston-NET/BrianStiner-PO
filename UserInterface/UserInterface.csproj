@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Tools\Tools.csproj" />
+    <ProjectReference Include="..\Toolbox\Tools.csproj" />
     <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj " />
   </ItemGroup>
 
   <PropertyGroup>

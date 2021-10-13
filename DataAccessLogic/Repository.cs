@@ -21,7 +21,7 @@ namespace DataAccessLogic
             //The IClass must say where they go.
             List<IClass> listOfIClasses = GetAllIClasses(p_IC.Identify());
 
-            //We add one IClass to the file by first adding to a list, translating that list into json, then overwriting to the file.
+            //We add one IClass to the file by first adding to a list of IClasses, translating that list into json serial, then overwriting to the correct file.
             listOfIClasses.Add(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfIClasses, new JsonSerializerOptions{WriteIndented=true});
             File.WriteAllText(c_filepath + p_IC.Identify(), _jsonString);

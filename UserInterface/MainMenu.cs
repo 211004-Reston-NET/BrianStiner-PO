@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Toolbox;
 
 namespace UserInterface
 {
@@ -6,22 +8,17 @@ namespace UserInterface
     {
         public void Display()
         {
-           Console.WriteLine(@"   ______________________________     ");
-           Console.WriteLine(@" / \                             \.   ");
-           Console.WriteLine(@" \_ |                            |.   ");
-           Console.WriteLine(@"    |  Welcome to the Main Menu! |.   "); 
-           Console.WriteLine(@"    |  What do you want to do?   |.   "); 
-           Console.WriteLine(@"    |  [1] - Customers           |.   "); 
-           Console.WriteLine(@"    |  [2] - Storefronts         |.   "); 
-           Console.WriteLine(@"    |  [3] - Products            |.   "); 
-           Console.WriteLine(@"    |  [4] - Exit                |.   "); 
-           Console.WriteLine(@"    |                            |.   "); 
-           Console.WriteLine(@"    |                            |.   "); 
-           Console.WriteLine(@"    |                            |.   "); 
-           Console.WriteLine(@"    |   _________________________|___ ");
-           Console.WriteLine(@"    |  /                            /.");
-           Console.WriteLine(@"    \_/____________________________/. ");
-
+            List<string> menulines = new List<string>()
+                {"Welcome to the Main Menu,",
+                "Which menu do you want?", 
+                "[1] - Customers", 
+                "[2] - Storefronts", 
+                "[3] - Products",
+                "[4] - Orders",
+                "[5] - LineItems",
+                "[6] - Exit"};
+            Tools Builder = new Tools();
+            Builder.BuildMenu(menulines);
         }
 
         public MenuType Choice()
@@ -36,6 +33,10 @@ namespace UserInterface
                     case "3":
                         return MenuType.Product;
                     case "4":
+                        return MenuType.Order;
+                    case "5":
+                        return MenuType.LineItem;
+                    case "6":
                         return MenuType.Exit;
                     default:
                         Console.WriteLine("Not a choice. Try again.");

@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Tools;
+using Toolbox;
 using Models;
+using BusinessLogic;
 
 namespace UserInterface
 {
@@ -13,33 +14,34 @@ namespace UserInterface
             var menulines = new List<string>()
             {"Fill in Customer's info,",
             "What is their name?"};
-            var name = Console.ReadLine();
+            string name = Console.ReadLine();
             menulines.Add(name);
 
             menulines.Add("What is their address?");
             Builder.BuildMenu(menulines);
-            var address = Console.ReadLine();
+            string address = Console.ReadLine();
             menulines.Add(address);
 
             menulines.Add("What is their email?");
             Builder.BuildMenu(menulines);
-            var email = Console.ReadLine();
+            string email = Console.ReadLine();
             menulines.Add(email);
 
             menulines.Add("What is their phone number?");
             Builder.BuildMenu(menulines);
-            var phoneNumber = Console.ReadLine();
+            string phoneNumber = Console.ReadLine();
             menulines.Add(phoneNumber);
 
-            var continue = true;
-            do
-            {
-                
-            } while (continue);
-
-            IClass newCustomer = new Customer(name, address, email, phoneNumber, desires);
+            IClass newCustomer = new Customer(name, address, email, phoneNumber);
             IBusiness BL = new Business();
-            BL.AddIClass(IClass newCustomer);
+            BL.AddIClass(newCustomer);
+
+            menulines.Add("Customer Added!");
+            menulines.Add("---------------");
+            menulines.Add("What do you want to do?");
+            menulines.Add("[0] - Go back");
+            menulines.Add("[1] - Add another Customer");
+            Builder.BuildMenu(menulines);
         }
 
         public MenuType Choice()
@@ -48,7 +50,7 @@ namespace UserInterface
             switch (userChoice)
             {
                 case "0":
-                    return MenuType.Main;
+                    return MenuType.Customer;
                 case "1":
                     return MenuType.AddCustomer;
                 default:

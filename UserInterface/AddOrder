@@ -1,20 +1,25 @@
 using System;
 using System.Collections.Generic;
-using Tools;
+using Toolbox;
+using Models;
+using BusinessLogic;
 
 namespace UserInterface
 {
-    class CustomerMenu : IMenu
+    class AddOrderMenu : IMenu
     {
         public void Display()
         {
+            var Builder = new Tools();    
             var menulines = new List<string>()
-                {"Customer Menu,",
-                "What do you want to do?", 
-                "[0] - Go back", 
-                "[1] - Add Customer", 
-                "[2] - Show all Customers"};
-            Tools builder = new Tools.buildmenu(menulines);
+            {"Fill in Order's info,",
+            "which store is the order from?"};
+            string location = Console.ReadLine();
+            menulines.Add(location);
+
+            IClass newOrder = new Orders(location);
+            IBusiness BL = new Business();
+            BL.AddIClass(newOrder);
         }
 
         public MenuType Choice()
@@ -23,11 +28,9 @@ namespace UserInterface
             switch (userChoice)
             {
                 case "0":
-                    return MenuType.Main;
+                    return MenuType.Order;
                 case "1":
-                    return MenuType.AddCustomer;
-                case "2":
-                    return MenuType.ShowAllCustomers;  
+                    return MenuType.AddOrder;
                 default:
                     Console.WriteLine("Not a choice. Try again.");
                     Console.WriteLine("Press Enter to continue");

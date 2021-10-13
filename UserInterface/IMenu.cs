@@ -6,6 +6,8 @@ namespace UserInterface
         Main,
         Customer, ShowAllCustomers, AddCustomer,
         Storefront, ShowAllStorefronts, AddStorefront,
+        Order, ShowAllOrders, AddOrder,
+        LineItem, ShowAllLineItems, AddLineItem,
         Product, ShowAllProducts, AddProduct,
         Exit
     }

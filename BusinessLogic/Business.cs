@@ -14,15 +14,12 @@ namespace BusinessLogic
     {
         private IRepository _repo;
 
-        public IClass AddIClass(IClass p_IC)
-        {
-            //Passes and returns to and from storage without change.
-            return _repo.AddIClass(p_IC);
+        public void AddIClass(IClass p_IC){
+            //Passes to storage without change.        
         }
 
-        public List<IClass> GetAllIClasses(string p_homefile)
-        {
-            //Passes List of the  from storage without change.
+        public List<IClass> GetAllIClasses(string p_homefile){
+            //Passes List from storage without change.
             return _repo.GetAllIClasses(p_homefile);
         }
     }

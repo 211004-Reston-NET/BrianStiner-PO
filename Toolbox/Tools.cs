@@ -5,13 +5,13 @@ using System.Collections.Generic;
 Contains repository specific logic on storing and accessing data
 */
 
-namespace Tools
+namespace Toolbox
 {
     //Access the json files where data is stored.
     public class Tools
     {
     
-        public void BuildMenu(List<strings> p_menulines)
+        public void BuildMenu(List<string> p_menulines)
         {
             Console.Clear();
             //menulines typically = title, go back, first, second, third options 
@@ -21,7 +21,7 @@ namespace Tools
             Console.WriteLine(@" \_ |                            |.   ");
             foreach( string line in p_menulines)
             {
-            line.PadRight(26-line.Length(), " ");
+            line.PadRight(26-line.Length, ' ');
             Console.WriteLine($"    |   {line}|.   ");
             } 
             Console.WriteLine(@"    |                            |.   "); 

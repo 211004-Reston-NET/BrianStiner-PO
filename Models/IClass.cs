@@ -10,6 +10,8 @@ namespace Models
         /// </summary>
         /// <returns>The homeland of the Class</returns>
         string Identify();
+
+        List<string> ToStringList()
     }
 
 }

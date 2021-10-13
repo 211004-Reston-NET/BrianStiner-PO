@@ -23,6 +23,28 @@ namespace UserInterface
                         break;
 
                     case MenuType.Customer:
+                        page = new CustomerMenu();
+                        break;
+
+                    case MenuType.ShowAllCustomers:
+                        page = new ShowAllCustomersMenu();
+                        break;
+                     case MenuType.AddCustomer:
+                        page = new AddCustomerMenu();
+                        break;
+
+                    case MenuType.Customer:
+                        page = new OrderMenu();
+                        break;
+
+                    case MenuType.Storefront:
+                        page = new StorefrontMenu();
+                        break;
+                     case MenuType.Main:
+                        page = new MainMenu();
+                        break;
+
+                    case MenuType.Customer:
                         page = new OrderMenu();
                         break;
 

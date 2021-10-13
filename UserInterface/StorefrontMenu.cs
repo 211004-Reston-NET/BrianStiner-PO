@@ -30,11 +30,13 @@ namespace UserInterface
                 string userChoice = Console.ReadLine();
                 switch (userChoice)
                 {
-                    case "2":
-                        return MenuType.Main;
                     case "1":
-                        return MenuType.Order;
-                    case "0":
+                        return MenuType.Customer;
+                    case "2":
+                        return MenuType.Storefront;
+                    case "3":
+                        return MenuType.Product;
+                    case "4":
                         return MenuType.Exit;
                     default:
                         Console.WriteLine("Not a choice. Try again.");

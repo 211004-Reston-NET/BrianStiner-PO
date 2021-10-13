@@ -32,8 +32,10 @@ namespace UserInterface
                 {
                     case "1":
                         return MenuType.Main;
+                        //return null;
                     case "2":
-                        return null;
+                        return MenuType.Main;
+                        //return null;
                     default:
                         Console.WriteLine("Not a choice. Try again.");
                         Console.WriteLine("Press Enter to continue");

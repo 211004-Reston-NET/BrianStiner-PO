@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Tools;
 
 namespace UserInterface
 {
@@ -6,22 +8,13 @@ namespace UserInterface
     {
         public void Display()
         {
-           Console.WriteLine(@"   ______________________________     ");
-           Console.WriteLine(@" / \                             \.   ");
-           Console.WriteLine(@" \_ |                            |.   ");
-           Console.WriteLine(@"    |  Welcome to the Main Menu! |.   "); 
-           Console.WriteLine(@"    |  What do you want to do?   |.   "); 
-           Console.WriteLine(@"    |  [1] - Customers           |.   "); 
-           Console.WriteLine(@"    |  [2] - Storefronts         |.   "); 
-           Console.WriteLine(@"    |  [3] - Products            |.   "); 
-           Console.WriteLine(@"    |  [4] - Exit                |.   "); 
-           Console.WriteLine(@"    |                            |.   "); 
-           Console.WriteLine(@"    |                            |.   "); 
-           Console.WriteLine(@"    |                            |.   "); 
-           Console.WriteLine(@"    |   _________________________|___ ");
-           Console.WriteLine(@"    |  /                            /.");
-           Console.WriteLine(@"    \_/____________________________/. ");
-
+            var menulines = new List<string>()
+                {"Customer Menu,",
+                "What do you want to do?", 
+                "[0] - Go back", 
+                "[1] - Add Customer", 
+                "[2] - Show all Customers"};
+            Tools builder = new Tools.buildmenu(menulines);
         }
 
         public MenuType Choice()
@@ -29,12 +22,12 @@ namespace UserInterface
             string userChoice = Console.ReadLine();
             switch (userChoice)
             {
-                case "2":
+                case "0":
                     return MenuType.Main;
                 case "1":
-                    return MenuType.Order;
-                case "0":
-                    return MenuType.Exit;
+                    return MenuType.AddCustomer;
+                case "2":
+                    return MenuType.ShowAllCustomers;  
                 default:
                     Console.WriteLine("Not a choice. Try again.");
                     Console.WriteLine("Press Enter to continue");
@@ -42,7 +35,6 @@ namespace UserInterface
                     return MenuType.Main;
             }
             
-            throw new System.NotImplementedException();
         }
     }
 }

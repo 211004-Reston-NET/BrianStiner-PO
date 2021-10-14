@@ -35,23 +35,26 @@ namespace UserInterface
                     case MenuType.Storefront:
                         page = new StorefrontMenu();
                         break;
-                    /* 
+
                     case MenuType.ShowAllStorefronts:
-                        page = new StorefrontMenu();
+                        page = new ShowAllStorefrontsMenu();
                         break;
                       
                      case MenuType.AddStorefront:
                         page = new AddStorefrontMenu();
                         break;
 
-                    case MenuType.Customer:
-                        page = new OrderMenu();
+                    case MenuType.Product:
+                        page = new ProductMenu();
                         break;
 
-                    case MenuType.Storefront:
-                        page = new StorefrontMenu();
+                    case MenuType.ShowAllProducts:
+                        page = new ShowAllProductsMenu();
                         break;
-                       */ 
+                       
+                    case MenuType.AddProduct:
+                        page = new AddProductMenu();
+                        break;   
                     default:
                         Console.WriteLine("Somehow there wasn't a menu. ");
                         break;

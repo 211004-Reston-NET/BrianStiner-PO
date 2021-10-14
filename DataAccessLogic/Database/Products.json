@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "Name": "Canola Oil",
+    "Category": "Food",
+    "Description": "Oil 128Floz liquid",
+    "Price": 3.88
+  },
+  {
+    "Name": "Mixed nuts and fruit",
+    "Category": "food",
+    "Description": "snack healthy natural",
+    "Price": 8.99
+  }
+]

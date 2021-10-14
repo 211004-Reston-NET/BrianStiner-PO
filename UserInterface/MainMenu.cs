@@ -14,9 +14,7 @@ namespace UserInterface
                 "[1] - Customers", 
                 "[2] - Storefronts", 
                 "[3] - Products",
-                "[4] - Orders",
-                "[5] - LineItems",
-                "[6] - Exit"};
+                "[4] - Exit"};
             Tools Builder = new Tools();
             Builder.BuildMenu(menulines);
         }
@@ -33,10 +31,6 @@ namespace UserInterface
                     case "3":
                         return MenuType.Product;
                     case "4":
-                        return MenuType.Order;
-                    case "5":
-                        return MenuType.LineItem;
-                    case "6":
                         return MenuType.Exit;
                     default:
                         Console.WriteLine("Not a choice. Try again.");

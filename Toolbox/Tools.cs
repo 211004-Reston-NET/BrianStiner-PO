@@ -15,7 +15,6 @@ namespace Toolbox
             Console.Clear();
             //menulines typically = title, go back, first, second, third options
             //try catch for a string thats too long and needs to get split by spaces. 
-
             Console.WriteLine(@"   ___________________________________     ");
             Console.WriteLine(@" / \                                  \.   ");
             Console.WriteLine(@" \_ |                                 |.   ");

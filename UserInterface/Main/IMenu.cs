@@ -9,7 +9,7 @@ namespace UserInterface
         Order, ShowAllOrders, AddOrder,
         LineItem, ShowAllLineItems, AddLineItem,
         Product, ShowAllProducts, AddProduct,
-        Exit
+        Exit, RealExit
     }
  
 

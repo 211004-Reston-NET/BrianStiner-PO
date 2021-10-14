@@ -11,7 +11,7 @@ namespace UserInterface
         public void Display()
         {
             IBusiness BL = new Business();
-            List<Customer> AllCustomers = BL.GetAllClasses(new Customer("anon")); //"Customers.json"
+            List<Customer> AllCustomers = BL.GetAllClasses(new Customer()); //"Customers.json"
             List<string> menulines = new List<string>()
                 {"Show all Customers,"};
             foreach(Customer c in AllCustomers){
@@ -21,7 +21,7 @@ namespace UserInterface
                 menulines.Add("  ----------  ");
             }
             menulines.Add("Press Enter to Continue...");
-            
+
             Tools Builder = new Tools();
             Builder.BuildMenu(menulines);
             Console.ReadLine();

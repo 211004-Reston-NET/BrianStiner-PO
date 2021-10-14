@@ -54,7 +54,16 @@ namespace UserInterface
                        
                     case MenuType.AddProduct:
                         page = new AddProductMenu();
-                        break;   
+                        break;
+
+                    case MenuType.Exit:
+                        page = new ExitMenu();
+                        break;
+
+                    case MenuType.RealExit:
+                        page = new RealExitMenu();
+                        repeat = false;
+                        break;       
                     default:
                         Console.WriteLine("Somehow there wasn't a menu. ");
                         break;

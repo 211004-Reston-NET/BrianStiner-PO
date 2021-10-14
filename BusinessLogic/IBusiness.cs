@@ -12,17 +12,16 @@ namespace BusinessLogic
     public interface IBusiness
     {
         /// <summary>
-        /// This will return a list of restaurants stored in the database
-        /// It will also capitalize every name of the restaurant
+        /// Passes an IClass to the repo to store in the database
         /// </summary>
-        /// <returns>It will return a list of restaurants</returns>
+        /// <param name="p_IC">This is the IClass we are passing</param>
+        void AddIClass(IClass p_IC);
+        
+        /// <summary>
+        /// This will return a list of IClasses of a type stored in the database
+        /// </summary>
+        /// <returns>It will return a list of IClasses from  that file</returns>
         List<IClass> GetAllIClasses(string p_homefile);
 
-        /// <summary>
-        /// Adds a restaurant to the database
-        /// </summary>
-        /// <param name="p_IC">This is the restaurant we are adding</param>
-        /// <returns>It returns the added restaurant</returns>
-        IClass AddIClass(IClass p_IC);
     }
 }

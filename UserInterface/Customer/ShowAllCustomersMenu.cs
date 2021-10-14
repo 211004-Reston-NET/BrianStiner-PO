@@ -6,7 +6,7 @@ using Models;
 
 namespace UserInterface
 {
-    class ShowAllCusotmersMenu : IMenu
+    class ShowAllCustomersMenu : IMenu
     {
         public void Display()
         {

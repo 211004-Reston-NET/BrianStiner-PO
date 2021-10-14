@@ -11,7 +11,7 @@ namespace Models
         /// <returns>The homeland of the Class</returns>
         string Identify();
 
-        List<string> ToStringList()
+        List<string> ToStringList();
     }
 
 }

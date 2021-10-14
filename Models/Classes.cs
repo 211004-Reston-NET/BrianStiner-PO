@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;  
+using System.Collections.Generic;
+using Toolbox;
 
 /*
 Customer, Storefront, Orders, Products, LineItems
@@ -11,7 +12,35 @@ namespace Models
     {
         private string name, address, email, phoneNumber;
         private List<Orders> customerOrders = new List<Orders>();
-        public Customer(){}
+        public Customer(){
+
+            Tools Builder = new Tools();    
+            var menulines = new List<string>()
+            {"Fill in Customer's info,",
+            "What is their name?"};
+            Builder.BuildMenu(menulines);
+            name = Console.ReadLine();
+            menulines.Add(name);
+
+            menulines.Add("What is their address?");
+            Builder.BuildMenu(menulines);
+            address = Console.ReadLine();
+            menulines.Add(address);
+
+            menulines.Add("What is their email?");
+            Builder.BuildMenu(menulines);
+            email = Console.ReadLine();
+            menulines.Add(email);
+
+            menulines.Add("What is their phone number?");
+            Builder.BuildMenu(menulines);
+            phoneNumber = Console.ReadLine();
+            menulines.Add(phoneNumber);
+            menulines.Add("Press Enter to Continue...");
+            Builder.BuildMenu(menulines);
+            Console.ReadLine();
+
+        }
         public Customer(string p_name, string p_address, string p_email, string p_phoneNumber)
         {
             this.name = p_name;
@@ -46,7 +75,9 @@ namespace Models
             $"Orders: "};
 
             foreach(Orders o in customerOrders){
-                stringlist.Add(o.ToStringList());
+                foreach(string s in o.ToStringList()){
+                    stringlist.Add(s);
+                }
             }
 
             return stringlist;
@@ -65,6 +96,27 @@ namespace Models
         public List<Orders> StoreOrders { get => storeOrders; set => storeOrders = value; }
 
         public string Identify() { return "Storefronts.json"; }
+        public List<string> ToStringList(){
+            List<string> stringlist = new List<string>() {
+            $"name: {name}",
+            $"address: {address}",
+            $"Products: "};
+
+            foreach(Product p in storeProducts){
+                foreach(string s in p.ToStringList()){
+                    stringlist.Add(s);
+                }
+            }
+
+            stringlist.Add($"Orders: ");
+            foreach(Orders o in storeOrders){
+                foreach(string s in o.ToStringList()){
+                    stringlist.Add(s);
+                }
+            }
+
+            return stringlist;
+        }
             
     }
 
@@ -84,8 +136,22 @@ namespace Models
         public List<LineItems> OrderLineItems1 { get => OrderLineItems; set => OrderLineItems = value; }
         public string Location { get => location; set => location = value; }
         public decimal TotalPrice { get => totalPrice; set => totalPrice = value; }
-
         public string Identify() { return "Orders.json"; }
+
+        public List<string> ToStringList(){
+        List<string> stringlist = new List<string>() {
+                $"location: {location}",
+                $"total price: {totalPrice}",
+                $"Line Items: "};
+
+            foreach(LineItems l in OrderLineItems){
+                foreach(string s in l.ToStringList()){
+                    stringlist.Add(s);
+                }
+            }
+
+            return stringlist;
+        }
     }
 
     public class LineItems : IClass
@@ -95,6 +161,17 @@ namespace Models
         public int Quantity { get => quantity; set => quantity = value; }
         public Product LineProduct { get => lineProduct; set => lineProduct = value; }
         public string Identify() { return "LineItems.json"; }
+        public List<string> ToStringList(){
+        List<string> stringlist = new List<string>() {
+                $"quantity: {quantity}",
+                $"Product: "};
+            foreach(string s in lineProduct.ToStringList()){
+                stringlist.Add(s);
+            }
+            
+
+            return stringlist;
+        }
     }
 
     public class Product : IClass
@@ -107,5 +184,15 @@ namespace Models
         public string Description { get => description; set => description = value; }
         public decimal Price { get => price; set => price = value; }
         public string Identify() { return "Products.json"; }
+
+        public List<string> ToStringList(){
+        List<string> stringlist = new List<string>() {
+                $"name: {name}",
+                $"description: {description}",
+                $"category: {category}",
+                $"price: {price}"};
+
+            return stringlist;
+        }
     }
 }

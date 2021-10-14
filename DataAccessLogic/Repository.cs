@@ -16,7 +16,7 @@ namespace DataAccessLogic
         private const string c_filepath = "./../RRDL/Database/";
         private string _jsonString;
     
-        public IClass AddIClass(IClass p_IC)
+        public void AddIClass(IClass p_IC)
         {
             //The IClass must say where they go.
             List<IClass> listOfIClasses = GetAllIClasses(p_IC.Identify());
@@ -25,9 +25,6 @@ namespace DataAccessLogic
             listOfIClasses.Add(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfIClasses, new JsonSerializerOptions{WriteIndented=true});
             File.WriteAllText(c_filepath + p_IC.Identify(), _jsonString);
-
-            //We return for no reason?
-            return p_IC;
         }
         public List<IClass> GetAllIClasses(string p_homefile)
         {

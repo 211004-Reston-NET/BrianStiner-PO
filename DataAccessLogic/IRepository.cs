@@ -10,7 +10,7 @@ namespace DataAccessLogic
         /// </summary>
         /// <param name="p_rest">This is the IClass we will be adding to the database</param>
         /// <returns>It will just return the IClass we are adding</returns>
-        IClass AddIClass(IClass p_rest);
+        void AddIClass(IClass p_IC);
 
         /// <summary>
         /// This will return a list of IClasss stored in the database

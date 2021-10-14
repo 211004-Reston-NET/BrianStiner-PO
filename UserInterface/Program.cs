@@ -11,7 +11,6 @@ namespace UserInterface
             IMenu page = new MainMenu();
             while (repeat)
             {
-                
                 Console.Clear();
                 page.Display();
                 MenuType currentPage = page.Choice();
@@ -33,6 +32,18 @@ namespace UserInterface
                         page = new AddCustomerMenu();
                         break;
 
+                    case MenuType.Storefront:
+                        page = new OrderMenu();
+                        break;
+
+                    case MenuType.ShowAllStorefronts:
+                        page = new StorefrontMenu();
+                        break;
+                     /*   
+                     case MenuType.AddStorefront:
+                        page = new AddStorefrontMenu();
+                        break;
+
                     case MenuType.Customer:
                         page = new OrderMenu();
                         break;
@@ -40,18 +51,7 @@ namespace UserInterface
                     case MenuType.Storefront:
                         page = new StorefrontMenu();
                         break;
-                     case MenuType.Main:
-                        page = new MainMenu();
-                        break;
-
-                    case MenuType.Customer:
-                        page = new OrderMenu();
-                        break;
-
-                    case MenuType.Storefront:
-                        page = new StorefrontMenu();
-                        break;
-                        
+                       */ 
                     default:
                         Console.WriteLine("somehow there wasn't a menu.");
                         break;

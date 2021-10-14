@@ -11,23 +11,28 @@ namespace UserInterface
         public void Display()
         {
             IBusiness BL = new Business();
-            List<IClass> AllCustomers = BL.GetAllIClasses(new Customer("anon").Identify()); //"Customers.json"
+            List<Customer> AllCustomers = BL.GetAllClasses(new Customer("anon")); //"Customers.json"
             List<string> menulines = new List<string>()
                 {"Show all Customers,"};
-            foreach(IClass c in AllCustomers){
+            foreach(Customer c in AllCustomers){
                 foreach(string s in c.ToStringList()){
                     menulines.Add(s);
                 }
                 menulines.Add("  ----------  ");
             }
-            Tools Builder = new Tools();
             menulines.Add("Press Enter to Continue...");
+            
+            Tools Builder = new Tools();
             Builder.BuildMenu(menulines);
             Console.ReadLine();
 
-            menulines.Add("What do you want to do?"); 
-            menulines.Add("[0] - Go back"); 
-            menulines.Add("[1] - Show Again");
+            menulines = new List<string>(){
+                "Customers in database shown!",
+                "---------------",
+                "What do you want to do?",
+                "[0] - Go back",
+                "[1] - Show Customers again."};
+            
             Builder.BuildMenu(menulines);
         }
 

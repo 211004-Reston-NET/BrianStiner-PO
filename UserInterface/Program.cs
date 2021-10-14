@@ -53,7 +53,7 @@ namespace UserInterface
                         break;
                        */ 
                     default:
-                        Console.WriteLine("somehow there wasn't a menu.");
+                        Console.WriteLine("Somehow there wasn't a menu. ");
                         break;
                 }
             }

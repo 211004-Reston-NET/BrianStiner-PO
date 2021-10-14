@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "Name": "Jerry Lewis",
+    "Address": "15214 PilletStick Dr",
+    "Email": "Jerrrrreeee@gmail.com",
+    "PhoneNumber": "703-884-5127",
+    "CustomerOrders": []
+  },
+  {
+    "Name": "Wilma Banks",
+    "Address": "141 Firstcut st",
+    "Email": "BBQueen141@gmail.com",
+    "PhoneNumber": "713-851-6566",
+    "CustomerOrders": []
+  }
+]

@@ -33,13 +33,13 @@ namespace UserInterface
                         break;
 
                     case MenuType.Storefront:
-                        page = new OrderMenu();
+                        page = new StorefrontMenu();
                         break;
-
+                    /* 
                     case MenuType.ShowAllStorefronts:
                         page = new StorefrontMenu();
                         break;
-                     /*   
+                      
                      case MenuType.AddStorefront:
                         page = new AddStorefrontMenu();
                         break;

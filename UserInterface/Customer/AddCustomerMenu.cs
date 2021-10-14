@@ -10,7 +10,7 @@ namespace UserInterface
     {
         public void Display()
         {
-            IClass newCustomer = new Customer();
+            Customer newCustomer = new Customer();
             IBusiness BL = new Business();
             BL.AddIClass(newCustomer);
 

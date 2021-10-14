@@ -19,27 +19,36 @@ namespace Models
             {"Fill in Customer's info,",
             "What is their name?"};
             Builder.BuildMenu(menulines);
-            name = Console.ReadLine();
+            this.name = Console.ReadLine();
             menulines.Add(name);
 
             menulines.Add("What is their address?");
             Builder.BuildMenu(menulines);
-            address = Console.ReadLine();
+            this.address = Console.ReadLine();
             menulines.Add(address);
 
             menulines.Add("What is their email?");
             Builder.BuildMenu(menulines);
-            email = Console.ReadLine();
+            this.email = Console.ReadLine();
             menulines.Add(email);
 
             menulines.Add("What is their phone number?");
             Builder.BuildMenu(menulines);
-            phoneNumber = Console.ReadLine();
+            this.phoneNumber = Console.ReadLine();
             menulines.Add(phoneNumber);
+
+            menulines.Add("   ------------------   ");
+            foreach(string s in this.ToStringList()){
+                menulines.Add(s);
+            }
+
             menulines.Add("Press Enter to Continue...");
             Builder.BuildMenu(menulines);
             Console.ReadLine();
 
+        }
+        public Customer(string p_name){
+            this.name = p_name;
         }
         public Customer(string p_name, string p_address, string p_email, string p_phoneNumber)
         {
@@ -47,7 +56,6 @@ namespace Models
             this.address = p_address;
             this.email = p_email;
             this.phoneNumber = p_phoneNumber;
-            this.CustomerOrders = new List<Orders>();
         }
 
         public Customer(string p_name, string p_address, string p_email, string p_phoneNumber, List<Orders> p_Orders)
@@ -68,18 +76,23 @@ namespace Models
 
         public List<string> ToStringList(){
             List<string> stringlist = new List<string>() {
-            $"name: {name}",
-            $"address: {address}",
-            $"email: {email}",
-            $"phoneNumber: {phoneNumber}",
+            $"name: {this.name}",
+            $"address: {this.address}",
+            $"email: {this.email}",
+            $"phoneNumber: {this.phoneNumber}",
             $"Orders: "};
-
-            foreach(Orders o in customerOrders){
-                foreach(string s in o.ToStringList()){
-                    stringlist.Add(s);
+            try{
+                foreach(Orders o in this.customerOrders){
+                    foreach(string s in o.ToStringList()){
+                        stringlist.Add(s);
+                    }
                 }
             }
-
+            catch (System.Exception){
+                stringlist.Add("Customer has no orders.");
+                throw;
+            }
+            
             return stringlist;
         }
     }
@@ -140,11 +153,11 @@ namespace Models
 
         public List<string> ToStringList(){
         List<string> stringlist = new List<string>() {
-                $"location: {location}",
-                $"total price: {totalPrice}",
+                $"location: {this.location}",
+                $"total price: {this.totalPrice}",
                 $"Line Items: "};
 
-            foreach(LineItems l in OrderLineItems){
+            foreach(LineItems l in this.OrderLineItems){
                 foreach(string s in l.ToStringList()){
                     stringlist.Add(s);
                 }

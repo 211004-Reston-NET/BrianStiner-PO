@@ -13,7 +13,7 @@ namespace DataAccessLogic
     //Access the json files where data is stored.
     public class Repository : IRepository
     {
-        private const string c_filepath = "./../RRDL/Database/";
+        private const string c_filepath = "./../DataAccessLogic/Database/"; 
         private string _jsonString;
     
         public void AddIClass(IClass p_IC)

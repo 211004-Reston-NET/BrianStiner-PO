@@ -26,6 +26,7 @@ namespace DataAccessLogic
             _jsonString = JsonSerializer.Serialize(listOfIClasses, new JsonSerializerOptions{WriteIndented=true});
             File.WriteAllText(c_filepath + p_IC.Identify(), _jsonString);
         }
+
         public List<IClass> GetAllIClasses(string p_homefile)
         {
             //File IClass will announce their place and be put in a .json they choose

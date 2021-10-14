@@ -15,7 +15,8 @@ namespace BusinessLogic
         private IRepository _repo;
 
         public void AddIClass(IClass p_IC){
-            //Passes to storage without change.        
+            //Passes to storage without change. 
+            _repo.AddIClass(p_IC);       
         }
 
         public List<IClass> GetAllIClasses(string p_homefile){

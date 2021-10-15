@@ -27,7 +27,7 @@ namespace UserInterface
                         Console.WriteLine("Not a choice. Try again.");
                         Console.WriteLine("Press Enter to continue");
                         Console.ReadLine();
-                        return MenuType.Exit;
+                        return MenuType.RealExit;
                 }
             }
         }

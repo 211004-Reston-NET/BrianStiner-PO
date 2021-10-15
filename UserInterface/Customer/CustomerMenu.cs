@@ -14,7 +14,8 @@ namespace UserInterface
                 "What do you want to do?", 
                 "[0] - Go back", 
                 "[1] - Add Customer", 
-                "[2] - Show all Customers"};
+                "[2] - Show all Customers",
+                "[3] - Add Order to Customer"};
             Tools Builder = new Tools();
             Builder.BuildMenu(menulines);
         }
@@ -29,7 +30,9 @@ namespace UserInterface
                 case "1":
                     return MenuType.AddCustomer;
                 case "2":
-                    return MenuType.ShowAllCustomers;  
+                    return MenuType.ShowAllCustomers; 
+                case "3":
+                    return MenuType.GetSearchedCustomer; 
                 default:
                     Console.WriteLine("Not a choice. Try again.");
                     Console.WriteLine("Press Enter to continue");

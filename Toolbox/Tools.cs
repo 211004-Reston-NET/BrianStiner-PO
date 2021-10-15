@@ -36,3 +36,6 @@ namespace Toolbox
 
     }
 }
+
+
+//Console.WriteLine(string.Join(",", s.GetRange(i,m)));

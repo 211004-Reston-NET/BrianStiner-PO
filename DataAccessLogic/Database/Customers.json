@@ -19,5 +19,12 @@
     "Email": "Steven@email.com",
     "PhoneNumber": "221-568-8542",
     "CustomerOrders": []
+  },
+  {
+    "Name": "Changed",
+    "Address": "The big statue",
+    "Email": "Steven@email.com",
+    "PhoneNumber": "221-568-8542",
+    "CustomerOrders": []
   }
 ]

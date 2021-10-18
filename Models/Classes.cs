@@ -10,8 +10,11 @@ namespace Models
 {
     public class Customer : IClass
     {
+        //Variables -----------------------------------------------------------------------------
         private string name, address, email, phoneNumber;
         private List<Order> customerOrders = new List<Order>();
+
+        //Constructors ---------------------------------------------------------------------------
         public Customer(){}
         public Customer(string p_name){this.name = p_name;}
         public Customer(string p_name, string p_address, string p_email, string p_phoneNumber){
@@ -22,7 +25,6 @@ namespace Models
             Console.WriteLine($"name:{name} address:{address} email:{email} phone number:{phoneNumber}");
             Console.ReadLine();
         }
-
         public Customer(string p_name, string p_address, string p_email, string p_phoneNumber, List<Order> p_Orders){
             this.name = p_name;
             this.address = p_address;
@@ -30,14 +32,16 @@ namespace Models
             this.phoneNumber = p_phoneNumber;
             this.customerOrders = p_Orders;
         }
+
+        //Get & Set -------------------------------------------------------------------------------
         public string Name { get => name; set => name = value; }
         public string Address { get => address; set => address = value; }
         public string Email { get => email; set => email = value; }
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public List<Order> CustomerOrders { get => customerOrders; set => customerOrders = value; }
 
+        //Interface --------------------------------------------------------------------------------
         public string Identify() { return "Customer"; }
-
         public List<string> ToStringList(){
             List<string> stringlist = new List<string>() {
             $"name: {this.name}",
@@ -56,7 +60,6 @@ namespace Models
                 stringlist.Add("Customer has no orders.");
                 throw;
             }
-            
             return stringlist;
         }
     }

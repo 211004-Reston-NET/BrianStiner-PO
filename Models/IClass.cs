@@ -4,13 +4,14 @@ using System.Collections.Generic;
 namespace Models
 {
     public interface IClass{
-        /// <summary>
-        /// It will return a string containing the name of the class its in with .json on the end.
-        /// Maybe will update to just display name and use more generally.
-        /// </summary>
-        /// <returns>The homeland of the Class</returns>
+
+        /// <returns> a string containing the name of the class.</returns>
         string Identify();
 
+        /// <summary>
+        /// It will return a List<string> containing each of its variables displayed for the menubuilder.
+        /// </summary>
+        /// <returns>{$"name:{name}","phone:{phone}","color:{color}"}</returns>
         List<string> ToStringList();
     }
 

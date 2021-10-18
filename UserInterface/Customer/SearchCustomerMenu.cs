@@ -8,6 +8,22 @@ namespace UserInterface
 {
     class SearchCustomerMenu : IMenu
     {
+        private string entered;
+        private bool FindInput(Customer p_IC){
+            if (p_IC.Name.Contains(entered)) {
+                return true;
+            } else if (p_IC.Address.Contains(entered)) {
+                return true;
+            } else if (p_IC.Email.Contains(entered)) {
+                return true;
+            } else if (p_IC.PhoneNumber.Contains(entered)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //ask for a string and search against all of the Customer database to return a select List<Customer>, show it, user selects one, modify that customer.
         public void Display()
         {
             Tools Builder = new Tools();
@@ -15,46 +31,52 @@ namespace UserInterface
             List<Customer> AllCustomers = BL.GetAllClasses(new Customer());  
             List<Customer> SelectCustomers = new List<Customer>();  
 
-            var menulines = new List<string>()
-                {"What do you want to search by?",
-                "[1] - name",
-                "[2] - address",
-                "[3] - email",
-                "[4] - phone number"};
-            Builder.BuildMenu(menulines);
-            string choice = Console.ReadLine();
-            menulines.Add(choice);
-
-            switch (choice)
+            bool repeat = false;
+            var menulines = new List<string>();
+            do
             {
-                case {"name", "Name", "1", "NAME"}:
-                    break;
-                case {"address", "Address", "2", "ADDRESS"}:
-                    break;
-                case {"email", "Email", "3", "e-mail", "EMAIL", "E-mail"}:
-                    break;
-                case {"phone", "Phone", "PHONE", "4", "phonenumber", "phone number", "Phone number", "Phone Number", "PHONE NUMBER"}:
-                    break;
-                default:
-                    Console.WriteLine("That wasn't a choice. ");
-                    break;
-            }
+                menulines.Add("Search Customers:");
+                Builder.BuildMenu(menulines);
 
+                this.entered = Console.ReadLine();
+                SelectCustomers = AllCustomers.FindAll(FindInput);
+
+                if(SelectCustomers.Count == 0){menulines.Add("No search results."); repeat = true;}
+                else{
+                    menulines.Add("Show searched Customers");
+                    int cnt = 0;
+                    foreach(Customer c in SelectCustomers){
+                        cnt++;
+                        menulines.Add($"[{cnt}]--------------------");
+                        foreach(string s in c.ToStringList()){
+                            menulines.Add("  "+s);
+                        }
+                    }
+                    repeat = false;
+                }
+            } while (repeat);
+
+            menulines.Add("Select number for ");
+            menulines.Add("the customer you want.");
+            Builder.BuildMenu(menulines);
+            
+            int choice = Int32.Parse(Console.ReadLine());
+
+            //DelClass old, AddClass new?
+            BL.DelClass(SelectCustomers[choice]);
+            SelectCustomers[choice].Name = "Changed";
+            BL.AddClass(SelectCustomers[choice]);
 
             menulines.Add("Press Enter to Continue...");
             Builder.BuildMenu(menulines);
             Console.ReadLine();
 
-            Customer newCustomer = new Customer(name, address, email, phoneNumber);
-            IBusiness BL = new Business();
-            BL.AddClass(newCustomer);
-
             menulines = new List<string>(){
-                "Customer Added!",
+                "Customer Found!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Add another Customer"};
+                "[1] - Find another Customer"};
             
             Builder.BuildMenu(menulines);
         }
@@ -67,7 +89,7 @@ namespace UserInterface
                 case "0":
                     return MenuType.Customer;
                 case "1":
-                    return MenuType.AddCustomer;
+                    return MenuType.SearchCustomer;
                 default:
                     Console.WriteLine("Not a choice. Try again.");
                     Console.WriteLine("Press Enter to continue");
@@ -76,5 +98,6 @@ namespace UserInterface
             }
             
         }
+
     }
 }

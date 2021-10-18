@@ -32,7 +32,7 @@ namespace UserInterface
                 case "2":
                     return MenuType.ShowAllCustomers; 
                 case "3":
-                    return MenuType.GetSearchedCustomer; 
+                    return MenuType.SearchCustomer; 
                 default:
                     Console.WriteLine("Not a choice. Try again.");
                     Console.WriteLine("Press Enter to continue");

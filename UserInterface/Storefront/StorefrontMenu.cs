@@ -8,15 +8,15 @@ namespace UserInterface
     {
         public void Display()
         {
-            
-            List<string> menulines = new List<string>()
+            Tools Builder = new Tools();
+            Builder.Reset(new List<string>()
                 {"Storefront Menu,",
                 "What do you want to do?", 
                 "[0] - Go back", 
                 "[1] - Add Storefront", 
-                "[2] - Show all Storefronts"};
-            Tools Builder = new Tools();
-            Builder.BuildMenu(menulines);
+                "[2] - Delete a Storefront",
+                "[3] - Modify a Storefront",
+                "[4] - Show all Storefronts"});
         }
 
         public MenuType Choice()
@@ -29,7 +29,11 @@ namespace UserInterface
                 case "1":
                     return MenuType.AddStorefront;
                 case "2":
-                    return MenuType.ShowAllStorefronts;  
+                    return MenuType.DeleteStorefront; 
+                case "3":
+                    return MenuType.ModifyStorefront; 
+                case "4":
+                    return MenuType.ShowAllStorefronts;
                 default:
                     Console.WriteLine("Not a choice. Try again.");
                     Console.WriteLine("Press Enter to continue");

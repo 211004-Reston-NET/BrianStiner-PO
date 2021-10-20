@@ -11,34 +11,31 @@ namespace UserInterface
         public void Display()
         {
             Tools Builder = new Tools();    
-            var menulines = new List<string>()
-                {"Fill in Storefront's info,",
-                "What is the store's name?"};
-            Builder.BuildMenu(menulines);
+ 
+            Builder.Add("Fill in Storefront's info,");
+            Builder.Add("What is their name?",'b');
             string name = Console.ReadLine();
-            menulines.Add(name);
+            Builder.Add(name);
 
-            menulines.Add($"Whats the address for {name}?");
-            Builder.BuildMenu(menulines);
+            Builder.Add("What is their address?",'b');
             string address = Console.ReadLine();
-            menulines.Add(address);
+            Builder.Add(address);
 
-            menulines.Add("Press Enter to Continue...");
-            Builder.BuildMenu(menulines);
+            Builder.Add(" ");
+            Builder.Add("Press Enter to Continue...",'b');
             Console.ReadLine();
 
             Storefront newStorefront = new Storefront(name, address);
             IBusiness BL = new Business();
             BL.AddClass(newStorefront);
 
-            menulines = new List<string>(){
+            Builder.Reset(new List<string>(){
                 "Storefront Added!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Add another Storefront"};
+                "[1] - Add another Storefront"});
             
-            Builder.BuildMenu(menulines);
         }
 
         public MenuType Choice()

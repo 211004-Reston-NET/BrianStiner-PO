@@ -11,44 +11,39 @@ namespace UserInterface
         public void Display()
         {
             Tools Builder = new Tools();    
-            var menulines = new List<string>()
-                {"Fill in Customer's info,",
-                "What is their name?"};
-            Builder.BuildMenu(menulines);
+ 
+            Builder.Add("Fill in Customer's info,");
+            Builder.Add("What is their name?",'b');
             string name = Console.ReadLine();
-            menulines.Add(name);
+            Builder.Add(name);
 
-            menulines.Add("What is their address?");
-            Builder.BuildMenu(menulines);
+            Builder.Add("What is their address?",'b');
             string address = Console.ReadLine();
-            menulines.Add(address);
+            Builder.Add(address);
 
-            menulines.Add("What is their email?");
-            Builder.BuildMenu(menulines);
+            Builder.Add("What is their email?",'b');
             string email = Console.ReadLine();
-            menulines.Add(email);
+            Builder.Add(email);
 
-            menulines.Add("What is their phone number?");
-            Builder.BuildMenu(menulines);
+            Builder.Add("What is their phone number?",'b');
             string phoneNumber = Console.ReadLine();
-            menulines.Add(phoneNumber);
+            Builder.Add(phoneNumber);
 
-            menulines.Add("Press Enter to Continue...");
-            Builder.BuildMenu(menulines);
+            Builder.Add(" ");
+            Builder.Add("Press Enter to Continue...",'b');
             Console.ReadLine();
 
             Customer newCustomer = new Customer(name, address, email, phoneNumber);
             IBusiness BL = new Business();
             BL.AddClass(newCustomer);
 
-            menulines = new List<string>(){
+            Builder.Reset(new List<string>(){
                 "Customer Added!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Add another Customer"};
+                "[1] - Add another Customer"});
             
-            Builder.BuildMenu(menulines);
         }
 
         public MenuType Choice()

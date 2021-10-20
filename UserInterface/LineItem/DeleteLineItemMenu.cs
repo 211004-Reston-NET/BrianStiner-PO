@@ -1,31 +1,44 @@
 using System;
 using System.Collections.Generic;
 using Toolbox;
-using BusinessLogic;
 using Models;
+using BusinessLogic;
 
 namespace UserInterface
 {
-    public class ShowAllCustomersMenu : IMenu
+    public class DeleteLineItemMenu : IMenu
     {
+
+        //ask for a string and search against all of the LineItem database to return a select List<LineItem>, show it, user selects one, modify that LineItem.
         public void Display()
         {
-            IBusiness BL = new Business();
             Tools Builder = new Tools();
+            IBusiness BL = new Business();
+            Builder.Reset();
 
-            Builder.ShowAll(new Customer());
+        //Search database for LineItem list
+            List<LineItem> SelectLineItems = Builder.Search(new LineItem());
 
+        //Select LineItem from list
+            LineItem OurLineItem = Builder.ChooseClassFromList(SelectLineItems);
+
+        //Delete LineItem
+            BL.DelClass(OurLineItem);
+
+        //Show LineItem database
+            Builder.ShowAll(new LineItem());
+
+            //Reset menu for new menu selection
             Builder.Add(" ");
             Builder.Add("Press Enter to Continue...",'b');
             Console.ReadLine();
 
             Builder.Reset(new List<string>(){
-                "Customers in database shown!",
+                "LineItem Deleted!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Show Customers again."});
-
+                "[1] - Find another LineItem"});
         }
 
         public MenuType Choice()
@@ -34,9 +47,9 @@ namespace UserInterface
             switch (userChoice)
             {
                 case "0":
-                    return MenuType.Customer;
+                    return MenuType.LineItem;
                 case "1":
-                    return MenuType.ShowAllCustomers;
+                    return MenuType.DeleteLineItem;
                 default:
                     Console.WriteLine("Not a choice. Try again.");
                     Console.WriteLine("Press Enter to continue");
@@ -45,5 +58,6 @@ namespace UserInterface
             }
             
         }
+
     }
 }

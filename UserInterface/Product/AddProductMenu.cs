@@ -11,44 +11,39 @@ namespace UserInterface
         public void Display()
         {
             Tools Builder = new Tools();    
-            var menulines = new List<string>()
-                {"Fill in Product's info,",
-                "What is the product's name?"};
-            Builder.BuildMenu(menulines);
+ 
+            Builder.Add("Fill in Product's info,");
+            Builder.Add("What is their name?",'b');
             string name = Console.ReadLine();
-            menulines.Add(name);
+            Builder.Add(name);
 
-            menulines.Add($"Describe {name}");
-            Builder.BuildMenu(menulines);
-            string description = Console.ReadLine();
-            menulines.Add(description);
-            
-            menulines.Add($"What is {name}'s category?");
-            Builder.BuildMenu(menulines);
+            Builder.Add("What is their Category?",'b');
             string category = Console.ReadLine();
-            menulines.Add(category);
+            Builder.Add(category);
 
-            menulines.Add($"How much does {name} cost?");
-            Builder.BuildMenu(menulines);
-            decimal price = Decimal.Parse(Console.ReadLine()); // How to convert string to decimal? Decimal.Parse()
-            menulines.Add($"{price}");
+            Builder.Add("What is their Description?",'b');
+            string description = Console.ReadLine();
+            Builder.Add(description);
 
-            menulines.Add("Press Enter to Continue...");
-            Builder.BuildMenu(menulines);
+            Builder.Add("What is their price?",'b');
+            decimal price = decimal.Parse(Console.ReadLine());
+            Builder.Add("${price}");
+
+            Builder.Add(" ");
+            Builder.Add("Press Enter to Continue...",'b');
             Console.ReadLine();
 
-            Product newProduct = new Product(name, description, category, price);
+            Product newProduct = new Product(name, category, description, price);
             IBusiness BL = new Business();
             BL.AddClass(newProduct);
 
-            menulines = new List<string>(){
+            Builder.Reset(new List<string>(){
                 "Product Added!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Add another Product"};
+                "[1] - Add another Product"});
             
-            Builder.BuildMenu(menulines);
         }
 
         public MenuType Choice()

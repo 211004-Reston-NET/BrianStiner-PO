@@ -8,16 +8,15 @@ namespace UserInterface
     {
         public void Display()
         {
-            
-            List<string> menulines = new List<string>()
+            Tools Builder = new Tools();
+            Builder.Reset(new List<string>()
                 {"Customer Menu,",
                 "What do you want to do?", 
                 "[0] - Go back", 
                 "[1] - Add Customer", 
-                "[2] - Show all Customers",
-                "[3] - Add Order to Customer"};
-            Tools Builder = new Tools();
-            Builder.BuildMenu(menulines);
+                "[2] - Delete a Customer",
+                "[3] - Modify a Customer",
+                "[4] - Show all Customers"});
         }
 
         public MenuType Choice()
@@ -30,9 +29,11 @@ namespace UserInterface
                 case "1":
                     return MenuType.AddCustomer;
                 case "2":
-                    return MenuType.ShowAllCustomers; 
+                    return MenuType.DeleteCustomer; 
                 case "3":
-                    return MenuType.SearchCustomer; 
+                    return MenuType.ModifyCustomer; 
+                case "4":
+                    return MenuType.ShowAllCustomers;
                 default:
                     Console.WriteLine("Not a choice. Try again.");
                     Console.WriteLine("Press Enter to continue");

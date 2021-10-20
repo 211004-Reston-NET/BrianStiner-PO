@@ -1,31 +1,22 @@
 using System;
 using System.Collections.Generic;
 using Toolbox;
-using BusinessLogic;
-using Models;
 
 namespace UserInterface
 {
-    public class ShowAllCustomersMenu : IMenu
+    public class OrderMenu : IMenu
     {
         public void Display()
         {
-            IBusiness BL = new Business();
             Tools Builder = new Tools();
-
-            Builder.ShowAll(new Customer());
-
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
-
-            Builder.Reset(new List<string>(){
-                "Customers in database shown!",
-                "---------------",
-                "What do you want to do?",
-                "[0] - Go back",
-                "[1] - Show Customers again."});
-
+            Builder.Reset(new List<string>()
+                {"Order Menu,",
+                "What do you want to do?", 
+                "[0] - Go back", 
+                "[1] - Add Order", 
+                "[2] - Delete a Order",
+                "[3] - Modify a Order",
+                "[4] - Show all Orders"});
         }
 
         public MenuType Choice()
@@ -34,9 +25,15 @@ namespace UserInterface
             switch (userChoice)
             {
                 case "0":
-                    return MenuType.Customer;
+                    return MenuType.Main;
                 case "1":
-                    return MenuType.ShowAllCustomers;
+                    return MenuType.AddOrder;
+                case "2":
+                    return MenuType.DeleteOrder; 
+                case "3":
+                    return MenuType.ModifyOrder; 
+                case "4":
+                    return MenuType.ShowAllOrders;
                 default:
                     Console.WriteLine("Not a choice. Try again.");
                     Console.WriteLine("Press Enter to continue");

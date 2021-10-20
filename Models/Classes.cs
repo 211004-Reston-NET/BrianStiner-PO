@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Toolbox;
 
 /*
 Customer, Storefront, Orders, Products, LineItems
@@ -22,7 +21,7 @@ namespace Models
             this.address = p_address;
             this.email = p_email;
             this.phoneNumber = p_phoneNumber;
-            Console.WriteLine($"name:{name} address:{address} email:{email} phone number:{phoneNumber}");
+            //Console.WriteLine($"name:{name} address:{address} email:{email} phone number:{phoneNumber}");
             Console.ReadLine();
         }
         public Customer(string p_name, string p_address, string p_email, string p_phoneNumber, List<Order> p_Orders){

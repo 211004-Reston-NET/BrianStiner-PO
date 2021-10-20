@@ -8,15 +8,16 @@ namespace UserInterface
     {
         public void Display()
         {
-            List<string> menulines = new List<string>()
+            Tools Builder = new Tools();
+            Builder.Reset(new List<string>()
                 {"Welcome to the Main Menu,",
                 "Which menu do you want?", 
                 "[1] - Customers", 
                 "[2] - Storefronts", 
                 "[3] - Products",
-                "[4] - Exit"};
-            Tools Builder = new Tools();
-            Builder.BuildMenu(menulines);
+                "[4] - Exit"});
+            
+            Builder.BuildMenu();
         }
 
         public MenuType Choice()

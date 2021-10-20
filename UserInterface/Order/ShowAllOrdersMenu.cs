@@ -6,25 +6,25 @@ using Models;
 
 namespace UserInterface
 {
-    public class ShowAllCustomersMenu : IMenu
+    public class ShowAllOrdersMenu : IMenu
     {
         public void Display()
         {
             IBusiness BL = new Business();
             Tools Builder = new Tools();
 
-            Builder.ShowAll(new Customer());
+            Builder.ShowAll(new Order());
 
             Builder.Add(" ");
             Builder.Add("Press Enter to Continue...",'b');
             Console.ReadLine();
 
             Builder.Reset(new List<string>(){
-                "Customers in database shown!",
+                "Orders in database shown!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Show Customers again."});
+                "[1] - Show Orders again."});
 
         }
 
@@ -34,9 +34,9 @@ namespace UserInterface
             switch (userChoice)
             {
                 case "0":
-                    return MenuType.Customer;
+                    return MenuType.Order;
                 case "1":
-                    return MenuType.ShowAllCustomers;
+                    return MenuType.ShowAllOrders;
                 default:
                     Console.WriteLine("Not a choice. Try again.");
                     Console.WriteLine("Press Enter to continue");

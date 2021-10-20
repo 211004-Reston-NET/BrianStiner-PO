@@ -1,31 +1,44 @@
 using System;
 using System.Collections.Generic;
 using Toolbox;
-using BusinessLogic;
 using Models;
+using BusinessLogic;
 
 namespace UserInterface
 {
-    public class ShowAllCustomersMenu : IMenu
+    public class DeleteStorefrontMenu : IMenu
     {
+
+        //ask for a string and search against all of the Storefront database to return a select List<Storefront>, show it, user selects one, modify that Storefront.
         public void Display()
         {
-            IBusiness BL = new Business();
             Tools Builder = new Tools();
+            IBusiness BL = new Business();
+            Builder.Reset();
 
-            Builder.ShowAll(new Customer());
+        //Search database for Storefront list
+            List<Storefront> SelectStorefronts = Builder.Search(new Storefront());
 
+        //Select Storefront from list
+            Storefront OurStorefront = Builder.ChooseClassFromList(SelectStorefronts);
+
+        //Delete Storefront
+            BL.DelClass(OurStorefront);
+
+        //Show Storefront database
+            Builder.ShowAll(new Storefront());
+
+            //Reset menu for new menu selection
             Builder.Add(" ");
             Builder.Add("Press Enter to Continue...",'b');
             Console.ReadLine();
 
             Builder.Reset(new List<string>(){
-                "Customers in database shown!",
+                "Storefront Deleted!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Show Customers again."});
-
+                "[1] - Find another Storefront"});
         }
 
         public MenuType Choice()
@@ -34,9 +47,9 @@ namespace UserInterface
             switch (userChoice)
             {
                 case "0":
-                    return MenuType.Customer;
+                    return MenuType.Storefront;
                 case "1":
-                    return MenuType.ShowAllCustomers;
+                    return MenuType.DeleteStorefront;
                 default:
                     Console.WriteLine("Not a choice. Try again.");
                     Console.WriteLine("Press Enter to continue");
@@ -45,5 +58,6 @@ namespace UserInterface
             }
             
         }
+
     }
 }

@@ -11,29 +11,21 @@ namespace UserInterface
         public void Display()
         {
             IBusiness BL = new Business();
-            List<Storefront> AllStorefronts = BL.GetAllClasses(new Storefront()); //"Storefronts.json"
-            List<string> menulines = new List<string>()
-                {"Show all Storefronts,"};
-            foreach(Storefront c in AllStorefronts){
-                foreach(string s in c.ToStringList()){
-                    menulines.Add(s);
-                }
-                menulines.Add("  ----------  ");
-            }
-            menulines.Add("Press Enter to Continue...");
-            
             Tools Builder = new Tools();
-            Builder.BuildMenu(menulines);
+
+            Builder.ShowAll(new Storefront());
+
+            Builder.Add(" ");
+            Builder.Add("Press Enter to Continue...",'b');
             Console.ReadLine();
 
-            menulines = new List<string>(){
+            Builder.Reset(new List<string>(){
                 "Storefronts in database shown!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Show Storefronts again."};
-            
-            Builder.BuildMenu(menulines);
+                "[1] - Show Storefronts again."});
+
         }
 
         public MenuType Choice()

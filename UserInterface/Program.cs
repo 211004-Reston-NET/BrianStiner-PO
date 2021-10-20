@@ -30,8 +30,8 @@ namespace UserInterface
                     case MenuType.AddCustomer:
                         page = new AddCustomerMenu();
                         break;
-                    case MenuType.SearchCustomer:
-                        page = new SearchCustomerMenu();
+                    case MenuType.ModifyCustomer:
+                        page = new ModifyCustomerMenu();
                         break;
 
                     case MenuType.Storefront:

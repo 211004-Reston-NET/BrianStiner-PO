@@ -1,31 +1,37 @@
 using System;
 using System.Collections.Generic;
 using Toolbox;
-using BusinessLogic;
 using Models;
+using BusinessLogic;
 
 namespace UserInterface
 {
-    public class ShowAllCustomersMenu : IMenu
+    public class AddLineItemMenu : IMenu
     {
         public void Display()
         {
-            IBusiness BL = new Business();
-            Tools Builder = new Tools();
-
-            Builder.ShowAll(new Customer());
+            Tools Builder = new Tools();    
+ 
+            Builder.Add("Fill in LineItem's info,");
+            Builder.Add("What is their name?",'b');
+            int quantity = Int32.Parse(Console.ReadLine());
+            Builder.Add($"{quantity}");
 
             Builder.Add(" ");
             Builder.Add("Press Enter to Continue...",'b');
             Console.ReadLine();
 
+            LineItem newLineItem = new LineItem(quantity);
+            IBusiness BL = new Business();
+            BL.AddClass(newLineItem);
+
             Builder.Reset(new List<string>(){
-                "Customers in database shown!",
+                "LineItem Added!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Show Customers again."});
-
+                "[1] - Add another LineItem"});
+            
         }
 
         public MenuType Choice()
@@ -34,9 +40,9 @@ namespace UserInterface
             switch (userChoice)
             {
                 case "0":
-                    return MenuType.Customer;
+                    return MenuType.LineItem;
                 case "1":
-                    return MenuType.ShowAllCustomers;
+                    return MenuType.AddLineItem;
                 default:
                     Console.WriteLine("Not a choice. Try again.");
                     Console.WriteLine("Press Enter to continue");

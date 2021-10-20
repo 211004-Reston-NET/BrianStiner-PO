@@ -8,13 +8,14 @@ namespace UserInterface
     {
         public void Display()
         {
-            List<string> menulines = new List<string>()
+            Tools Builder = new Tools();
+            Builder.Reset(new List<string>()
                 {"Exit Menu",
                 "Are you sure you want to quit?", 
                 "[0] - Go back", 
-                "[1] - Actually quit"};
-            Tools Builder = new Tools();
-            Builder.BuildMenu(menulines);
+                "[1] - Actually quit"});
+            
+            Builder.BuildMenu();
 
         }
 

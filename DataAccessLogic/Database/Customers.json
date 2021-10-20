@@ -26,5 +26,19 @@
     "Email": "Steven@email.com",
     "PhoneNumber": "221-568-8542",
     "CustomerOrders": []
+  },
+  {
+    "Name": "Spongebob Squarepants",
+    "Address": "3 Bikini Bottom way",
+    "Email": "Spongebob@KrustyKrab.net",
+    "PhoneNumber": "101-854-6959",
+    "CustomerOrders": []
+  },
+  {
+    "Name": "Spongebob Squarepants",
+    "Address": "3 Bikini Bottom way",
+    "Email": "SquarePants@KrustyKrab.net",
+    "PhoneNumber": "202-854-6959",
+    "CustomerOrders": []
   }
 ]

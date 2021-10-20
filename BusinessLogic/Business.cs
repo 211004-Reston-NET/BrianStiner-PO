@@ -30,15 +30,7 @@ namespace BusinessLogic
             List<Customer> listOfCustomers = _repo.GetAllClasses(p_IC);
             return listOfCustomers.Where(IC => IC.Name.ToLower().Contains(p_search.ToLower())).ToList();
         }
-        public Customer ChooseClassFromList(List<Customer> p_ICList){
-            int choice = Int32.Parse(Console.ReadLine());
-            while(choice > p_ICList.Count || choice < 0)
-            {
-                Console.WriteLine("Thats not a valid selection. Try again.");
-                choice = Int32.Parse(Console.ReadLine());
-            }
-            return p_ICList[choice];
-        }
+
 
         //Storefront
         public void AddClass(Storefront p_IC){
@@ -55,15 +47,7 @@ namespace BusinessLogic
             List<Storefront> listOfStorefronts = _repo.GetAllClasses(p_IC);
             return listOfStorefronts.Where(IC => IC.Name.ToLower().Contains(p_search.ToLower())).ToList();
         }
-        public Storefront ChooseClassFromList(List<Storefront> p_ICList){
-            int choice = Int32.Parse(Console.ReadLine());
-            while(choice > p_ICList.Count || choice < 0)
-            {
-                Console.WriteLine("Thats not a valid selection. Try again.");
-                choice = Int32.Parse(Console.ReadLine());
-            }
-            return p_ICList[choice];
-        }
+
 
         //Order
         public void AddClass(Order p_IC){
@@ -79,15 +63,7 @@ namespace BusinessLogic
             List<Order> listOfOrders = _repo.GetAllClasses(p_IC);
             return listOfOrders.Where(IC => IC.Location.ToLower().Contains(p_search.ToLower())).ToList();
         }
-        public Order ChooseClassFromList(List<Order> p_ICList){
-            int choice = Int32.Parse(Console.ReadLine());
-            while(choice > p_ICList.Count || choice < 0)
-            {
-                Console.WriteLine("Thats not a valid selection. Try again.");
-                choice = Int32.Parse(Console.ReadLine());
-            }
-            return p_ICList[choice];
-        }
+
 
         //LineItem
         public void AddClass(LineItem p_IC){
@@ -103,15 +79,7 @@ namespace BusinessLogic
             List<LineItem> listOfLineItems = _repo.GetAllClasses(p_IC);
             return listOfLineItems.Where(IC => IC.LineProduct.Name.ToLower().Contains(p_search.ToLower())).ToList();
         }
-        public LineItem ChooseClassFromList(List<LineItem> p_ICList){
-            int choice = Int32.Parse(Console.ReadLine());
-            while(choice > p_ICList.Count || choice < 0)
-            {
-                Console.WriteLine("Thats not a valid selection. Try again.");
-                choice = Int32.Parse(Console.ReadLine());
-            }
-            return p_ICList[choice];
-        }
+
 
         //Product
         public void AddClass(Product p_IC){
@@ -127,15 +95,7 @@ namespace BusinessLogic
             List<Product> listOfProducts = _repo.GetAllClasses(p_IC);
             return listOfProducts.Where(IC => IC.Name.ToLower().Contains(p_search.ToLower())).ToList();
         }
-        public Product ChooseClassFromList(List<Product> p_ICList){
-            int choice = Int32.Parse(Console.ReadLine());
-            while(choice > p_ICList.Count || choice < 0)
-            {
-                Console.WriteLine("Thats not a valid selection. Try again.");
-                choice = Int32.Parse(Console.ReadLine());
-            }
-            return p_ICList[choice];
-        }
+
 
     }
 }

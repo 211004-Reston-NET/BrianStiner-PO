@@ -8,10 +8,10 @@ namespace UserInterface
     {
         public void Display()
         {
-            List<string> menulines = new List<string>()
-                {"GoodBye!"};
             Tools Builder = new Tools();
-            Builder.BuildMenu(menulines);
+            Builder.Reset(new List<string>()
+                {"GoodBye!"});
+            Builder.BuildMenu();
 
         }
 

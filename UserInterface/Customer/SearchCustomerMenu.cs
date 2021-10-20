@@ -6,41 +6,31 @@ using BusinessLogic;
 
 namespace UserInterface
 {
-    class SearchCustomerMenu : IMenu
+    public class SearchCustomerMenu : IMenu
     {
-        private string entered;
-        private bool FindInput(Customer p_IC){
-            if (p_IC.Name.Contains(entered)) {
-                return true;
-            } else if (p_IC.Address.Contains(entered)) {
-                return true;
-            } else if (p_IC.Email.Contains(entered)) {
-                return true;
-            } else if (p_IC.PhoneNumber.Contains(entered)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
 
         //ask for a string and search against all of the Customer database to return a select List<Customer>, show it, user selects one, modify that customer.
         public void Display()
         {
             Tools Builder = new Tools();
-            IBusiness BL = new Business();  
-            List<Customer> AllCustomers = BL.GetAllClasses(new Customer());  
-            List<Customer> SelectCustomers = new List<Customer>();  
+            IBusiness BL = new Business();
+            List<Customer> SelectCustomers = new List<Customer>();    
 
             bool repeat = false;
-            var menulines = new List<string>();
+            List<string> menulines = new List<string>();
+
+
+            //search customer
             do
             {
                 menulines.Add("Search Customers:");
                 Builder.BuildMenu(menulines);
+                string entered = Console.ReadLine();
+                menulines.Add(entered);
 
-                this.entered = Console.ReadLine();
-                SelectCustomers = AllCustomers.FindAll(FindInput);
+                SelectCustomers = BL.SearchClass(new Customer(), entered);
 
+                //Builder.BuildSearchResult(SelectCustomers)
                 if(SelectCustomers.Count == 0){menulines.Add("No search results."); repeat = true;}
                 else{
                     menulines.Add("Show searched Customers");
@@ -52,21 +42,69 @@ namespace UserInterface
                             menulines.Add("  "+s);
                         }
                     }
-                    repeat = false;
+                    menulines.Add("Do you want to search again?");
+                    repeat = Builder.Choice();
                 }
+
             } while (repeat);
 
+
+            //select customer
             menulines.Add("Select number for ");
             menulines.Add("the customer you want.");
             Builder.BuildMenu(menulines);
+
+            Customer OurCustomer = BL.ChooseClassFromList(SelectCustomers);
             
-            int choice = Int32.Parse(Console.ReadLine());
+            
 
-            //DelClass old, AddClass new?
-            BL.DelClass(SelectCustomers[choice]);
-            SelectCustomers[choice].Name = "Changed";
-            BL.AddClass(SelectCustomers[choice]);
 
+            //Modify Customer
+            BL.DelClass(OurCustomer);
+            do{
+                menulines.Add("What do you want to change?");
+                menulines.Add("[1] - Name");
+                menulines.Add("[2] - Address");
+                menulines.Add("[3] - Email");
+                menulines.Add("[4] - Phone Number");
+                Builder.BuildMenu(menulines);
+                string choice2 = Console.ReadLine();
+
+                menulines.Add("What is the new value?");
+                Builder.BuildMenu(menulines);
+                string newvalue = Console.ReadLine();
+                menulines.Add(newvalue);
+
+                switch(choice2)
+                {
+                    case "1":
+                        OurCustomer.Name = newvalue;
+                        break;
+                    case "2":
+                        OurCustomer.Address = newvalue;
+                        break;  
+                    case "3":
+                        OurCustomer.Email = newvalue;
+                        break;
+                    case "4":
+                        OurCustomer.PhoneNumber = newvalue;
+                        break;
+                    default:
+                        break;
+
+                }
+                menulines.Add("---------------------------");
+                menulines.Add("Do you want to make another");
+                menulines.Add($"change to {OurCustomer.Name}?");
+                Builder.BuildMenu(menulines);
+                repeat = Builder.Choice();
+
+            } while(repeat);
+            BL.AddClass(OurCustomer);
+
+
+
+            //reset menu for new menu selection
             menulines.Add("Press Enter to Continue...");
             Builder.BuildMenu(menulines);
             Console.ReadLine();

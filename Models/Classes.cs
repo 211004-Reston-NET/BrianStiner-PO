@@ -117,11 +117,23 @@ namespace Models
         private List<LineItem> OrderLineItems; 
         private string location;
         private decimal totalPrice;
+
+
+
+        public Order(){}
         public Order(string p_location)
         {
             this.location = p_location;
             this.totalPrice = 0;
             OrderLineItems = new List<LineItem>();
+        }
+        public Order(string p_location, List<LineItem> p_LineItems)
+        {
+            location = p_location;
+            OrderLineItems = p_LineItems;
+            foreach(LineItem LI in OrderLineItems){
+                totalPrice += LI.Quantity*LI.LineProduct.Price;
+            }
         }
 
         public List<LineItem> OrderLineItems1 { get => OrderLineItems; set => OrderLineItems = value; }
@@ -149,6 +161,7 @@ namespace Models
     {
         private Product lineProduct;
         private int quantity;
+        public LineItem(){}
         public LineItem(int p_quantity){
             this.quantity = p_quantity;
             lineProduct = new Product();
@@ -161,8 +174,12 @@ namespace Models
             this.quantity = p_quantity;
             lineProduct = new Product(p_name, p_description, p_category, p_price);
         }
+
+
         public int Quantity { get => quantity; set => quantity = value; }
         public Product LineProduct { get => lineProduct; set => lineProduct = value; }
+
+        
         public string Identify() { return "LineItem"; }
         public List<string> ToStringList(){
         List<string> stringlist = new List<string>() {
@@ -179,25 +196,34 @@ namespace Models
 
     public class Product : IClass
     {
+        //variables
         private string name, description, category;
         private decimal price;
+
+
+        //Constructors
         public Product(){}
         public Product(string p_name, string p_description, string p_category, decimal p_price){
-            this.name = p_name;
+            this.Name = p_name;
             this.description = p_description;
             this.category = p_category;
             this.price = p_price;
         }
 
+        //Getters and Setters
         public string Name { get => name; set => name = value; }
         public string Category { get => category; set => category = value; }
         public string Description { get => description; set => description = value; }
         public decimal Price { get => price; set => price = value; }
+
+
         public string Identify() { return "Product"; }
 
+
+        //The rest
         public List<string> ToStringList(){
         List<string> stringlist = new List<string>() {
-                $"name: {name}",
+                $"name: {Name}",
                 $"description: {description}",
                 $"category: {category}",
                 $"price: {price}"};

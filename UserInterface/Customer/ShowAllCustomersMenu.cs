@@ -6,12 +6,12 @@ using Models;
 
 namespace UserInterface
 {
-    class ShowAllCustomersMenu : IMenu
+    public class ShowAllCustomersMenu : IMenu
     {
         public void Display()
         {
             IBusiness BL = new Business();
-            List<Customer> AllCustomers = BL.GetAllClasses(new Customer()); //"Customers.json"
+            List<Customer> AllCustomers = BL.GetAllClasses(new Customer());
             List<string> menulines = new List<string>()
                 {"Show all Customers,"};
             foreach(Customer c in AllCustomers){

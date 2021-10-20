@@ -4,7 +4,7 @@ using Toolbox;
 
 namespace UserInterface
 {
-    class StorefrontMenu : IMenu
+    public class StorefrontMenu : IMenu
     {
         public void Display()
         {

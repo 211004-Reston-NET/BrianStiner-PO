@@ -20,6 +20,7 @@ namespace UserInterface
                     case MenuType.Main:
                         page = new MainMenu();
                         break;
+
                     case MenuType.Customer:
                         page = new CustomerMenu();
                         break;
@@ -51,6 +52,10 @@ namespace UserInterface
                         break;
                     case MenuType.AddProduct:
                         page = new AddProductMenu();
+                        break;
+                        
+                    case MenuType.AddOrder:
+                        page = new AddOrderMenu();
                         break;
 
                     case MenuType.Exit:

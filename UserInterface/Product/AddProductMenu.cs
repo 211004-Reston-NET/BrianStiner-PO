@@ -6,7 +6,7 @@ using BusinessLogic;
 
 namespace UserInterface
 {
-    class AddProductMenu : IMenu
+    public class AddProductMenu : IMenu
     {
         public void Display()
         {

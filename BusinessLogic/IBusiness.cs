@@ -37,5 +37,22 @@ namespace BusinessLogic
         void DelClass(LineItem p_IC);
         void DelClass(Product p_IC);
 
+
+        /// <summary> These will pass a Class to the database. </summary>
+        /// <returns>It will return a list of Classes</returns>
+        List<Customer> SearchClass(Customer p_IC, string p_search);
+        List<Storefront> SearchClass(Storefront p_IC, string p_search);
+        List<Order> SearchClass(Order p_IC, string p_search);
+        List<LineItem> SearchClass(LineItem p_IC, string p_search);
+        List<Product> SearchClass(Product p_IC, string p_search);
+
+        /// <summary> These will pass a Class to the database. </summary>
+        /// <returns>It will return a list of Classes</returns>
+        Customer ChooseClassFromList(List<Customer> p_ICList);
+        Storefront ChooseClassFromList(List<Storefront> p_ICList);
+        Order ChooseClassFromList(List<Order> p_ICList);
+        LineItem ChooseClassFromList(List<LineItem> p_ICList);
+        Product ChooseClassFromList(List<Product> p_ICList);
+
     }
 }

@@ -6,7 +6,7 @@ using BusinessLogic;
 
 namespace UserInterface
 {
-    class AddOrderMenu : IMenu
+    public class AddOrderMenu : IMenu
     {
         public void Display()
         {
@@ -16,11 +16,12 @@ namespace UserInterface
             "which store is the order from?"};
             string location = Console.ReadLine();
             menulines.Add(location);
-
-            IClass newOrder = new Orders(location);
+    
+            Order newOrder = new Order(location);
             IBusiness BL = new Business();
-            BL.AddIClass(newOrder);
+            BL.AddClass(newOrder);
         }
+
 
         public MenuType Choice()
         {

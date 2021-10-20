@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace UserInterface
 {
-    class RealExitMenu : IMenu
+    public class RealExitMenu : IMenu
     {
         public void Display()
         {

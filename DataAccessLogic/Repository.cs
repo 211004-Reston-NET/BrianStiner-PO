@@ -13,147 +13,115 @@ namespace DataAccessLogic
     //Access the json files where data is stored.
     public class Repository : IRepository
     {
-        private const string c_filepath = "./../DataAccessLogic/Database/"; 
+        private const string c_filepath = "./../DataAccessLogic/Database/";
         private string _jsonString;
-    
-        public void AddClass(Customer p_IC)
-        {
-            //Overridden AddClass for Customer. Receives Customer adds to Customers.json
-            List<Customer> listOfCustomer = GetAllClasses(p_IC);
 
-            //We add one IClass to the file by first adding to a list of IClasses, translating that list into json serial, then overwriting to the correct file.
+        //Overridden AddClass. Receives Customer adds to Class.json
+        //We add one IClass to the file by first adding to a list of IClasses, translating that list into json serial, then overwriting to the correct file.
+
+        public void AddClass(Customer p_IC){
+            List<Customer> listOfCustomer = GetAllClasses(p_IC);
             listOfCustomer.Add(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfCustomer, new JsonSerializerOptions{WriteIndented=true});
-            File.WriteAllText(c_filepath + p_IC.Identify() + "s.json", _jsonString);
-        }
-        public void AddClass(Storefront p_IC)
-        {
-            //Overridden AddClass for Storefront. Receives Storefront adds to Storefront.json
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        } public void AddClass(Storefront p_IC){
             List<Storefront> listOfStorefront = GetAllClasses(p_IC);
-
-            //We add one IClass to the file by first adding to a list of IClasses, translating that list into json serial, then overwriting to the correct file.
             listOfStorefront.Add(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfStorefront, new JsonSerializerOptions{WriteIndented=true});
-            File.WriteAllText(c_filepath + p_IC.Identify() + "s.json", _jsonString);
-        }
-        public void AddClass(Order p_IC)
-        {
-            //Overridden AddClass for Order. Receives Order adds to Orders.json
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void AddClass(Order p_IC){
             List<Order> listOfOrders = GetAllClasses(p_IC);
-
-            //We add one IClass to the file by first adding to a list of IClasses, translating that list into json serial, then overwriting to the correct file.
             listOfOrders.Add(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfOrders, new JsonSerializerOptions{WriteIndented=true});
-            File.WriteAllText(c_filepath + p_IC.Identify() + "s.json", _jsonString);
-        }
-        public void AddClass(LineItem p_IC)
-        {
-            //Overridden AddClass for LineItem. Receives LineItem adds to LineItems.json
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void AddClass(LineItem p_IC){
             List<LineItem> listOflineItems = GetAllClasses(p_IC);
-
-            //We add one IClass to the file by first adding to a list of IClasses, translating that list into json serial, then overwriting to the correct file.
             listOflineItems.Add(p_IC);
             _jsonString = JsonSerializer.Serialize(listOflineItems, new JsonSerializerOptions{WriteIndented=true});
-            File.WriteAllText(c_filepath + p_IC.Identify() + "s.json", _jsonString);
-        }
-        public void AddClass(Product p_IC)
-        {
-            //Overridden AddClass for Product. Receives Product adds to Products.json
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void AddClass(Product p_IC){
             List<Product> listOfProduct = GetAllClasses(p_IC);
-
-            //We add one IClass to the file by first adding to a list of IClasses, translating that list into json serial, then overwriting to the correct file.
             listOfProduct.Add(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfProduct, new JsonSerializerOptions{WriteIndented=true});
-            File.WriteAllText(c_filepath + p_IC.Identify() + "s.json", _jsonString);
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
         }
 
 
 
 
 
+        //File IClass will announce their place and be put in a .json they choose
+        //Try to read all text from the file and turn into List. If nothings there alert and send blank List.
+        public List<Customer> GetAllClasses(Customer p_IC){ 
+            try{
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json");     
+            }catch (System.IO.FileNotFoundException)
+            {
+                return JsonSerializer.Deserialize<List<Customer>>(_jsonString);
+            }Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+            return new List<Customer>(); 
+        }public List<Storefront> GetAllClasses(Storefront p_IC){  
+            try{
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json");
+            }catch (System.IO.FileNotFoundException){
+                return JsonSerializer.Deserialize<List<Storefront>>(_jsonString);
+            } 
+            Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+            return new List<Storefront>(); 
+        }public List<Order> GetAllClasses(Order p_IC){ 
+            try{ 
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json");
+            }catch (System.IO.FileNotFoundException){
+                return JsonSerializer.Deserialize<List<Order>>(_jsonString);
+            } 
+            Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+            return new List<Order>(); 
+        }public List<LineItem> GetAllClasses(LineItem p_IC){
+            try{
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json");
+            }catch (System.IO.FileNotFoundException){
+                return JsonSerializer.Deserialize<List<LineItem>>(_jsonString);
+            } 
+            Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+            return new List<LineItem>(); 
+        }public List<Product> GetAllClasses(Product p_IC){  
+            try{ 
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json");
+            }catch (System.IO.FileNotFoundException){
+                return JsonSerializer.Deserialize<List<Product>>(_jsonString);
+            } 
+            Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+            return new List<Product>(); 
+        }
 
-        public List<Customer> GetAllClasses(Customer p_IC)
-        {
-            //File IClass will announce their place and be put in a .json they choose
-            _jsonString = File.ReadAllText(c_filepath+p_IC.Identify()+"s.json");      
-            return JsonSerializer.Deserialize<List<Customer>>(_jsonString);
-        }
-        public List<Storefront> GetAllClasses(Storefront p_IC)
-        {
-            //File IClass will announce their place and be put in a .json they choose
-            _jsonString = File.ReadAllText(c_filepath+p_IC.Identify()+"s.json");
-            return JsonSerializer.Deserialize<List<Storefront>>(_jsonString);
-        }
-        public List<Order> GetAllClasses(Order p_IC)
-        {
-            //File IClass will announce their place and be put in a .json they choose
-            _jsonString = File.ReadAllText(c_filepath+p_IC.Identify()+"s.json");
-            return JsonSerializer.Deserialize<List<Order>>(_jsonString);
-        }
-        public List<LineItem> GetAllClasses(LineItem p_IC)
-        {
-            //File IClass will announce their place and be put in a .json they choose
-            _jsonString = File.ReadAllText(c_filepath+p_IC.Identify()+"s.json");
-            return JsonSerializer.Deserialize<List<LineItem>>(_jsonString);
-        }
-        public List<Product> GetAllClasses(Product p_IC)
-        {
-            //File IClass will announce their place and be put in a .json they choose
-            _jsonString = File.ReadAllText(c_filepath+p_IC.Identify()+"s.json");
-            return JsonSerializer.Deserialize<List<Product>>(_jsonString);
-        }
 
-
-
-        public void DelClass(Customer p_IC)
-        {
-            //Overridden DelClass for Customer. Receives Customer adds to Customers.json
+        //Overridden Delete a Class. Receives Class and a List<Class> from Class.json.
+        //Uses List.Remove(p_IC) on the list then Overwriting the file with the shorter list.
+        public void DelClass(Customer p_IC){
             List<Customer> listOfCustomer = GetAllClasses(p_IC);
-
-            //We delete the matching p_IC Customer in the list then save to the file.
             listOfCustomer.Remove(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfCustomer, new JsonSerializerOptions{WriteIndented=true});
-            File.WriteAllText(c_filepath + p_IC.Identify() + "s.json", _jsonString);
-        }
-        public void DelClass(Storefront p_IC)
-        {
-            //Overridden DelClass for Storefront. Receives Storefront adds to Storefront.json
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void DelClass(Storefront p_IC){
             List<Storefront> listOfStorefront = GetAllClasses(p_IC);
-
-            //We add one Storefront to the file by first adding to a list of Storefronts, translating that list into json serial, then overwriting to the correct file.
             listOfStorefront.Remove(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfStorefront, new JsonSerializerOptions{WriteIndented=true});
-            File.WriteAllText(c_filepath + p_IC.Identify() + "s.json", _jsonString);
-        }
-        public void DelClass(Order p_IC)
-        {
-            //Overridden DelClass for Order. Receives Order adds to Orders.json
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void DelClass(Order p_IC){
             List<Order> listOfOrders = GetAllClasses(p_IC);
-
-            //We add one Order to the file by first adding to a list of Orders, translating that list into json serial, then overwriting to the correct file.
             listOfOrders.Remove(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfOrders, new JsonSerializerOptions{WriteIndented=true});
-            File.WriteAllText(c_filepath + p_IC.Identify() + "s.json", _jsonString);
-        }
-        public void DelClass(LineItem p_IC)
-        {
-            //Overridden DelClass for LineItem. Receives LineItem adds to LineItems.json
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void DelClass(LineItem p_IC){
             List<LineItem> listOflineItems = GetAllClasses(p_IC);
-
-            //We add one LineItem to the file by first adding to a list of LineItems, translating that list into json serial, then overwriting to the correct file.
             listOflineItems.Remove(p_IC);
             _jsonString = JsonSerializer.Serialize(listOflineItems, new JsonSerializerOptions{WriteIndented=true});
-            File.WriteAllText(c_filepath + p_IC.Identify() + "s.json", _jsonString);
-        }
-        public void DelClass(Product p_IC)
-        {
-            //Overridden DelClass for Product. Receives Product adds to Products.json
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void DelClass(Product p_IC){
             List<Product> listOfProduct = GetAllClasses(p_IC);
-
-            //We add one Product to the file by first adding to a list of Products, translating that list into json serial, then overwriting to the correct file.
             listOfProduct.Remove(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfProduct, new JsonSerializerOptions{WriteIndented=true});
-            File.WriteAllText(c_filepath + p_IC.Identify() + "s.json", _jsonString);
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
         }
     }
 }

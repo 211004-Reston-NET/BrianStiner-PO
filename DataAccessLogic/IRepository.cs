@@ -17,6 +17,17 @@ namespace DataAccessLogic
 
 
         /// <summary>
+        /// These will delete a Class in our database
+        /// </summary>
+        /// <param name="p_IC">This is the Class we will be deleting from the database</param>
+        void DelClass(Customer p_IC);
+        void DelClass(Storefront p_IC);
+        void DelClass(Order p_IC);
+        void DelClass(LineItem p_IC);
+        void DelClass(Product p_IC);
+
+
+        /// <summary>
         /// These will return a list of Classes stored in the database.
         /// </summary>
         /// <returns>It will return a list of Classes</returns>
@@ -26,15 +37,5 @@ namespace DataAccessLogic
         List<LineItem> GetAllClasses(LineItem p_IC);
         List<Product> GetAllClasses(Product p_IC);
 
-
-        /// <summary>
-        /// These will delete a Class in our database
-        /// </summary>
-        /// <param name="p_IC">This is the Class we will be deleting from the database</param>
-        void DelClass(Customer p_IC);
-        void DelClass(Storefront p_IC);
-        void DelClass(Order p_IC);
-        void DelClass(LineItem p_IC);
-        void DelClass(Product p_IC);
     }
 }

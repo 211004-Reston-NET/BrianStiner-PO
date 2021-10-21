@@ -40,35 +40,20 @@ namespace Toolbox
 
         }
 
-        public bool Choice()
-        {
-            bool TorF = true;
-            bool chooseagain = false;
-
-            do{
-                char YorN = Char.ToLower(Convert.ToChar(Console.ReadLine().Substring(0, 1)));
-                switch(YorN){
-                    case 'y': case 'a': case '1': TorF = true;  chooseagain = false; break;
-                    case 'n': case 'b': case '2': TorF = false; chooseagain = false; break;
-                    default:
-                        Add("Can't interpret answer. Y/N only.");
-                        Add("Choose again:\n");
-                        chooseagain = true;
-                        break;
-                }
-            }while(chooseagain);
-
-            return TorF;
-
-        }
-        
-
         public void Add(string s){ //no BuildMenu for single lines.
             menulines.Add(s);
         }
-        public void Add(string s, char b){ //char b is just an overloading flag that puts a BuildMenu in the Add.
+        public void Add(string s, char f){ //char f is just an overloading flag that puts a BuildMenu in the Add.
             menulines.Add(s);
             BuildMenu();
+        }
+        public void Add(string s, int f){ //int f is just an overloading flag that puts a "Press enter to continue".
+            menulines.Add(s);
+            menulines.Add(" ");
+            menulines.Add("Press Enter to Continue...");
+            BuildMenu();
+            Console.ReadLine();
+
         }
         public void Add(List<string> ls){
             foreach(string s in ls){Add(s);}
@@ -83,6 +68,23 @@ namespace Toolbox
             BuildMenu();
         }
 
+        public bool Choice(){
+            bool TorF = true;
+            bool chooseagain = false;
+            do{
+                char YorN = Char.ToLower(Convert.ToChar(Console.ReadLine().Substring(0, 1)));
+                switch(YorN){
+                    case 'y': case 'a': case '1': TorF = true;  chooseagain = false; break;
+                    case 'n': case 'b': case '2': TorF = false; chooseagain = false; break;
+                    default:
+                        Add("Can't interpret answer. Y/N only.");
+                        Add("Choose again:\n");
+                        chooseagain = true;
+                        break;
+                }
+            }while(chooseagain);
+            return TorF;
+        }
 
         public List<Customer> Search(Customer p_IC){
             

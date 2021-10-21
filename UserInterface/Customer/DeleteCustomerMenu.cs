@@ -16,16 +16,16 @@ namespace UserInterface
             IBusiness BL = new Business();
             Builder.Reset();
 
-        //Search database for Customer list
+            //Search database for Customer list
             List<Customer> SelectCustomers = Builder.Search(new Customer());
 
-        //Select Customer from list
+            //Select Customer from list
             Customer OurCustomer = Builder.ChooseClassFromList(SelectCustomers);
 
-        //Delete Customer
+            //Delete Customer
             BL.DelClass(OurCustomer);
 
-        //Show Customer database
+            //Show Customer database
             Builder.ShowAll(new Customer());
 
             //Reset menu for new menu selection

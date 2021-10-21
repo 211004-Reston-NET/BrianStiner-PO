@@ -9,7 +9,7 @@ namespace UserInterface
         public void Display()
         {
             Tools Builder = new Tools();
-            Builder.Reset(new List<string>()
+            Builder.Add(new List<string>()
                 {"GoodBye!"});
             Builder.BuildMenu();
 

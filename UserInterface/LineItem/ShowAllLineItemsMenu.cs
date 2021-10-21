@@ -15,9 +15,7 @@ namespace UserInterface
 
             Builder.ShowAll(new LineItem());
 
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
+            Builder.Add(" ",1);
 
             Builder.Reset(new List<string>(){
                 "LineItems in database shown!",

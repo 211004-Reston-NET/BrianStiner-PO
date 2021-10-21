@@ -14,8 +14,6 @@ namespace UserInterface
                 "Are you sure you want to quit?", 
                 "[0] - Go back", 
                 "[1] - Actually quit"});
-            
-            Builder.BuildMenu();
 
         }
 

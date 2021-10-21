@@ -27,11 +27,7 @@ namespace UserInterface
 
             Builder.Add("What is their phone number?",'b');
             string phoneNumber = Console.ReadLine();
-            Builder.Add(phoneNumber);
-
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
+            Builder.Add(phoneNumber,1);
 
             Customer newCustomer = new Customer(name, address, email, phoneNumber);
             IBusiness BL = new Business();

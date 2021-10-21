@@ -16,22 +16,20 @@ namespace UserInterface
             IBusiness BL = new Business();
             Builder.Reset();
 
-        //Search database for LineItem list
+            //Search database for LineItem list
             List<LineItem> SelectLineItems = Builder.Search(new LineItem());
 
-        //Select LineItem from list
+            //Select LineItem from list
             LineItem OurLineItem = Builder.ChooseClassFromList(SelectLineItems);
 
-        //Delete LineItem
+            //Delete LineItem
             BL.DelClass(OurLineItem);
 
-        //Show LineItem database
+            //Show LineItem database
             Builder.ShowAll(new LineItem());
 
             //Reset menu for new menu selection
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
+            Builder.Add(" ",1);
 
             Builder.Reset(new List<string>(){
                 "LineItem Deleted!",

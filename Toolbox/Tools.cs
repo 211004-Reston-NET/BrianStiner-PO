@@ -17,19 +17,19 @@ namespace Toolbox
     
         public void BuildMenu()
         {
-            Console.WriteLine("\x1b[3J"); //This should clear the scrollback buffer?
-            Console.Clear();
-            //menulines typically = title, go back, first, second, third options
+            //menulines is foreach'd in a try catch for strings that are too long and need to be split by spaces.
             //try catch for a string thats too long and needs to get split by spaces. 
+            Console.Clear();
             Console.WriteLine(@"   ___________________________________     ");
             Console.WriteLine(@" / \                                  \.   ");
             Console.WriteLine(@" \_ |                                 |.   ");
             foreach( string line in menulines)
             {
-                try{Console.WriteLine($"    |   {line}{new string(' ', 30-line.Length)}|.   ");}
-                catch (System.Exception){foreach(string subline in line.Split(' ')){
-                        Console.WriteLine($"    |   {subline}{new string(' ', 30-subline.Length)}|.   ");
-                    }
+                try{
+                    Console.WriteLine($"    |   {line}{new string(' ', 30-line.Length)}|.   ");
+                }catch (System.Exception){
+                    foreach(string subline in line.Split(' ')){
+                        Console.WriteLine($"    |   {subline}{new string(' ', 30-subline.Length)}|.   ");}
                 }
             } 
             Console.WriteLine(@"    |                                 |.   "); 
@@ -44,16 +44,14 @@ namespace Toolbox
             menulines.Add(s);
         }
         public void Add(string s, char f){ //char f is just an overloading flag that puts a BuildMenu in the Add.
-            menulines.Add(s);
+            Add(s);
             BuildMenu();
         }
         public void Add(string s, int f){ //int f is just an overloading flag that puts a "Press enter to continue".
-            menulines.Add(s);
-            menulines.Add(" ");
-            menulines.Add("Press Enter to Continue...");
-            BuildMenu();
+            Add(s);
+            Add(" ");
+            Add("Press Enter to Continue...",'f');
             Console.ReadLine();
-
         }
         public void Add(List<string> ls){
             foreach(string s in ls){Add(s);}

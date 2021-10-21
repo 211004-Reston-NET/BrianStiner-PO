@@ -34,9 +34,8 @@ namespace UserInterface
                     case "4":
                         return MenuType.Exit;
                     default:
-                        Console.WriteLine("Not a choice. Try again.");
-                        Console.WriteLine("Press Enter to continue");
-                        Console.ReadLine();
+                        Tools Builder = new Tools();
+                        Builder.Add("Not a choice. Try again.",1);
                         return MenuType.Main;
                 }
             }

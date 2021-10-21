@@ -51,10 +51,8 @@ namespace UserInterface
             } while(repeat);
             BL.AddClass(OurLineItem);
 
-        //Reset display for new menu selection
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
+            //Reset display for new menu selection
+            Builder.Add(" ",1);
 
             Builder.Reset(new List<string>(){
                 "LineItem Modified!",

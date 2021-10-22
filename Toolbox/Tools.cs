@@ -20,23 +20,23 @@ namespace Toolbox
             //menulines is foreach'd in a try catch for strings that are too long and need to be split by spaces.
             //try catch for a string thats too long and needs to get split by spaces. 
             Console.Clear();
-            Console.WriteLine(@"   ___________________________________     ");
-            Console.WriteLine(@" / \                                  \.   ");
-            Console.WriteLine(@" \_ |                                 |.   ");
+            Console.WriteLine(@"   ________________________________________     ");
+            Console.WriteLine(@" / \                                       \.   ");
+            Console.WriteLine(@" \_ |                                      |.   ");
             foreach( string line in menulines)
             {
-                try{
-                    Console.WriteLine($"    |   {line}{new string(' ', 30-line.Length)}|.   ");
-                }catch (System.Exception){
+                if(line.Length<35){
+                    Console.WriteLine($"    |   {line}{new string(' ', 35-line.Length)}|.   ");
+                }else{
                     foreach(string subline in line.Split(' ')){
-                        Console.WriteLine($"    |   {subline}{new string(' ', 30-subline.Length)}|.   ");}
+                        Console.WriteLine($"    |   {subline}{new string(' ', 35-subline.Length)}|.   ");}
                 }
             } 
-            Console.WriteLine(@"    |                                 |.   "); 
-            Console.WriteLine(@"    |                                 |.   "); 
-            Console.WriteLine(@"    |   ______________________________|___ ");
-            Console.WriteLine(@"    |  /                                 /.");
-            Console.WriteLine(@"    \_/_________________________________/. ");
+            Console.WriteLine(@"    |                                      |.   "); 
+            Console.WriteLine(@"    |                                      |.   "); 
+            Console.WriteLine(@"    |   ___________________________________|___ ");
+            Console.WriteLine(@"    |  /                                      /.");
+            Console.WriteLine(@"    \_/______________________________________/. ");
 
         }
 
@@ -49,9 +49,7 @@ namespace Toolbox
         }
         public void Add(string s, int f){ //int f is just an overloading flag that puts a "Press enter to continue".
             Add(s);
-            Add(" ");
-            Add("Press Enter to Continue...",'f');
-            Console.ReadLine();
+            Pause();
         }
         public void Add(List<string> ls){
             foreach(string s in ls){Add(s);}

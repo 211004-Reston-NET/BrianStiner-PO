@@ -37,11 +37,13 @@ namespace Models
         public string Email { get => email; set => email = value; }
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public List<Order> CustomerOrders { get => customerOrders; set => customerOrders = value; }
+        public List<string> Picture { get => picture; set => picture = value; }
 
         //Interface --------------------------------------------------------------------------------
         public string Identify() { return "Customer"; }
         public List<string> ToStringList(){
-            List<string> stringlist = new List<string>() {
+            List<string> stringlist = new List<string>(){
+            " ",
             $"name: {this.name}",
             $"address: {this.address}",
             $"email: {this.email}",
@@ -53,11 +55,11 @@ namespace Models
                         stringlist.Add(s);
                     }
                 }
-            }
-            catch (System.Exception){
+            }catch (System.Exception){
                 stringlist.Add("Customer has no orders.");
                 throw;
             }
+            stringlist.Add(""); stringlist.AddRange(picture);
             return stringlist;
         }
     }
@@ -65,6 +67,7 @@ namespace Models
     public class Storefront : IClass
     {
         private string name, address;
+        private List<string> picture = new List<string>(){@"¯\_(ツ)_/¯"," （˶′◡‵˶）"};
         private List<Product> storeProducts;
         private List<Order> storeOrders;
 
@@ -81,6 +84,7 @@ namespace Models
         public string Address { get => address; set => address = value; }
         public List<Product> StoreProducts { get => storeProducts; set => storeProducts = value; }
         public List<Order> StoreOrders { get => storeOrders; set => storeOrders = value; }
+        public List<string> Picture { get => picture; set => picture = value; }
 
         public string Identify() { return "Storefront"; }
         public List<string> ToStringList(){
@@ -88,13 +92,11 @@ namespace Models
             $"name: {name}",
             $"address: {address}",
             $"Products: "};
-
             foreach(Product p in storeProducts){
                 foreach(string s in p.ToStringList()){
                     stringlist.Add(s);
                 }
             }
-
             stringlist.Add($"Orders: ");
             foreach(Order o in storeOrders){
                 foreach(string s in o.ToStringList()){
@@ -102,21 +104,18 @@ namespace Models
                 }
             }
 
+            stringlist.Add("");
+            stringlist.AddRange(Picture);
             return stringlist;
         }
             
     }
 
-    //to-do make Orders into Order
     public class Order : IClass
     {
-
-  
-        private List<LineItem> OrderLineItems; 
+        private List<LineItem> orderLineItems; 
         private string location;
         private decimal totalPrice;
-
-
 
         public Order(){}
         public Order(string p_location)
@@ -134,7 +133,7 @@ namespace Models
             }
         }
 
-        public List<LineItem> OrderLineItems1 { get => OrderLineItems; set => OrderLineItems = value; }
+        public List<LineItem> OrderLineItems { get => orderLineItems; set => orderLineItems = value; }
         public string Location { get => location; set => location = value; }
         public decimal TotalPrice { get => totalPrice; set => totalPrice = value; }
         public string Identify() { return "Order"; }

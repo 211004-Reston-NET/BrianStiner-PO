@@ -67,7 +67,7 @@ namespace UserInterface
             BL.AddClass(OurCustomer);
 
              //Reset display for new menu selection
-            Builder.Add(" ",1);
+            Builder.Pause();
 
             Builder.Reset(new List<string>(){
                 "Customer Modified!",

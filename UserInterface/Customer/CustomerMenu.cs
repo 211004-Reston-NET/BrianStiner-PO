@@ -13,10 +13,16 @@ namespace UserInterface
                 {"Customer Menu,",
                 "What do you want to do?", 
                 "[0] - Go back", 
-                "[1] - Add Customer", 
+                "------ Database ------",
+                "[1] - Add a Customer", 
                 "[2] - Delete a Customer",
                 "[3] - Modify a Customer",
-                "[4] - Show all Customers"});
+                "[4] - Show all Customers",
+                "------ Current  -------",
+                "[5] - Select Customer",
+                "[6] - Show Customer",
+                "[7] - Create Order for Customer",
+                "[8] - Delete Order from Customer"});
         }
 
         public MenuType Choice()
@@ -34,6 +40,8 @@ namespace UserInterface
                     return MenuType.ModifyCustomer; 
                 case "4":
                     return MenuType.ShowAllCustomers;
+                case "5":
+                    return MenuType.SelectCustomer;
                 default:
                     Tools Builder = new Tools();
                     Builder.Add("Not a choice. Try again.",1);

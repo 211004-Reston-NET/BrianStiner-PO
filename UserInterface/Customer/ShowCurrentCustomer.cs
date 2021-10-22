@@ -6,25 +6,24 @@ using Models;
 
 namespace UserInterface
 {
-    public class ShowAllCustomersMenu : IMenu
+    public class ShowCurrentCustomerMenu : IMenu
     {
         public void Display()
         {
-            IBusiness BL = new Business();
             Tools Builder = new Tools();
 
-            List<Customer> Customers = BL.GetAllClasses(new Customer());
-
-            Builder.ShowAll(Customers);
+            Builder.Add("---Showing Current Customer---");
+            Builder.Add("");
+            Builder.Add(Current.customer.ToStringList());
 
             Builder.Pause();
 
             Builder.Reset(new List<string>(){
-                "Customers in database shown!",
+                "Current Customer shown!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Show Customers again."});
+                "[1] - Show Customer again."});
 
         }
 
@@ -36,7 +35,7 @@ namespace UserInterface
                 case "0":
                     return MenuType.Customer;
                 case "1":
-                    return MenuType.ShowAllCustomers;
+                    return MenuType.ShowCurrentCustomer;
                 default:
                     Tools Builder = new Tools();
                     Builder.Add("Not a choice. Try again.",1);

@@ -16,8 +16,6 @@ namespace UserInterface
                 "[2] - Storefronts", 
                 "[3] - Products",
                 "[4] - Exit"});
-            
-            Builder.BuildMenu();
         }
 
         public MenuType Choice()

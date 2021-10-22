@@ -19,6 +19,7 @@ namespace UserInterface
                 }else{
                     page.Display();
                     repeat = false;
+                    break;
                 }
             }
         }

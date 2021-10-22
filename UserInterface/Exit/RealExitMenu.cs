@@ -9,7 +9,8 @@ namespace UserInterface
         public void Display()
         {
             Tools Builder = new Tools();
-            Builder.Add("GoodBye!",1);
+            Builder.Add("GoodBye!");
+            Builder.Pause();
         }
 
         public MenuType Choice()

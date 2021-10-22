@@ -1,31 +1,36 @@
 using System;
 using System.Collections.Generic;
 using Toolbox;
-using BusinessLogic;
 using Models;
+using BusinessLogic;
 
 namespace UserInterface
 {
-    public class ShowAllCustomersMenu : IMenu
+    public class SelectCustomerMenu : IMenu
     {
+
+        //ask for a string and search against all of the Customer database to return a select List<Customer>, show it, user selects one, modify that customer.
         public void Display()
         {
-            IBusiness BL = new Business();
             Tools Builder = new Tools();
+            IBusiness BL = new Business();
+            Builder.Reset();
 
-            List<Customer> Customers = BL.GetAllClasses(new Customer());
+            //Search database for Customer list
+            List<Customer> SelectCustomers = Builder.Search(new Customer());
 
-            Builder.ShowAll(Customers);
+            //Select Customer from search list
+            Customer OurCustomer = Builder.ChooseClassFromList(SelectCustomers);
+
+            Current.customer = OurCustomer;
 
             Builder.Pause();
-
             Builder.Reset(new List<string>(){
-                "Customers in database shown!",
+                "Current Customer Set!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Show Customers again."});
-
+                "[1] - Change Customer again"});
         }
 
         public MenuType Choice()
@@ -36,7 +41,7 @@ namespace UserInterface
                 case "0":
                     return MenuType.Customer;
                 case "1":
-                    return MenuType.ShowAllCustomers;
+                    return MenuType.SelectCustomer;
                 default:
                     Tools Builder = new Tools();
                     Builder.Add("Not a choice. Try again.",1);

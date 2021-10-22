@@ -26,12 +26,10 @@ namespace UserInterface
             BL.DelClass(OurCustomer);
 
             //Show Customer database
-            Builder.ShowAll(new Customer());
+            Builder.ShowAll(BL.GetAllClasses(OurCustomer));
 
             //Reset menu for new menu selection
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
+            Builder.Pause();
 
             Builder.Reset(new List<string>(){
                 "Customer Deleted!",

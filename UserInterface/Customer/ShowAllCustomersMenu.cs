@@ -1,3 +1,6 @@
+/*
+Server=tcp:revature-database-server.database.windows.net,1433;Initial Catalog=revature-database;Persist Security Info=False;User ID=a-dmin;Password=FDFwhjnXM5Rx!L4;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+*/
 using System;
 using System.Collections.Generic;
 using Toolbox;
@@ -13,11 +16,11 @@ namespace UserInterface
             IBusiness BL = new Business();
             Tools Builder = new Tools();
 
-            Builder.ShowAll(new Customer());
+            List<Customer> Customers = BL.GetAllClasses(new Customer());
 
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
+            Builder.ShowAll(Customers);
+
+            Builder.Pause();
 
             Builder.Reset(new List<string>(){
                 "Customers in database shown!",

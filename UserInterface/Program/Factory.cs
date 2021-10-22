@@ -70,6 +70,7 @@ namespace UserInterface
                 case MenuType.RealExit:
                     page = new RealExitMenu();
                     break;
+                    
                 default:
                     page = new MainMenu();
                     break; 

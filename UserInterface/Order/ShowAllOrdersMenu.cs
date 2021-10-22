@@ -13,11 +13,9 @@ namespace UserInterface
             IBusiness BL = new Business();
             Tools Builder = new Tools();
 
-            Builder.ShowAll(new Order());
+            Builder.ShowAll(BL.GetAllClasses(new Order()));
 
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
+            Builder.Pause();
 
             Builder.Reset(new List<string>(){
                 "Orders in database shown!",

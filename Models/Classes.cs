@@ -11,6 +11,7 @@ namespace Models
     {
         //Variables -----------------------------------------------------------------------------
         private string name, address, email, phoneNumber;
+        private List<string> picture = new List<string>(){@"¯\_(ツ)_/¯"," （˶′◡‵˶）"};
         private List<Order> customerOrders = new List<Order>();
 
         //Constructors ---------------------------------------------------------------------------
@@ -21,8 +22,6 @@ namespace Models
             this.address = p_address;
             this.email = p_email;
             this.phoneNumber = p_phoneNumber;
-            //Console.WriteLine($"name:{name} address:{address} email:{email} phone number:{phoneNumber}");
-            Console.ReadLine();
         }
         public Customer(string p_name, string p_address, string p_email, string p_phoneNumber, List<Order> p_Orders){
             this.name = p_name;

@@ -16,12 +16,13 @@ namespace UserInterface
             IBusiness BL = new Business();
             Builder.Reset();
 
-        //Search database for Customer list
+            //Search database for Customer list
             List<Customer> SelectCustomers = Builder.Search(new Customer());
-        //Select Customer from list
+
+            //Select Customer from search list
             Customer OurCustomer = Builder.ChooseClassFromList(SelectCustomers);
 
-        //Modify Customer
+            //Modify Customer
             bool repeat = false;
             BL.DelClass(OurCustomer);
             do{
@@ -30,7 +31,7 @@ namespace UserInterface
                     "[1] - Name",
                     "[2] - Address",
                     "[3] - Email",
-                    "[4] - Phone Number"});
+                    "[4] - Phone Number"},'f');
 
                 string choice2 = Console.ReadLine();
 
@@ -58,17 +59,15 @@ namespace UserInterface
                 Builder.Add(new List<string>(){
                     "---------------------------",
                     "Do you want to make another",
-                   $"change to {OurCustomer.Name}?"});
+                   $"change to {OurCustomer.Name}?"},'f');
 
                 repeat = Builder.Choice();
 
             } while(repeat);
             BL.AddClass(OurCustomer);
 
-        //Reset display for new menu selection
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
+             //Reset display for new menu selection
+            Builder.Add(" ",1);
 
             Builder.Reset(new List<string>(){
                 "Customer Modified!",

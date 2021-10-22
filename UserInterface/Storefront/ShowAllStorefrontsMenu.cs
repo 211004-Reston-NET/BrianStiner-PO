@@ -13,7 +13,7 @@ namespace UserInterface
             IBusiness BL = new Business();
             Tools Builder = new Tools();
 
-            Builder.ShowAll(new Storefront());
+            Builder.ShowAll(BL.GetAllClasses(new Storefront()));
 
             Builder.Add(" ");
             Builder.Add("Press Enter to Continue...",'b');

@@ -10,8 +10,6 @@ namespace UserInterface
         {
             Tools Builder = new Tools();
             Builder.Add("GoodBye!",1);
-            Builder.BuildMenu();
-
         }
 
         public MenuType Choice()
@@ -23,9 +21,7 @@ namespace UserInterface
                     case "0":
                         return MenuType.Main;
                     default:
-                        Console.WriteLine("Not a choice. Try again.");
-                        Console.WriteLine("Press Enter to continue");
-                        Console.ReadLine();
+                        Console.WriteLine("Not a choice. Try again.",1);
                         return MenuType.RealExit;
                 }
             }

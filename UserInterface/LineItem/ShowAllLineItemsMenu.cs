@@ -13,7 +13,7 @@ namespace UserInterface
             IBusiness BL = new Business();
             Tools Builder = new Tools();
 
-            Builder.ShowAll(new LineItem());
+            Builder.ShowAll(BL.GetAllClasses(new LineItem()));
 
             Builder.Add(" ",1);
 

@@ -55,6 +55,9 @@ namespace Toolbox
         }
         public void Add(List<string> ls){
             foreach(string s in ls){Add(s);}
+        }
+        public void Add(List<string> ls,char f){
+            foreach(string s in ls){Add(s);}
             BuildMenu();
         }
         public void Reset(){
@@ -64,6 +67,13 @@ namespace Toolbox
         public void Reset(List<string> ls){
             menulines = ls;
             BuildMenu();
+        }
+        
+        public void Pause(){
+            Add(" ");
+            Add(" ");
+            Add("Press Enter to Continue...",'f');
+            Console.ReadLine();
         }
 
         public bool Choice(){
@@ -92,7 +102,7 @@ namespace Toolbox
             do
             {   
                 Add(" ");
-                Add($"Search {p_IC.Identify()}s:",'B');
+                Add($"Search {p_IC.Identify()}s:",'b');
                 string entered = Console.ReadLine();
                 Add(entered);
 
@@ -102,6 +112,7 @@ namespace Toolbox
                 else{
                     Add(" ");
                     Add($" Showing {p_IC.Identify()}s");
+                    Add(" ");
                     int cnt = 0;
                     foreach(Customer c in SelectC){
                         cnt++;
@@ -256,52 +267,43 @@ namespace Toolbox
         }
 
 
+        //Five overwritten "ShowAll Classes in this Class list" methods.
 
-
-        public void ShowAll(Customer p_IC){
-            IBusiness BL = new Business();
-            List<Customer> AllIC = BL.GetAllClasses(p_IC);
-            Add($"Show all {p_IC.Identify()}s,");
+        public void ShowAll(List<Customer> AllIC){
+            Add($"Show all {AllIC[0].Identify()}s,");
             foreach(Customer ic in AllIC){
                 Add(ic.ToStringList());
                 Add("  ----------  ");
             }
-        }
-        public void ShowAll(Storefront p_IC){
-            IBusiness BL = new Business();
-            List<Storefront> AllIC = BL.GetAllClasses(p_IC);
-            Add($"Show all {p_IC.Identify()}s,");
+            Add(" ",'f');
+        }public void ShowAll(List<Storefront> AllIC){
+            Add($"Show all {AllIC[0].Identify()}s,");
             foreach(Storefront ic in AllIC){
                 Add(ic.ToStringList());
                 Add("  ----------  ");
             }
-        }
-        public void ShowAll(Order p_IC){
-            IBusiness BL = new Business();
-            List<Order> AllIC = BL.GetAllClasses(p_IC);
-            Add($"Show all {p_IC.Identify()}s,");
+            Add(" ",'f');
+        }public void ShowAll(List<Order> AllIC){
+            Add($"Show all {AllIC[0].Identify()}s,");
             foreach(Order ic in AllIC){
                 Add(ic.ToStringList());
                 Add("  ----------  ");
             }
-        }
-        public void ShowAll(LineItem p_IC){
-            IBusiness BL = new Business();
-            List<LineItem> AllIC = BL.GetAllClasses(p_IC);
-            Add($"Show all {p_IC.Identify()}s,");
+            Add(" ",'f');
+        }public void ShowAll(List<LineItem> AllIC){
+            Add($"Show all {AllIC[0].Identify()}s,");
             foreach(LineItem ic in AllIC){
                 Add(ic.ToStringList());
                 Add("  ----------  ");
             }
-        }
-        public void ShowAll(Product p_IC){
-            IBusiness BL = new Business();
-            List<Product> AllIC = BL.GetAllClasses(p_IC);
-            Add($"Show all {p_IC.Identify()}s,");
+            Add(" ",'f');
+        }public void ShowAll(List<Product> AllIC){
+            Add($"Show all {AllIC[0].Identify()}s,");
             foreach(Product ic in AllIC){
                 Add(ic.ToStringList());
                 Add("  ----------  ");
             }
+            Add(" ",'f');
         }
 
         public Product ChooseClassFromList(List<Product> p_ICList){
@@ -314,7 +316,7 @@ namespace Toolbox
                     choice = Int32.Parse(Console.ReadLine());
                     repeat = false;
                 }
-                catch (System.Exception){repeat = true; Console.WriteLine("Thats not a valid selection. Try again.");}
+                catch (System.Exception){repeat = true; Add("Thats not a valid selection. Try again."); Pause();}
             } while (repeat && choice <= p_ICList.Count && choice >= 0);
 
             return p_ICList[choice];
@@ -329,7 +331,7 @@ namespace Toolbox
                     choice = Int32.Parse(Console.ReadLine());
                     repeat = false;
                 }
-                catch (System.Exception){repeat = true; Console.WriteLine("Thats not a valid selection. Try again.");}
+                catch (System.Exception){repeat = true; Add("Thats not a valid selection. Try again."); Pause();}
             } while (repeat && choice <= p_ICList.Count && choice >= 0);
 
             return p_ICList[choice];
@@ -341,10 +343,9 @@ namespace Toolbox
             Add("Enter number for your choice.",'b');
             do{
                 try{
-                    choice = Int32.Parse(Console.ReadLine());
-                    repeat = false;
+                    choice = Int32.Parse(Console.ReadLine());repeat = false;
                 }
-                catch (System.Exception){repeat = true; Console.WriteLine("Thats not a valid selection. Try again.");}
+                catch (System.Exception){repeat = true; Add("Thats not a valid selection. Try again."); Pause();}
             } while (repeat && choice <= p_ICList.Count && choice >= 0);
 
             return p_ICList[choice];
@@ -356,9 +357,9 @@ namespace Toolbox
             Add("Enter number for your choice.",'b');
             do{
                 try{
-                    choice = Int32.Parse(Console.ReadLine()); repeat = false;}
-                catch (System.Exception){
-                    Console.WriteLine("Thats not a valid selection. Try again."); repeat = true;}
+                    choice = Int32.Parse(Console.ReadLine()); repeat = false;
+                }
+                catch (System.Exception){repeat = true; Add("Thats not a valid selection. Try again."); Pause(); }
             } while (repeat && choice <= p_ICList.Count && choice >= 1);
 
             return p_ICList[choice-1];
@@ -373,7 +374,7 @@ namespace Toolbox
                     choice = Int32.Parse(Console.ReadLine());
                     repeat = false;
                 }
-                catch (System.Exception){repeat = true; Console.WriteLine("Thats not a valid selection. Try again.");}
+                catch (System.Exception){repeat = true; Add("Thats not a valid selection. Try again."); Pause();}
             } while (repeat && choice <= p_ICList.Count && choice >= 0);
 
             return p_ICList[choice];

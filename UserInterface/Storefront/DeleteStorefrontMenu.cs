@@ -26,7 +26,7 @@ namespace UserInterface
             BL.DelClass(OurStorefront);
 
         //Show Storefront database
-            Builder.ShowAll(new Storefront());
+            Builder.ShowAll(BL.GetAllClasses(OurStorefront));
 
             //Reset menu for new menu selection
             Builder.Add(" ");

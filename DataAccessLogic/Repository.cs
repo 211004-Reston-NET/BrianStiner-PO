@@ -54,44 +54,45 @@ namespace DataAccessLogic
         //Try to read all text from the file and turn into List. If nothings there alert and send blank List.
         public List<Customer> GetAllClasses(Customer p_IC){ 
             try{
-                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json");     
-            }catch (System.IO.FileNotFoundException)
-            {
-                return JsonSerializer.Deserialize<List<Customer>>(_jsonString);
-            }Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
-            return new List<Customer>(); 
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json"); 
+                return JsonSerializer.Deserialize<List<Customer>>(_jsonString);    
+            }catch (System.IO.FileNotFoundException){
+                Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+                return new List<Customer>(); 
+            }
+            
         }public List<Storefront> GetAllClasses(Storefront p_IC){  
             try{
-                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json");
-            }catch (System.IO.FileNotFoundException){
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json"); 
                 return JsonSerializer.Deserialize<List<Storefront>>(_jsonString);
-            } 
-            Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
-            return new List<Storefront>(); 
-        }public List<Order> GetAllClasses(Order p_IC){ 
-            try{ 
-                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json");
             }catch (System.IO.FileNotFoundException){
-                return JsonSerializer.Deserialize<List<Order>>(_jsonString);
+                Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+                return new List<Storefront>(); 
+            }
+        }public List<Order> GetAllClasses(Order p_IC){ 
+            try{
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json"); 
+                return JsonSerializer.Deserialize<List<Order>>(_jsonString);    
+            }catch (System.IO.FileNotFoundException){
+                Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+                return new List<Order>(); 
             } 
-            Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
-            return new List<Order>(); 
         }public List<LineItem> GetAllClasses(LineItem p_IC){
             try{
-                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json");
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json"); 
+                return JsonSerializer.Deserialize<List<LineItem>>(_jsonString);    
             }catch (System.IO.FileNotFoundException){
-                return JsonSerializer.Deserialize<List<LineItem>>(_jsonString);
+                Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+                return new List<LineItem>(); 
             } 
-            Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
-            return new List<LineItem>(); 
         }public List<Product> GetAllClasses(Product p_IC){  
-            try{ 
-                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json");
+            try{
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json"); 
+                return JsonSerializer.Deserialize<List<Product>>(_jsonString);    
             }catch (System.IO.FileNotFoundException){
-                return JsonSerializer.Deserialize<List<Product>>(_jsonString);
+                Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+                return new List<Product>(); 
             } 
-            Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
-            return new List<Product>(); 
         }
 
 

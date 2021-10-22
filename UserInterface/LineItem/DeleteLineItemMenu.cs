@@ -26,7 +26,7 @@ namespace UserInterface
             BL.DelClass(OurLineItem);
 
             //Show LineItem database
-            Builder.ShowAll(new LineItem());
+            Builder.ShowAll(BL.GetAllClasses(OurLineItem));
 
             //Reset menu for new menu selection
             Builder.Add(" ",1);

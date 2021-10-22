@@ -26,7 +26,7 @@ namespace UserInterface
             BL.DelClass(OurOrder);
 
         //Show Order database
-            Builder.ShowAll(new Order());
+            Builder.ShowAll(BL.GetAllClasses(OurOrder));
 
             //Reset menu for new menu selection
             Builder.Add(" ");

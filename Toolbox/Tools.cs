@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Models;
 using BusinessLogic;
 
@@ -8,28 +9,29 @@ using BusinessLogic;
 
 namespace Toolbox
 {
-    //This set of methods builds the visuals out of a List<string>
-    //There are cases for when a string is too long
+    //This set of methods builds the visuals out of List<string> menulines
+    //Useful methods are: Buildmenu, Add, Reset, Pause, TestInt, TestString, Search, ShowAll, and SelectClassFromList
     public class Tools
     {
+        
+        List<string> menulines = new List<string>(); //This is the list of strings that will be displayed
 
-        List<string> menulines = new List<string>();
-    
         public void BuildMenu()
         {
-            //menulines is foreach'd in a try catch for strings that are too long and need to be split by spaces.
-            //try catch for a string thats too long and needs to get split by spaces. 
+            int max = 38;
+            //menulines is foreach'd and each string is checked for length, rest of length is filled with spaces, and then written to the screen.
+            //if else for a string thats too long and needs to get split by spaces. 
             Console.Clear();
             Console.WriteLine(@"   ________________________________________     ");
             Console.WriteLine(@" / \                                       \.   ");
             Console.WriteLine(@" \_ |                                      |.   ");
             foreach( string line in menulines)
             {
-                if(line.Length<35){
-                    Console.WriteLine($"    |   {line}{new string(' ', 35-line.Length)}|.   ");
+                if(line.Length<max){
+                    Console.WriteLine($"    |   {line}{new string(' ', max-line.Length)}|.   ");
                 }else{
                     foreach(string subline in line.Split(' ')){
-                        Console.WriteLine($"    |   {subline}{new string(' ', 35-subline.Length)}|.   ");}
+                        Console.WriteLine($"    |   {subline}{new string(' ', max-subline.Length)}|.   ");}
                 }
             } 
             Console.WriteLine(@"    |                                      |.   "); 
@@ -43,11 +45,11 @@ namespace Toolbox
         public void Add(string s){ //no BuildMenu for single lines.
             menulines.Add(s);
         }
-        public void Add(string s, char f){ //char f is just an overloading flag that puts a BuildMenu in the Add.
+        public void Add(string s, char f){ //char f is just an overloading flag that puts a BuildMenu after line.
             Add(s);
             BuildMenu();
         }
-        public void Add(string s, int f){ //int f is just an overloading flag that puts a "Press enter to continue".
+        public void Add(string s, int f){ //int f is just an overloading flag that puts a "Press enter to continue" after line.
             Add(s);
             Pause();
         }
@@ -66,7 +68,6 @@ namespace Toolbox
             menulines = ls;
             BuildMenu();
         }
-        
         public void Pause(){
             Add(" ");
             Add(" ");
@@ -74,23 +75,58 @@ namespace Toolbox
             Console.ReadLine();
         }
 
-        public bool Choice(){
-            bool TorF = true;
-            bool chooseagain = false;
-            do{
-                char YorN = Char.ToLower(Convert.ToChar(Console.ReadLine().Substring(0, 1)));
-                switch(YorN){
-                    case 'y': case 'a': case '1': TorF = true;  chooseagain = false; break;
-                    case 'n': case 'b': case '2': TorF = false; chooseagain = false; break;
-                    default:
-                        Add("Can't interpret answer. Y/N only.");
-                        Add("Choose again:\n");
-                        chooseagain = true;
-                        break;
+
+        //Method TestInt: string s parameter. returns an int if the user enters a valid positive int using regex.
+        public int GetInt(){
+            string s = Console.ReadLine();
+            int i = 0;
+            bool valid = false;
+            while(!valid){
+                if(Regex.IsMatch(s, @"^\d+$")){            //regex for positive ints
+                    i = int.Parse(s);
+                    valid = true;
+                }else{
+                    Add(s);
+                    Add("Please enter a valid positive integer.", 'f');
+                    s = Console.ReadLine();
                 }
-            }while(chooseagain);
-            return TorF;
+            }
+            return i;
         }
+        //Method TestString: string s parameter. returns a string if the user enters a valid string using regex.
+        public string GetString(){
+            string s = Console.ReadLine();
+            string i = "";
+            bool valid = false;
+            while(!valid){
+                if(Regex.IsMatch(s, @"^[a-zA-Z]+$")){       //regex for letters only.
+                    i = s;
+                    valid = true;
+                    i = s;
+                    valid = true;
+                }else{
+                    Add(s);
+                    Add("Please enter a valid string.", 'f');
+                    s = Console.ReadLine();
+                } 
+            }
+            return i;
+        }
+        //Method Choice: no parameters. char YorN reads first char of input and checks for a valid choice. y,a,1 are true. n,b,2 are false.
+        public bool Choice(){
+            char YorN = Char.ToLower(Convert.ToChar(Console.ReadLine().Substring(0, 1))); 
+            if(YorN=='y'||YorN=='a'||YorN=='1'){
+                return true;
+            }else if(YorN=='n'||YorN=='b'||YorN=='2'){
+                return false;
+            }else{
+                Add(YorN.ToString());
+                Add("Enter a valid choice. y/n a/b 1/2", 'f');
+                return Choice();                                             //recursion
+            }
+        }
+
+        //Method named Search: Customer p_IC parameter: searchs Customer database List<Customer> that match the search string.
 
         public List<Customer> Search(Customer p_IC){
             
@@ -377,8 +413,6 @@ namespace Toolbox
 
             return p_ICList[choice];
         }
+
     }
 }
-
-
-//Console.WriteLine(string.Join(",", s.GetRange(i,m)));

@@ -43,17 +43,17 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            string userChoice = Console.ReadLine();
+            Tools Builder = new Tools();
+            int userChoice = Builder.GetInt();
             switch (userChoice)
             {
-                case "0":
+                case 0:
                     return MenuType.Storefront;
-                case "1":
+                case 1:
                     return MenuType.DeleteStorefront;
                 default:
-                    Tools Builder = new Tools();
                     Builder.Add("Not a choice. Try again.",1);
-                    return MenuType.Main;
+                    return MenuType.DeleteStorefront;
             }
             
         }

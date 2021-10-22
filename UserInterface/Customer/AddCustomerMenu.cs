@@ -44,17 +44,17 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            string userChoice = Console.ReadLine();
+            Tools Builder = new Tools();
+            int userChoice = Builder.GetInt();
             switch (userChoice)
             {
-                case "0":
+                case 0:
                     return MenuType.Customer;
-                case "1":
+                case 1:
                     return MenuType.AddCustomer;
                 default:
-                    Console.WriteLine("Not a choice. Try again.");
-                    Console.WriteLine("Press Enter to continue");
-                    Console.ReadLine();
+                    Builder.Add("Not a choice. Try again.");
+                    Builder.Pause();
                     return MenuType.Main;
             }
             

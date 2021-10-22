@@ -21,23 +21,23 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            string userChoice = Console.ReadLine();
+            Tools Builder = new Tools();
+            int userChoice = Builder.GetInt();
             switch (userChoice)
             {
-                case "0":
+                case 0:
                     return MenuType.Main;
-                case "1":
+                case 1:
                     return MenuType.AddStorefront;
-                case "2":
+                case 2:
                     return MenuType.DeleteStorefront; 
-                case "3":
+                case 3:
                     return MenuType.ModifyStorefront; 
-                case "4":
+                case 4:
                     return MenuType.ShowAllStorefronts;
                 default:
-                    Tools Builder = new Tools();
                     Builder.Add("Not a choice. Try again.",1);
-                    return MenuType.Main;
+                    return MenuType.Storefront;
             }
             
         }

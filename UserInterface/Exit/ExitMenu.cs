@@ -20,17 +20,16 @@ namespace UserInterface
         public MenuType Choice()
         {
             {
-                string userChoice = Console.ReadLine();
+                Tools Builder = new Tools();
+                int userChoice = Builder.GetInt();
                 switch (userChoice)
                 {
-                    case "0":
+                    case 0:
                         return MenuType.Main;
-                    case "1":
+                    case 1:
                         return MenuType.RealExit;
                     default:
-                        Console.WriteLine("Not a choice. Try again.");
-                        Console.WriteLine("Press Enter to continue");
-                        Console.ReadLine();
+                        Console.WriteLine("Not a choice. Try again.",1);
                         return MenuType.Exit;
                 }
             }

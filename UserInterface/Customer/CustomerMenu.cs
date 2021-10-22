@@ -27,25 +27,25 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            string userChoice = Console.ReadLine();
+            Tools Builder = new Tools();
+            int userChoice = Builder.GetInt();
             switch (userChoice)
             {
-                case "0":
+                case 0:
                     return MenuType.Main;
-                case "1":
+                case 1:
                     return MenuType.AddCustomer;
-                case "2":
+                case 2:
                     return MenuType.DeleteCustomer; 
-                case "3":
+                case 3:
                     return MenuType.ModifyCustomer; 
-                case "4":
+                case 4:
                     return MenuType.ShowAllCustomers;
-                case "5":
+                case 5:
                     return MenuType.SelectCustomer;
                 default:
-                    Tools Builder = new Tools();
                     Builder.Add("Not a choice. Try again.",1);
-                    return MenuType.Main;
+                    return MenuType.Customer;
             }
             
         }

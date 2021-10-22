@@ -13,19 +13,8 @@ namespace UserInterface
             Builder.Pause();
         }
 
-        public MenuType Choice()
-        {
-            {
-                string userChoice = Console.ReadLine();
-                switch (userChoice)
-                {
-                    case "0":
-                        return MenuType.Main;
-                    default:
-                        Console.WriteLine("Not a choice. Try again.",1);
-                        return MenuType.RealExit;
-                }
-            }
+        public MenuType Choice(){  
+            return MenuType.RealExit;
         }
     }
 }

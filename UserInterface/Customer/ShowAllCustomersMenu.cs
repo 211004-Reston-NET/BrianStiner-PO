@@ -11,7 +11,7 @@ namespace UserInterface
         public void Display()
         {
             IBusiness BL = new Business();
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
 
             List<Customer> Customers = BL.GetAllClasses(new Customer());
 
@@ -30,7 +30,7 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             int userChoice = Builder.GetInt();
             switch (userChoice)
             {

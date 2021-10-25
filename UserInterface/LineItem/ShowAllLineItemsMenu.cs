@@ -11,7 +11,7 @@ namespace UserInterface
         public void Display()
         {
             IBusiness BL = new Business();
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
 
             Builder.ShowAll(BL.GetAllClasses(new LineItem()));
 

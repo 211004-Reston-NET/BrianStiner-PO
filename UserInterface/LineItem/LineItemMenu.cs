@@ -8,7 +8,7 @@ namespace UserInterface
     {
         public void Display()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             Builder.Reset(new List<string>()
                 {"LineItem Menu,",
                 "What do you want to do?", 

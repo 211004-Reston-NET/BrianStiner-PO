@@ -8,7 +8,7 @@ namespace UserInterface
     {
         public void Display()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             Builder.Reset(new List<string>()
                 {"Customer Menu,",
                 "What do you want to do?", 
@@ -27,7 +27,7 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             int userChoice = Builder.GetInt();
             switch (userChoice)
             {

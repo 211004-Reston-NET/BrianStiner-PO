@@ -8,7 +8,7 @@ namespace UserInterface
     {
         public void Display()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             Builder.Reset(new List<string>()
                 {"Order Menu,",
                 "What do you want to do?", 
@@ -21,21 +21,21 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            string userChoice = Console.ReadLine();
+            MenuBuilder Builder = new MenuBuilder();
+            int userChoice = Builder.GetInt();
             switch (userChoice)
             {
-                case "0":
+                case 0:
                     return MenuType.Main;
-                case "1":
+                case 1:
                     return MenuType.AddOrder;
-                case "2":
+                case 2:
                     return MenuType.DeleteOrder; 
-                case "3":
+                case 3:
                     return MenuType.ModifyOrder; 
-                case "4":
+                case 4:
                     return MenuType.ShowAllOrders;
                 default:
-                    Tools Builder = new Tools();
                     Builder.Add("Not a choice. Try again.",1);
                     return MenuType.Main;
             }

@@ -10,7 +10,7 @@ namespace UserInterface
     {
         public void Display()
         {
-            Tools Builder = new Tools();    
+            MenuBuilder Builder = new MenuBuilder();    
  
             Builder.Add("Fill in Storefront's info,");
             Builder.Add("What is their name?",'b');
@@ -40,7 +40,7 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             int userChoice = Builder.GetInt();
             switch (userChoice)
             {

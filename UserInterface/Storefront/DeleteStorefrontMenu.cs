@@ -12,7 +12,7 @@ namespace UserInterface
         //ask for a string and search against all of the Storefront database to return a select List<Storefront>, show it, user selects one, modify that Storefront.
         public void Display()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             IBusiness BL = new Business();
             Builder.Reset();
 
@@ -43,7 +43,7 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             int userChoice = Builder.GetInt();
             switch (userChoice)
             {

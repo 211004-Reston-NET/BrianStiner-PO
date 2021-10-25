@@ -8,7 +8,7 @@ namespace UserInterface
     {
         public void Display()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             Builder.Reset(new List<string>()
                 {"Welcome to the Main Menu,",
                 "Which menu do you want?", 
@@ -32,7 +32,7 @@ namespace UserInterface
                     case "4":
                         return MenuType.Exit;
                     default:
-                        Tools Builder = new Tools();
+                        MenuBuilder Builder = new MenuBuilder();
                         Builder.Add("Not a choice. Try again.",1);
                         return MenuType.Main;
                 }

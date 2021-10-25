@@ -12,7 +12,7 @@ namespace UserInterface
         //ask for a string and search against all of the LineItem database to return a select List<LineItem>, show it, user selects one, modify that LineItem.
         public void Display()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             IBusiness BL = new Business();
             Builder.Reset();
 

@@ -10,7 +10,7 @@ namespace UserInterface
     {
         public void Display()
         {
-            Tools Builder = new Tools();    
+            MenuBuilder Builder = new MenuBuilder();    
  
             Builder.Add("Fill in Order's info,");
             Builder.Add("Where is the Order from?",'b');
@@ -36,15 +36,15 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            string userChoice = Console.ReadLine();
+            MenuBuilder Builder = new MenuBuilder();
+            int userChoice = Builder.GetInt();
             switch (userChoice)
             {
-                case "0":
+                case 0:
                     return MenuType.Order;
-                case "1":
+                case 1:
                     return MenuType.AddOrder;
                 default:
-                    Tools Builder = new Tools();
                     Builder.Add("Not a choice. Try again.",1);
                     return MenuType.Main;
             }

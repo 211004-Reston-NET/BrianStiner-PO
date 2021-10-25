@@ -9,10 +9,10 @@ namespace UserInterface
     public class SelectCustomerMenu : IMenu
     {
 
-        //ask for a string and search against all of the Customer database to return a select List<Customer>, show it, user selects one, modify that customer.
+        //Calls Search and Select from builder, then sets CurrentCustomer to the selected customer
         public void Display()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             IBusiness BL = new Business();
             Builder.Reset();
 
@@ -35,7 +35,7 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             int userChoice = Builder.GetInt();
             switch (userChoice)
             {

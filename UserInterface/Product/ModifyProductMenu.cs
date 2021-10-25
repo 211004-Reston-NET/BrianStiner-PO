@@ -12,7 +12,7 @@ namespace UserInterface
         //ask for a string and search against all of the Product database to return a select List<Product>, show it, user selects one, modify that Product.
         public void Display()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             IBusiness BL = new Business();
             Builder.Reset();
 
@@ -78,15 +78,15 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            string userChoice = Console.ReadLine();
+            MenuBuilder Builder = new MenuBuilder();
+            int userChoice = Builder.GetInt();
             switch (userChoice)
             {
-                case "0":
+                case 0:
                     return MenuType.Product;
-                case "1":
+                case 1:
                     return MenuType.ModifyProduct;
                 default:
-                    Tools Builder = new Tools();
                     Builder.Add("Not a choice. Try again.",1);
                     return MenuType.Main;
             }

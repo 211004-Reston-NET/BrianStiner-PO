@@ -24,6 +24,15 @@ namespace UserInterface
                 case MenuType.ModifyCustomer:
                     page = new ModifyCustomerMenu();
                     break;
+                case MenuType.DeleteCustomer:
+                    page = new DeleteCustomerMenu();
+                    break;
+                case MenuType.SelectCustomer:
+                    page = new SelectCustomerMenu();
+                    break;
+                case MenuType.ShowCurrentCustomer:
+                    page = new ShowAllCustomersMenu();
+                    break;    
 
                 case MenuType.Storefront:
                     page = new StorefrontMenu();
@@ -37,6 +46,16 @@ namespace UserInterface
                 case MenuType.ModifyStorefront:
                     page = new ModifyStorefrontMenu();
                     break;
+                case MenuType.DeleteStorefront:
+                    page = new DeleteStorefrontMenu();
+                    break;
+                case MenuType.SelectStorefront:
+                    page = new SelectStorefrontMenu();
+                    break;
+                case MenuType.ShowCurrentStorefront:
+                    page = new ShowAllStorefrontsMenu();
+                    break;
+                
 
                 case MenuType.Product:
                     page = new ProductMenu();
@@ -50,6 +69,10 @@ namespace UserInterface
                 case MenuType.ModifyProduct:
                     page = new ModifyProductMenu();
                     break;
+                case MenuType.DeleteProduct:
+                    page = new DeleteProductMenu();
+                    break;
+                
 
                 case MenuType.Order:
                     page = new OrderMenu();
@@ -62,6 +85,9 @@ namespace UserInterface
                     break; 
                 case MenuType.ModifyOrder:
                     page = new ModifyOrderMenu();
+                    break;
+                case MenuType.DeleteOrder:
+                    page = new DeleteOrderMenu();
                     break;
 
                 case MenuType.Exit:

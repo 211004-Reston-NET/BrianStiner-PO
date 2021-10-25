@@ -10,7 +10,7 @@ namespace UserInterface
     {
         public void Display()
         {
-            Tools Builder = new Tools();    
+            MenuBuilder Builder = new MenuBuilder();    
  
             Builder.Add("Fill in LineItem's info,");
             Builder.Add("What is their name?",'b');

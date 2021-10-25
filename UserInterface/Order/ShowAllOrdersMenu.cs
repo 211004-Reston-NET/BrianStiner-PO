@@ -11,7 +11,7 @@ namespace UserInterface
         public void Display()
         {
             IBusiness BL = new Business();
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
 
             Builder.ShowAll(BL.GetAllClasses(new Order()));
 
@@ -28,15 +28,15 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            string userChoice = Console.ReadLine();
+            MenuBuilder Builder = new MenuBuilder();
+            int userChoice = Builder.GetInt();
             switch (userChoice)
             {
-                case "0":
+                case 0:
                     return MenuType.Order;
-                case "1":
+                case 1:
                     return MenuType.ShowAllOrders;
                 default:
-                    Tools Builder = new Tools();
                     Builder.Add("Not a choice. Try again.",1);
                     return MenuType.Main;
             }

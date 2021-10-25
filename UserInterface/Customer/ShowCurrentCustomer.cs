@@ -10,11 +10,11 @@ namespace UserInterface
     {
         public void Display()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
 
             Builder.Add("---Showing Current Customer---");
             Builder.Add("");
-            Builder.Add(Current.customer.ToStringList());
+            Builder.Add(Current.customer.ToStringList(), 'f');
 
             Builder.Pause();
 
@@ -29,7 +29,7 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            Tools Builder = new Tools();
+            MenuBuilder Builder = new MenuBuilder();
             int userChoice = Builder.GetInt();
             switch (userChoice)
             {

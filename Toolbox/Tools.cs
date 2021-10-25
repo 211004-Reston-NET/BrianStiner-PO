@@ -11,7 +11,7 @@ namespace Toolbox
 {
     //This set of methods builds the visuals out of List<string> menulines
     //Useful methods are: Buildmenu, Add, Reset, Pause, TestInt, TestString, Search, ShowAll, and SelectClassFromList
-    public class Tools
+    public class MenuBuilder
     {
         
         List<string> menulines = new List<string>(); //This is the list of strings that will be displayed
@@ -22,9 +22,9 @@ namespace Toolbox
             //menulines is foreach'd and each string is checked for length, rest of length is filled with spaces, and then written to the screen.
             //if else for a string thats too long and needs to get split by spaces. 
             Console.Clear();
-            Console.WriteLine(@"   ________________________________________     ");
-            Console.WriteLine(@" / \                                       \.   ");
-            Console.WriteLine(@" \_ |                                      |.   ");
+            Console.WriteLine(@"   ___________________________________________     ");
+            Console.WriteLine(@" / \                                          \.   ");
+            Console.WriteLine(@" \_ |                                         |.   ");
             foreach( string line in menulines)
             {
                 if(line.Length<max){
@@ -34,18 +34,18 @@ namespace Toolbox
                         Console.WriteLine($"    |   {subline}{new string(' ', max-subline.Length)}|.   ");}
                 }
             } 
-            Console.WriteLine(@"    |                                      |.   "); 
-            Console.WriteLine(@"    |                                      |.   "); 
-            Console.WriteLine(@"    |   ___________________________________|___ ");
-            Console.WriteLine(@"    |  /                                      /.");
-            Console.WriteLine(@"    \_/______________________________________/. ");
+            Console.WriteLine(@"    |                                         |.   "); 
+            Console.WriteLine(@"    |                                         |.   "); 
+            Console.WriteLine(@"    |   ______________________________________|___ ");
+            Console.WriteLine(@"    |  /                                         /.");
+            Console.WriteLine(@"    \_/_________________________________________/. ");
 
         }
 
-        public void Add(string s){ //no BuildMenu for single lines.
+        public void Add(string s = ""){ //no BuildMenu for single lines. No parameter Add adds a blank line.
             menulines.Add(s);
         }
-        public void Add(string s, char f){ //char f is just an overloading flag that puts a BuildMenu after line.
+        public void Add(string s, char f){ //char f is just an overloading flag that puts a BuildMenu after line. The value doesn't matter.
             Add(s);
             BuildMenu();
         }
@@ -56,15 +56,11 @@ namespace Toolbox
         public void Add(List<string> ls){
             foreach(string s in ls){Add(s);}
         }
-        public void Add(List<string> ls,char f){
+        public void Add(List<string> ls,char f){ //char f is just an overloading flag that puts a BuildMenu after line.
             foreach(string s in ls){Add(s);}
             BuildMenu();
         }
-        public void Reset(){
-            menulines = new List<string>();
-            BuildMenu();
-        }
-        public void Reset(List<string> ls){
+        public void Reset(List<string> ls = default(List<string>)){ //default(List<string>) removes the need to overload Reset.
             menulines = ls;
             BuildMenu();
         }
@@ -126,7 +122,7 @@ namespace Toolbox
             }
         }
 
-        //Method named Search: Customer p_IC parameter: searchs Customer database List<Customer> that match the search string.
+        //Methods named Search: Customer p_IC parameter: searchs Customer database List<Customer> that match the search string.
 
         public List<Customer> Search(Customer p_IC){
             

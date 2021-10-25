@@ -43,6 +43,12 @@ namespace UserInterface
                     return MenuType.ShowAllCustomers;
                 case 5:
                     return MenuType.SelectCustomer;
+                case 6:
+                    return MenuType.ShowCurrentCustomer;
+                case 7:
+                //    return MenuType.CreateOrder;
+                case 8:
+                //    return MenuType.DeleteCurrentOrder;
                 default:
                     Builder.Add("Not a choice. Try again.",1);
                     return MenuType.Customer;

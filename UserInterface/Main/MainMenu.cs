@@ -11,28 +11,28 @@ namespace UserInterface
             MenuBuilder Builder = new MenuBuilder();
             Builder.Reset(new List<string>()
                 {"Welcome to the Main Menu,",
-                "Which menu do you want?", 
+                "Which menu do you want?",
+                "[0] - Exit", 
                 "[1] - Customers", 
                 "[2] - Storefronts", 
-                "[3] - Products",
-                "[4] - Exit"});
+                "[3] - Products"});
         }
 
         public MenuType Choice()
             {
-                string userChoice = Console.ReadLine();
+                MenuBuilder Builder = new MenuBuilder();
+                int userChoice = Builder.GetInt();
                 switch (userChoice)
                 {
-                    case "1":
+                    case 1:
                         return MenuType.Customer;
-                    case "2":
+                    case 2:
                         return MenuType.Storefront;
-                    case "3":
+                    case 3:
                         return MenuType.Product;
-                    case "4":
+                    case 0:
                         return MenuType.Exit;
                     default:
-                        MenuBuilder Builder = new MenuBuilder();
                         Builder.Add("Not a choice. Try again.",1);
                         return MenuType.Main;
                 }

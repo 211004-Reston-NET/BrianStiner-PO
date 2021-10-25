@@ -9,8 +9,8 @@ using BusinessLogic;
 
 namespace Toolbox
 {
-    //This set of methods builds the visuals out of List<string> menulines
-    //Useful methods are: Buildmenu, Add, Reset, Pause, TestInt, TestString, Search, ShowAll, and SelectClassFromList
+    //This set of methods builds the visuals out of List<string> menulines, which is where the menu data is stored
+    //Some useful methods are: Buildmenu, Add, Reset, Pause, TestInt, TestString, Search, ShowAll, and SelectClassFromList
     public class MenuBuilder
     {
         
@@ -60,8 +60,12 @@ namespace Toolbox
             foreach(string s in ls){Add(s);}
             BuildMenu();
         }
-        public void Reset(List<string> ls = default(List<string>)){ //default(List<string>) removes the need to overload Reset.
+        public void Reset(List<string> ls){
             menulines = ls;
+            BuildMenu();
+        }
+        public void Reset(){
+            menulines = new List<string>();
             BuildMenu();
         }
         public void Pause(){

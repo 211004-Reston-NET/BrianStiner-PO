@@ -11,9 +11,9 @@ namespace UserInterface
             MenuBuilder Builder = new MenuBuilder();
             Builder.Reset(new List<string>()
                 {"Exit Menu",
-                "Are you sure you want to quit?", 
-                "[0] - Go back", 
-                "[1] - Actually quit"});
+                "Are you sure you want to quit?",
+                "[0] - Actually quit", 
+                "[1] - Go back"});
 
         }
 
@@ -24,9 +24,9 @@ namespace UserInterface
                 int userChoice = Builder.GetInt();
                 switch (userChoice)
                 {
-                    case 0:
-                        return MenuType.Main;
                     case 1:
+                        return MenuType.Main;
+                    case 0:
                         return MenuType.RealExit;
                     default:
                         Console.WriteLine("Not a choice. Try again.",1);

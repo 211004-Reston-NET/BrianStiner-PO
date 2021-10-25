@@ -87,7 +87,7 @@ namespace UserInterface
                 case 1:
                     return MenuType.ModifyProduct;
                 default:
-                    Builder.Add("Not a choice. Try again.",1);
+                    Builder.Pause("Not a choice. Try again.");
                     return MenuType.Main;
             }
             

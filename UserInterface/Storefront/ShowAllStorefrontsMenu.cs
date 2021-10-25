@@ -15,34 +15,10 @@ namespace UserInterface
 
             Builder.ShowAll(BL.GetAllClasses(new Storefront()));
 
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
-
-            Builder.Reset(new List<string>(){
-                "Storefronts in database shown!",
-                "---------------",
-                "What do you want to do?",
-                "[0] - Go back",
-                "[1] - Show Storefronts again."});
-
+            Builder.Pause();
         }
 
-        public MenuType Choice()
-        {
-            MenuBuilder Builder = new MenuBuilder();
-            int userChoice = Builder.GetInt();
-            switch (userChoice)
-            {
-                case 0:
-                    return MenuType.Storefront;
-                case 1:
-                    return MenuType.ShowAllStorefronts;
-                default:
-                    Builder.Add("Not a choice. Try again.",1);
-                    return MenuType.ShowAllStorefronts;
-            }
-            
-        }
+        public MenuType Choice(){return MenuType.Storefront;}
+        
     }
 }

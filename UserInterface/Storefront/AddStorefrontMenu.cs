@@ -12,7 +12,7 @@ namespace UserInterface
         {
             MenuBuilder Builder = new MenuBuilder();    
  
-            Builder.Add("Fill in Storefront's info,");
+            Builder.Add("Fill in Storefront's info:");
             Builder.Add("What is their name?",'b');
             string name = Console.ReadLine();
             Builder.Add(name);
@@ -21,26 +21,26 @@ namespace UserInterface
             string address = Console.ReadLine();
             Builder.Add(address);
 
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
 
             Storefront newStorefront = new Storefront(name, address);
             IBusiness BL = new Business();
             BL.AddClass(newStorefront);
 
+            Builder.Add("Storefront added!");
+            Builder.Pause();
+            /*/
             Builder.Reset(new List<string>(){
                 "Storefront Added!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
                 "[1] - Add another Storefront"});
-            
+            /*/
         }
 
         public MenuType Choice()
-        {
-            MenuBuilder Builder = new MenuBuilder();
+        {  return MenuType.Storefront;
+           /*/ MenuBuilder Builder = new MenuBuilder();
             int userChoice = Builder.GetInt();
             switch (userChoice)
             {
@@ -51,7 +51,7 @@ namespace UserInterface
                 default:
                     Builder.Add("Not a choice. Try again.",1);
                     return MenuType.AddStorefront;
-            }
+            }/*/
             
         }
     }

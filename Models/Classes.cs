@@ -23,6 +23,13 @@ namespace Models
             this.email = p_email;
             this.phoneNumber = p_phoneNumber;
         }
+        public Customer(string p_name, string p_address, string p_email, string p_phoneNumber, List<string> p_picture){
+            this.name = p_name;
+            this.address = p_address;
+            this.email = p_email;
+            this.phoneNumber = p_phoneNumber;
+            this.picture = p_picture;
+        }
         public Customer(string p_name, string p_address, string p_email, string p_phoneNumber, List<Order> p_Orders){
             this.name = p_name;
             this.address = p_address;
@@ -30,6 +37,15 @@ namespace Models
             this.phoneNumber = p_phoneNumber;
             this.customerOrders = p_Orders;
         }
+        public Customer(string p_name, string p_address, string p_email, string p_phoneNumber, List<string> p_picture, List<Order> p_Orders){
+            this.name = p_name;
+            this.address = p_address;
+            this.email = p_email;
+            this.phoneNumber = p_phoneNumber;
+            this.picture = p_picture;
+            this.customerOrders = p_Orders;
+        }
+
 
         //Get & Set -------------------------------------------------------------------------------
         public string Name { get => name; set => name = value; }

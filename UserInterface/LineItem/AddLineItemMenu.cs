@@ -15,7 +15,7 @@ namespace UserInterface
             Builder.Add("Fill in LineItem's info,");
             Builder.Add("What is their name?",'b');
             int quantity = Int32.Parse(Console.ReadLine());
-            Builder.Add($"{quantity}",1);
+            Builder.Pause($"{quantity}");
 
             LineItem newLineItem = new LineItem(quantity);
             IBusiness BL = new Business();

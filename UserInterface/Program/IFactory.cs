@@ -1,7 +1,5 @@
-namespace UserInterface
-{
-    interface IFactory
-    {
+namespace UserInterface{
+    interface IFactory{
         IMenu GetMenu(MenuType p_Menu);
     }
 

@@ -18,7 +18,7 @@ namespace UserInterface
         }
         public MenuType Choice()
         {
-            throw new NotImplementedException();
+            return MenuType.Customer;
         }
 
 

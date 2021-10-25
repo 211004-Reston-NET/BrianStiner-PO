@@ -16,10 +16,10 @@ namespace UserInterface
                 "------ Database ------",
                 "[1] - Add a Customer", 
                 "[2] - Delete a Customer",
-                "[3] - Modify a Customer",
-                "[4] - Show all Customers",
+                "[3] - Show all Customers",
                 "------ Current  -------",
-                "[5] - Select Customer",
+                "[4] - Select Customer",
+                "[5] - Modify Customer",
                 "[6] - Show Customer",
                 "[7] - Create Order for Customer",
                 "[8] - Delete Order from Customer"});
@@ -38,11 +38,11 @@ namespace UserInterface
                 case 2:
                     return MenuType.DeleteCustomer; 
                 case 3:
-                    return MenuType.ModifyCustomer; 
+                    return MenuType.ShowAllCustomers; 
                 case 4:
-                    return MenuType.ShowAllCustomers;
-                case 5:
                     return MenuType.SelectCustomer;
+                case 5:
+                    return MenuType.ModifyCustomer;
                 case 6:
                     return MenuType.ShowCurrentCustomer;
                 case 7:
@@ -50,7 +50,7 @@ namespace UserInterface
                 case 8:
                 //    return MenuType.DeleteCurrentOrder;
                 default:
-                    Builder.Add("Not a choice. Try again.",1);
+                    Builder.Pause("Not a choice. Try again.");
                     return MenuType.Customer;
             }
             

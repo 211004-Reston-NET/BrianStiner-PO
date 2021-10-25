@@ -19,18 +19,21 @@ namespace UserInterface
 
             Builder.Pause();
 
-            Builder.Reset(new List<string>(){
+         /*/   Builder.Reset(new List<string>(){
                 "Customers in database shown!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Show Customers again."});
+                "[1] - Show Customers again."});/*/
 
         }
 
         public MenuType Choice()
         {
-            MenuBuilder Builder = new MenuBuilder();
+            return MenuType.Customer;
+            
+            
+            /*MenuBuilder Builder = new MenuBuilder();
             int userChoice = Builder.GetInt();
             switch (userChoice)
             {
@@ -41,7 +44,7 @@ namespace UserInterface
                 default:
                     Builder.Add("Not a choice. Try again.",1);
                     return MenuType.ShowAllCustomers;
-            }
+            }*/
             
         }
     }

@@ -1,26 +1,16 @@
 using System;
 
-namespace UserInterface
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
+namespace UserInterface{
+    class Program{
+        static void Main(string[] args){
             bool repeat = true;
             IFactory factory = new Factory();
             IMenu page = factory.GetMenu(MenuType.Main);
 
-            while (repeat)
-            {
-                Console.Clear();
-                if(page != new RealExitMenu()){
-                    page.Display();
-                    page = factory.GetMenu(page.Choice());
-                }else{
-                    page.Display();
-                    repeat = false;
-                    break;
-                }
+            while (repeat){
+                page.Display();
+                MenuType nextmenu = page.Choice(); if(nextmenu == MenuType.RealExit) {repeat = false; break;}
+                page = factory.GetMenu(nextmenu);                           
             }
         }
     }

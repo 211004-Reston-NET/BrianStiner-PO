@@ -29,7 +29,7 @@ namespace UserInterface
             Builder.ShowAll(BL.GetAllClasses(OurLineItem));
 
             //Reset menu for new menu selection
-            Builder.Add(" ",1);
+            Builder.Pause();
 
             Builder.Reset(new List<string>(){
                 "LineItem Deleted!",

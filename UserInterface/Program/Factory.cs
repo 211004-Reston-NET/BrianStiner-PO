@@ -1,107 +1,104 @@
-namespace UserInterface
-{
-    class Factory : IFactory
-    {
-        public IMenu GetMenu(MenuType currentPage)
-        {
-            IMenu page;
-            switch (currentPage)
-            {
+namespace UserInterface{ 
+    class Factory : IFactory{
+        public IMenu GetMenu(MenuType currentMenu){
+            IMenu nextPage;
+            switch (currentMenu){
 
                 case MenuType.Main:
-                    page = new MainMenu();
+                    nextPage = new MainMenu();
                     break;
 
                 case MenuType.Customer:
-                    page = new CustomerMenu();
+                    nextPage = new CustomerMenu();
                     break;
                 case MenuType.ShowAllCustomers:
-                    page = new ShowAllCustomersMenu();
+                    nextPage = new ShowAllCustomersMenu();
                     break;
                 case MenuType.AddCustomer:
-                    page = new AddCustomerMenu();
+                    nextPage = new AddCustomerMenu();
                     break;
                 case MenuType.ModifyCustomer:
-                    page = new ModifyCustomerMenu();
+                    nextPage = new ModifyCustomerMenu();
                     break;
                 case MenuType.DeleteCustomer:
-                    page = new DeleteCustomerMenu();
+                    nextPage = new DeleteCustomerMenu();
                     break;
                 case MenuType.SelectCustomer:
-                    page = new SelectCustomerMenu();
+                    nextPage = new SelectCustomerMenu();
                     break;
                 case MenuType.ShowCurrentCustomer:
-                    page = new ShowAllCustomersMenu();
+                    nextPage = new ShowCurrentCustomerMenu();
                     break;    
 
                 case MenuType.Storefront:
-                    page = new StorefrontMenu();
+                    nextPage = new StorefrontMenu();
                     break;
                 case MenuType.ShowAllStorefronts:
-                    page = new ShowAllStorefrontsMenu();
+                    nextPage = new ShowAllStorefrontsMenu();
                     break;
                 case MenuType.AddStorefront:
-                    page = new AddStorefrontMenu();
+                    nextPage = new AddStorefrontMenu();
                     break;
                 case MenuType.ModifyStorefront:
-                    page = new ModifyStorefrontMenu();
+                    nextPage = new ModifyStorefrontMenu();
                     break;
                 case MenuType.DeleteStorefront:
-                    page = new DeleteStorefrontMenu();
+                    nextPage = new DeleteStorefrontMenu();
                     break;
                 case MenuType.SelectStorefront:
-                    page = new SelectStorefrontMenu();
+                    nextPage = new SelectStorefrontMenu();
                     break;
                 case MenuType.ShowCurrentStorefront:
-                    page = new ShowAllStorefrontsMenu();
+                    nextPage = new ShowCurrentCustomerMenu();
                     break;
                 
 
                 case MenuType.Product:
-                    page = new ProductMenu();
+                    nextPage = new ProductMenu();
                     break;
                 case MenuType.ShowAllProducts:
-                    page = new ShowAllProductsMenu();
+                    nextPage = new ShowAllProductsMenu();
                     break;
                 case MenuType.AddProduct:
-                    page = new AddProductMenu();
+                    nextPage = new AddProductMenu();
                     break; 
                 case MenuType.ModifyProduct:
-                    page = new ModifyProductMenu();
+                    nextPage = new ModifyProductMenu();
                     break;
                 case MenuType.DeleteProduct:
-                    page = new DeleteProductMenu();
+                    nextPage = new DeleteProductMenu();
                     break;
                 
 
                 case MenuType.Order:
-                    page = new OrderMenu();
+                    nextPage = new OrderMenu();
                     break;
                 case MenuType.ShowAllOrders:
-                    page = new ShowAllOrdersMenu();
+                    nextPage = new ShowAllOrdersMenu();
                     break;
                 case MenuType.AddOrder:
-                    page = new AddOrderMenu();
+                    nextPage = new AddOrderMenu();
                     break; 
                 case MenuType.ModifyOrder:
-                    page = new ModifyOrderMenu();
+                    nextPage = new ModifyOrderMenu();
                     break;
                 case MenuType.DeleteOrder:
-                    page = new DeleteOrderMenu();
+                    nextPage = new DeleteOrderMenu();
                     break;
 
                 case MenuType.Exit:
-                    page = new ExitMenu();
+                    nextPage = new ExitMenu();
                     break;
                 case MenuType.RealExit:
-                    page = new RealExitMenu();
+                    nextPage = new RealExitMenu();
                     break;
                     
                 default:
-                    page = new MainMenu();
+                    nextPage = new MainMenu();
                     break; 
             }
-            return page;
+            
+            return nextPage;
         }
     }
 }

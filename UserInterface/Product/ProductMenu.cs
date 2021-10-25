@@ -36,7 +36,7 @@ namespace UserInterface
                 case 4:
                     return MenuType.ShowAllProducts;
                 default:
-                    Builder.Add("Not a choice. Try again.",1);
+                    Builder.Pause("Not a choice. Try again.");
                     return MenuType.Main;
             }
             

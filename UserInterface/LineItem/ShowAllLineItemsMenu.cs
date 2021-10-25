@@ -15,7 +15,7 @@ namespace UserInterface
 
             Builder.ShowAll(BL.GetAllClasses(new LineItem()));
 
-            Builder.Add(" ",1);
+            Builder.Pause();
 
             Builder.Reset(new List<string>(){
                 "LineItems in database shown!",

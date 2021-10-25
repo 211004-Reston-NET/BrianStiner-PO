@@ -9,22 +9,16 @@ namespace UserInterface
     public class ModifyCustomerMenu : IMenu
     {
 
+        // This should instead modify Current Customer.
         //ask for a string and search against all of the Customer database to return a select List<Customer>, show it, user selects one, modify that customer.
         public void Display()
         {
             MenuBuilder Builder = new MenuBuilder();
             IBusiness BL = new Business();
-            Builder.Reset();
-
-            //Search database for Customer list
-            List<Customer> SelectCustomers = Builder.Search(new Customer());
-
-            //Select Customer from search list
-            Customer OurCustomer = Builder.ChooseClassFromList(SelectCustomers);
+            Builder.Reset(Current.customer.ToStringList());
 
             //Modify Customer
             bool repeat = false;
-            BL.DelClass(OurCustomer);
             do{
                 Builder.Add(new List<string>(){
                     "What do you want to change?",
@@ -33,25 +27,21 @@ namespace UserInterface
                     "[3] - Email",
                     "[4] - Phone Number"},'f');
 
-                string choice2 = Console.ReadLine();
+                int choice = Builder.GetInt();
 
-                Builder.Add("What is the new value?",'b');
-                string newvalue = Console.ReadLine();
-                Builder.Add(newvalue);
-
-                switch(choice2)
+                switch(choice)
                 {
-                    case "1":
-                        OurCustomer.Name = newvalue;
+                    case 1:
+                        Current.customer.Name = Builder.GetString();
                         break;
-                    case "2":
-                        OurCustomer.Address = newvalue;
+                    case 2:
+                        Current.customer.Address = Builder.GetString();
                         break;  
-                    case "3":
-                        OurCustomer.Email = newvalue;
+                    case 3:
+                        Current.customer.Email = Builder.GetEmail();
                         break;
-                    case "4":
-                        OurCustomer.PhoneNumber = newvalue;
+                    case 4:
+                        Current.customer.PhoneNumber = Builder.GetPhoneNumber();
                         break;
                     default:
                         break;
@@ -59,27 +49,28 @@ namespace UserInterface
                 Builder.Add(new List<string>(){
                     "---------------------------",
                     "Do you want to make another",
-                   $"change to {OurCustomer.Name}?"},'f');
+                   $"change to {Current.customer.Name}?"},'f');
 
                 repeat = Builder.Choice();
 
             } while(repeat);
-            BL.AddClass(OurCustomer);
 
-             //Reset display for new menu selection
+            
+            
+            //Reset display for new menu selection
             Builder.Pause();
 
-            Builder.Reset(new List<string>(){
+         /*/   Builder.Reset(new List<string>(){
                 "Customer Modified!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Find another Customer"});
+                "[1] - Change another Customer"});/*/
         }
 
         public MenuType Choice()
-        {
-            MenuBuilder Builder = new MenuBuilder();
+        {   return MenuType.Customer;
+        /*/    MenuBuilder Builder = new MenuBuilder();
             int userChoice = Builder.GetInt();
             switch (userChoice)
             {
@@ -90,7 +81,7 @@ namespace UserInterface
                 default:
                     Builder.Add("Not a choice. Try again.",1);
                     return MenuType.ModifyCustomer;
-            }
+            }/*/
             
         }
 

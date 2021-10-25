@@ -6,10 +6,10 @@ using BusinessLogic;
 
 namespace UserInterface
 {
-    public class DeleteCustomerMenu : IMenu
+    public class SelectCustomerMenu : IMenu
     {
 
-        //ask for a string and search against all of the Customer database to return a select List<Customer>, show it, user selects one, modify that customer.
+        //Calls Search and Select from builder, then sets CurrentCustomer to the selected customer
         public void Display()
         {
             MenuBuilder Builder = new MenuBuilder();
@@ -19,42 +19,35 @@ namespace UserInterface
             //Search database for Customer list
             List<Customer> SelectCustomers = Builder.Search(new Customer());
 
-            //Select Customer from list
+            //Select Customer from search list
             Customer OurCustomer = Builder.ChooseClassFromList(SelectCustomers);
 
-            //Delete Customer
-            BL.DelClass(OurCustomer);
+            Current.customer = OurCustomer;
 
-            //Show Customer database
-            Builder.ShowAll(BL.GetAllClasses(OurCustomer));
-
-            //Reset menu for new menu selection
             Builder.Pause();
-
             Builder.Reset(new List<string>(){
-                "Customer Deleted!",
+                "Current Customer Set!",
                 "---------------",
                 "What do you want to do?",
                 "[0] - Go back",
-                "[1] - Find another Customer"});
+                "[1] - Change Customer again"});
         }
 
         public MenuType Choice()
-        {
-            MenuBuilder Builder = new MenuBuilder();
+        {   return MenuType.Customer;
+         /*/   MenuBuilder Builder = new MenuBuilder();
             int userChoice = Builder.GetInt();
             switch (userChoice)
             {
                 case 0:
                     return MenuType.Customer;
                 case 1:
-                    return MenuType.DeleteCustomer;
+                    return MenuType.SelectCustomer;
                 default:
                     Builder.Add("Not a choice. Try again.",1);
-                    return MenuType.DeleteCustomer;
-            }
+                    return MenuType.SelectCustomer;
+            }/*/
             
         }
-
     }
 }

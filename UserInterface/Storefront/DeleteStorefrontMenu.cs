@@ -16,7 +16,7 @@ namespace UserInterface{
 
             Storefront OurStorefront = Builder.ChooseClassFromList(SelectStorefronts);  //Select Storefront from list
 
-            BL.DelClass(OurStorefront);                                                 //Delete Storefront from database
+            BL.Delete(OurStorefront);                                                 //Delete Storefront from database
 
             Builder.Pause("Storefront deleted!");                                      //Reset menu for new menu selection
 

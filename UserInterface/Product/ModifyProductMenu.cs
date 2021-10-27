@@ -23,7 +23,7 @@ namespace UserInterface
 
         //Modify Product
             bool repeat = false;
-            BL.DelClass(OurProduct);
+            BL.Delete(OurProduct);
             do{
                 Builder.Add(new List<string>(){
                     "What do you want to change?",
@@ -61,7 +61,7 @@ namespace UserInterface
                 repeat = Builder.Choice();
 
             } while(repeat);
-            BL.AddClass(OurProduct);
+            BL.Add(OurProduct);
 
         //Reset display for new menu selection
             Builder.Add(" ");

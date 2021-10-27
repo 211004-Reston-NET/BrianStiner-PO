@@ -13,7 +13,7 @@ namespace UserInterface
             IBusiness BL = new Business();
             MenuBuilder Builder = new MenuBuilder();
 
-            Builder.ShowAll(BL.GetAllClasses(new LineItem()));
+            Builder.ShowAll(BL.GetAll(new LineItem()));
 
             Builder.Pause();
 

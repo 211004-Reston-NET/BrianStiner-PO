@@ -1,41 +1,77 @@
 using System.Collections.Generic;
-using Models;
+using M = Models;
 
 namespace DataAccessLogic
 {
     public interface IRepository
     {
+        // Useful Methods in Repository: Add, Delete, GetAll, Get, Update
+
+
+
         /// <summary>
         /// These will add a Class in our database
         /// </summary>
-        /// <param name="p_IC">This is the Class we will be adding to the database</param>
-        void AddClass(Customer p_IC);
-        void AddClass(Storefront p_IC);
-        void AddClass(Order p_IC);
-        void AddClass(LineItem p_IC);
-        void AddClass(Product p_IC);
+        /// <param name="p_IC">This is the Class we will be adding to the database</M.param>
+        void Add(M.Customer p_IC);
+        void Add(M.Storefront p_IC);
+        void Add(M.Order p_IC);
+        void Add(M.LineItem p_IC);
+        void Add(M.Product p_IC);
 
 
         /// <summary>
         /// These will delete a Class in our database
         /// </summary>
-        /// <param name="p_IC">This is the Class we will be deleting from the database</param>
-        void DelClass(Customer p_IC);
-        void DelClass(Storefront p_IC);
-        void DelClass(Order p_IC);
-        void DelClass(LineItem p_IC);
-        void DelClass(Product p_IC);
+        /// <param name="p_IC">This is the Class we will be deleting from the database</M.param>
+        void Delete(M.Customer p_IC);
+        void Delete(M.Storefront p_IC);
+        void Delete(M.Order p_IC);
+        void Delete(M.LineItem p_IC);
+        void Delete(M.Product p_IC);
 
 
         /// <summary>
         /// These will return a list of Classes stored in the database.
         /// </summary>
         /// <returns>It will return a list of Classes</returns>
-        List<Customer> GetAllClasses(Customer p_IC);
-        List<Storefront> GetAllClasses(Storefront p_IC);
-        List<Order> GetAllClasses(Order p_IC);
-        List<LineItem> GetAllClasses(LineItem p_IC);
-        List<Product> GetAllClasses(Product p_IC);
+        List<M.Customer> GetAll(M.Customer p_IC);
+        List<M.Storefront> GetAll(M.Storefront p_IC);
+        List<M.Order> GetAll(M.Order p_IC);
+        List<M.LineItem> GetAll(M.LineItem p_IC);
+        List<M.Product> GetAll(M.Product p_IC);
 
+        /// <summary>
+        /// These will return a Class stored in the database.
+        /// </summary>
+        /// <returns>It will return a Class</returns>
+        M.Customer Get(M.Customer p_IC);
+        M.Storefront Get(M.Storefront p_IC);
+        M.Order Get(M.Order p_IC);
+        M.LineItem Get(M.LineItem p_IC);
+        M.Product Get(M.Product p_IC);
+
+        /// <summary>
+        /// These will update a Class in our database
+        /// </summary>
+        /// <param name="p_IC">This is the Class we will be updating in the database</M.param>
+        void Update(M.Customer p_IC);
+        void Update(M.Storefront p_IC);
+        void Update(M.Order p_IC);
+        void Update(M.LineItem p_IC);
+        void Update(M.Product p_IC);
+
+        /// <summary>
+        /// These will return all Classes that match the search criteria
+        /// </summary>
+        /// <param name="p_IC">This is the Class we will be searching for in the database</M.param>
+        /// <param name="p_Search">This is the search criteria</param>
+        /// <returns>It will return a list of Classes</returns>
+        List<M.Customer> Search(M.Customer p_IC, string p_Search);
+        List<M.Storefront> Search(M.Storefront p_IC, string p_Search);
+        List<M.Order> Search(M.Order p_IC, string p_Search);
+        List<M.LineItem> Search(M.LineItem p_IC, string p_Search);
+        List<M.Product> Search(M.Product p_IC, string p_Search);
+        
     }
 }

@@ -23,7 +23,7 @@ namespace UserInterface
 
             Order newOrder = new Order(location);
             IBusiness BL = new Business();
-            BL.AddClass(newOrder);
+            BL.Add(newOrder);
 
             Builder.Reset(new List<string>(){
                 "Order Added!",

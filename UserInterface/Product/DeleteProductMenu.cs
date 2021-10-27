@@ -20,9 +20,9 @@ namespace UserInterface
 
             Product OurProduct = Builder.ChooseClassFromList(SelectProducts);
 
-            BL.DelClass(OurProduct);
+            BL.Delete(OurProduct);
 
-            Builder.ShowAll(BL.GetAllClasses(OurProduct));
+            Builder.ShowAll(BL.GetAll(OurProduct));
 
             Builder.Pause();
 

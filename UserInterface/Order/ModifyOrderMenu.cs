@@ -23,7 +23,7 @@ namespace UserInterface
 
         //Modify Order
             bool repeat = false;
-            BL.DelClass(OurOrder);
+            BL.Delete(OurOrder);
             do{
                 Builder.Add(new List<string>(){
                     "What do you want to change?",
@@ -51,7 +51,7 @@ namespace UserInterface
                 repeat = Builder.Choice();
 
             } while(repeat);
-            BL.AddClass(OurOrder);
+            BL.Add(OurOrder);
 
         //Reset display for new menu selection
             Builder.Add(" ");

@@ -14,45 +14,52 @@ namespace BusinessLogic
     
         /// <summary> These will pass a Class to our _repo database </summary>
         /// <param name="p_IC">This is the IClass we will be adding to the database</param>
-        void AddClass(Customer p_IC);
-        void AddClass(Storefront p_IC);
-        void AddClass(Order p_IC);
-        void AddClass(LineItem p_IC);
-        void AddClass(Product p_IC);
+        void Add(Customer p_IC);
+        void Add(Storefront p_IC);
+        void Add(Order p_IC);
+        void Add(LineItem p_IC);
+        void Add(Product p_IC);
 
 
         /// <summary> These will pass a Class to the database. </summary>
         /// <returns>It will return a list of Classes</returns>
-        List<Customer> GetAllClasses(Customer p_IC);
-        List<Storefront> GetAllClasses(Storefront p_IC);
-        List<Order> GetAllClasses(Order p_IC);
-        List<LineItem> GetAllClasses(LineItem p_IC);
-        List<Product> GetAllClasses(Product p_IC);
+        List<Customer> GetAll(Customer p_IC);
+        List<Storefront> GetAll(Storefront p_IC);
+        List<Order> GetAll(Order p_IC);
+        List<LineItem> GetAll(LineItem p_IC);
+        List<Product> GetAll(Product p_IC);
 
 
         /// <summary> These will pass a Class to the database for deletion. </summary>
-        void DelClass(Customer p_IC);
-        void DelClass(Storefront p_IC);
-        void DelClass(Order p_IC);
-        void DelClass(LineItem p_IC);
-        void DelClass(Product p_IC);
+        void Delete(Customer p_IC);
+        void Delete(Storefront p_IC);
+        void Delete(Order p_IC);
+        void Delete(LineItem p_IC);
+        void Delete(Product p_IC);
+
+        /// <summary> These return a Class from the database that matches the Id </summary>
+        Customer Get(Customer p_IC);
+        Storefront Get(Storefront p_IC);
+        Order Get(Order p_IC);
+        LineItem Get(LineItem p_IC);
+        Product Get(Product p_IC);
+
+        /// <summary> These will pass a Class to the database for updating. </summary>
+        void Update(Customer p_IC);
+        void Update(Storefront p_IC);
+        void Update(Order p_IC);
+        void Update(LineItem p_IC);
+        void Update(Product p_IC);
+
 
 
         /// <summary> These will pass a Class to the database. </summary>
         /// <returns>It will return a list of Classes</returns>
-        List<Customer> SearchClass(Customer p_IC, string p_search);
-        List<Storefront> SearchClass(Storefront p_IC, string p_search);
-        List<Order> SearchClass(Order p_IC, string p_search);
-        List<LineItem> SearchClass(LineItem p_IC, string p_search);
-        List<Product> SearchClass(Product p_IC, string p_search);
-
-        /* <summary> These will pass a Class to the database. </summary>
-        /// <returns>It will return a list of Classes</returns>
-        Customer ChooseClassFromList(List<Customer> p_ICList);
-        Storefront ChooseClassFromList(List<Storefront> p_ICList);
-        Order ChooseClassFromList(List<Order> p_ICList);
-        LineItem ChooseClassFromList(List<LineItem> p_ICList);
-        Product ChooseClassFromList(List<Product> p_ICList);*/
+        List<Customer> Search(Customer p_IC, string p_search);
+        List<Storefront> Search(Storefront p_IC, string p_search);
+        List<Order> Search(Order p_IC, string p_search);
+        List<LineItem> Search(LineItem p_IC, string p_search);
+        List<Product> Search(Product p_IC, string p_search);
 
     }
 }

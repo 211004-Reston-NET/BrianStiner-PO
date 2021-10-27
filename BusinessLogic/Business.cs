@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Models;
-using DataAccessLogic;
+using DAL = DataAccessLogic;
 
 namespace BusinessLogic
 {
@@ -13,89 +13,119 @@ namespace BusinessLogic
     /// </summary>
     public class Business :IBusiness
     {
-        private IRepository _repo = new Repository();
+        private DAL.IRepository _repo;
 
 
         //Customer
-        public void AddClass(Customer p_IC){
-            _repo.AddClass(p_IC);       
+        public void Add(Customer p_IC){
+            _repo.Add(p_IC);       
         }
-        public List<Customer> GetAllClasses(Customer p_IC){
-            return _repo.GetAllClasses(p_IC);
+        public List<Customer> GetAll(Customer p_IC){
+            return _repo.GetAll(p_IC);
         }
-        public void DelClass(Customer p_IC){
-            _repo.DelClass(p_IC);
+        public void Delete(Customer p_IC){
+            _repo.Delete(p_IC);
         }
-        public List<Customer> SearchClass(Customer p_IC, string p_search){
-            List<Customer> listOfCustomers = _repo.GetAllClasses(p_IC);
-            return listOfCustomers.Where(IC => IC.Name.ToLower().Contains(p_search.ToLower())).ToList();
+        public List<Customer> Search(Customer p_IC, string p_search){
+            return _repo.Search(p_IC, p_search);
         }
 
 
         //Storefront
-        public void AddClass(Storefront p_IC){
-            _repo.AddClass(p_IC);       
+        public void Add(Storefront p_IC){
+            _repo.Add(p_IC);       
         }
-        public List<Storefront> GetAllClasses(Storefront p_IC){
-            return _repo.GetAllClasses(p_IC);
+        public List<Storefront> GetAll(Storefront p_IC){
+            return _repo.GetAll(p_IC);
         }
-        public void DelClass(Storefront p_IC){
-            _repo.DelClass(p_IC);       
+        public void Delete(Storefront p_IC){
+            _repo.Delete(p_IC);       
         }
-        public List<Storefront> SearchClass(Storefront p_IC, string p_search)
-        {
-            List<Storefront> listOfStorefronts = _repo.GetAllClasses(p_IC);
-            return listOfStorefronts.Where(IC => IC.Name.ToLower().Contains(p_search.ToLower())).ToList();
+        public List<Storefront> Search(Storefront p_IC, string p_search){
+            return _repo.Search(p_IC, p_search);
         }
 
 
         //Order
-        public void AddClass(Order p_IC){
-            _repo.AddClass(p_IC);       
+        public void Add(Order p_IC){
+            _repo.Add(p_IC);       
         }
-        public List<Order> GetAllClasses(Order p_IC){
-            return _repo.GetAllClasses(p_IC);
+        public List<Order> GetAll(Order p_IC){
+            return _repo.GetAll(p_IC);
         }
-        public void DelClass(Order p_IC){
-            _repo.DelClass(p_IC);       
+        public void Delete(Order p_IC){
+            _repo.Delete(p_IC);       
         }
-        public List<Order> SearchClass(Order p_IC, string p_search){
-            List<Order> listOfOrders = _repo.GetAllClasses(p_IC);
-            return listOfOrders.Where(IC => IC.Location.ToLower().Contains(p_search.ToLower())).ToList();
+        public List<Order> Search(Order p_IC, string p_search){
+            return _repo.Search(p_IC, p_search);
         }
 
 
         //LineItem
-        public void AddClass(LineItem p_IC){
-            _repo.AddClass(p_IC);       
+        public void Add(LineItem p_IC){
+            _repo.Add(p_IC);       
         }
-        public List<LineItem> GetAllClasses(LineItem p_IC){
-            return _repo.GetAllClasses(p_IC);
+        public List<LineItem> GetAll(LineItem p_IC){
+            return _repo.GetAll(p_IC);
         }
-        public void DelClass(LineItem p_IC){
-            _repo.DelClass(p_IC);       
+        public void Delete(LineItem p_IC){
+            _repo.Delete(p_IC);       
         }
-        public List<LineItem> SearchClass(LineItem p_IC, string p_search){
-            List<LineItem> listOfLineItems = _repo.GetAllClasses(p_IC);
-            return listOfLineItems.Where(IC => IC.LineProduct.Name.ToLower().Contains(p_search.ToLower())).ToList();
+        public List<LineItem> Search(LineItem p_IC, string p_search){
+            return _repo.Search(p_IC, p_search);
         }
 
 
         //Product
-        public void AddClass(Product p_IC){
-            _repo.AddClass(p_IC);       
+        public void Add(Product p_IC){
+            _repo.Add(p_IC);       
         }
-        public List<Product> GetAllClasses(Product p_IC){
-            return _repo.GetAllClasses(p_IC);
+        public List<Product> GetAll(Product p_IC){
+            return _repo.GetAll(p_IC);
         }
-        public void DelClass(Product p_IC){
-            _repo.DelClass(p_IC);       
+        public void Delete(Product p_IC){
+            _repo.Delete(p_IC);       
         }
-        public List<Product> SearchClass(Product p_IC, string p_search){
-            List<Product> listOfProducts = _repo.GetAllClasses(p_IC);
-            return listOfProducts.Where(IC => IC.Name.ToLower().Contains(p_search.ToLower())).ToList();
+        public List<Product> Search(Product p_IC, string p_search){
+            return _repo.Search(p_IC, p_search);
         }
 
 
+        // Methods Get: parameter class. Overloaded 5 times. Passes and returns a class with matching ID
+        public Customer Get(Customer p_IC){
+            return _repo.Get(p_IC);
+        }
+        public Storefront Get(Storefront p_IC){
+            return _repo.Get(p_IC);
+        }
+        public Order Get(Order p_IC){
+            return _repo.Get(p_IC);
+        }
+        public LineItem Get(LineItem p_IC){
+            return _repo.Get(p_IC);
+        }
+        public Product Get(Product p_IC){
+            return _repo.Get(p_IC);
+        }
+
+
+        // Methods Update: parameter class. Overloaded 5 times. Passes a Class to update the matching ID.
+        public void Update(Customer p_IC){
+            _repo.Update(p_IC);
+        }
+        public void Update(Storefront p_IC){
+            _repo.Update(p_IC);
+        }
+        public void Update(Order p_IC){
+            _repo.Update(p_IC);
+        }
+        public void Update(LineItem p_IC){
+            _repo.Update(p_IC);
+        }
+        public void Update(Product p_IC){
+            _repo.Update(p_IC);
+        }
+
+        
     }
 }

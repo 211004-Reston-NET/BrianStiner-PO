@@ -24,7 +24,7 @@ namespace UserInterface
 
             Storefront newStorefront = new Storefront(name, address);
             IBusiness BL = new Business();
-            BL.AddClass(newStorefront);
+            BL.Add(newStorefront);
 
             Builder.Add("Storefront added!");
             Builder.Pause();

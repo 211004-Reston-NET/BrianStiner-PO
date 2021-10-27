@@ -19,7 +19,7 @@ namespace UserInterface
 
             LineItem newLineItem = new LineItem(quantity);
             IBusiness BL = new Business();
-            BL.AddClass(newLineItem);
+            BL.Add(newLineItem);
 
             Builder.Reset(new List<string>(){
                 "LineItem Added!",

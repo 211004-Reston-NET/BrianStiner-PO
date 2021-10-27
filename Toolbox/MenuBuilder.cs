@@ -172,7 +172,7 @@ namespace Toolbox
                 string entered = Console.ReadLine();
                 Add(entered);
 
-                SelectC = BL.SearchClass(p_IC, entered);
+                SelectC = BL.Search(p_IC, entered);
 
                 if(SelectC.Count == 0){Add("No results."); repeat = true;}
                 else{
@@ -206,7 +206,7 @@ namespace Toolbox
                 string entered = Console.ReadLine();
                 Add(entered);
 
-                SelectC = BL.SearchClass(p_IC, entered);
+                SelectC = BL.Search(p_IC, entered);
 
                 if(SelectC.Count == 0){Add("No results."); repeat = true;}
                 else{
@@ -239,7 +239,7 @@ namespace Toolbox
                 string entered = Console.ReadLine();
                 Add(entered);
 
-                SelectC = BL.SearchClass(p_IC, entered);
+                SelectC = BL.Search(p_IC, entered);
 
                 if(SelectC.Count == 0){Add("No results."); repeat = true;}
                 else{
@@ -272,7 +272,7 @@ namespace Toolbox
                 string entered = Console.ReadLine();
                 Add(entered);
 
-                SelectC = BL.SearchClass(p_IC, entered);
+                SelectC = BL.Search(p_IC, entered);
 
                 if(SelectC.Count == 0){Add("No results."); repeat = true;}
                 else{
@@ -305,7 +305,7 @@ namespace Toolbox
                 string entered = Console.ReadLine();
                 Add(entered);
 
-                SelectC = BL.SearchClass(p_IC, entered);
+                SelectC = BL.Search(p_IC, entered);
 
                 if(SelectC.Count == 0){Add("No results."); repeat = true;}
                 else{
@@ -447,4 +447,5 @@ namespace Toolbox
         public Customer SearchAndSelect(Customer p_IC){return ChooseClassFromList(Search(p_IC));}
         public Storefront SearchAndSelect(Storefront p_IC){return ChooseClassFromList(Search(p_IC));}
     }
+    //----------------------------------------------------------------------------------------------------------------------
 }

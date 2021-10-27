@@ -1,6 +1,18 @@
+using Microsoft;
+
+
 namespace UserInterface{ 
     class Factory : IFactory{
         public IMenu GetMenu(MenuType currentMenu){
+
+            /*/
+            var configuration = new Configuration()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .Build();/*/
+            
+        
+
             IMenu nextPage;
             switch (currentMenu){
 

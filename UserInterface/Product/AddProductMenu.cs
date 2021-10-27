@@ -35,7 +35,7 @@ namespace UserInterface
 
             Product newProduct = new Product(name, category, description, price);
             IBusiness BL = new Business();
-            BL.AddClass(newProduct);
+            BL.Add(newProduct);
 
             Builder.Reset(new List<string>(){
                 "Product Added!",

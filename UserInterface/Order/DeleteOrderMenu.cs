@@ -23,10 +23,10 @@ namespace UserInterface
             Order OurOrder = Builder.ChooseClassFromList(SelectOrders);
 
         //Delete Order
-            BL.DelClass(OurOrder);
+            BL.Delete(OurOrder);
 
         //Show Order database
-            Builder.ShowAll(BL.GetAllClasses(OurOrder));
+            Builder.ShowAll(BL.GetAll(OurOrder));
 
             //Reset menu for new menu selection
             Builder.Add(" ");

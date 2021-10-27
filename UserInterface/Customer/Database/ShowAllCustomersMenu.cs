@@ -13,7 +13,7 @@ namespace UserInterface
             IBusiness BL = new Business();
             MenuBuilder Builder = new MenuBuilder();
 
-            List<Customer> Customers = BL.GetAllClasses(new Customer());
+            List<Customer> Customers = BL.GetAll(new Customer());
 
             Builder.ShowAll(Customers);
 

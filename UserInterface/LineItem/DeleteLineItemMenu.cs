@@ -23,10 +23,10 @@ namespace UserInterface
             LineItem OurLineItem = Builder.ChooseClassFromList(SelectLineItems);
 
             //Delete LineItem
-            BL.DelClass(OurLineItem);
+            BL.Delete(OurLineItem);
 
             //Show LineItem database
-            Builder.ShowAll(BL.GetAllClasses(OurLineItem));
+            Builder.ShowAll(BL.GetAll(OurLineItem));
 
             //Reset menu for new menu selection
             Builder.Pause();

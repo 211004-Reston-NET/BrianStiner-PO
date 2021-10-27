@@ -1,0 +1,128 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+using M = Models;
+
+/* The logic to perform CRUD operations on the models.
+Contains repository specific logic on storing and accessing data
+*/
+
+namespace DataAccessLogic
+{
+    //Access the json files where data is stored.
+    public class RepositoryJson //: IRepository
+    {
+        private const string c_filepath = "./../DataAccessLogic/Database/";
+        private string _jsonString;
+
+        //Overridden AddClass. Receives Customer adds to Class.json file for storage.
+        //We add one IClass to the file by first adding to a list of IClasses, translating that list into json serial, then overwriting to the correct file.
+
+        public void Add(M.Customer p_IC){
+            List<M.Customer> listOfCustomer = GetAll(p_IC);
+            listOfCustomer.Add(p_IC);
+            _jsonString = JsonSerializer.Serialize(listOfCustomer, new JsonSerializerOptions{WriteIndented=true});
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        } public void Add(M.Storefront p_IC){
+            List<M.Storefront> listOfStorefront = GetAll(p_IC);
+            listOfStorefront.Add(p_IC);
+            _jsonString = JsonSerializer.Serialize(listOfStorefront, new JsonSerializerOptions{WriteIndented=true});
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void Add(M.Order p_IC){
+            List<M.Order> listOfOrders = GetAll(p_IC);
+            listOfOrders.Add(p_IC);
+            _jsonString = JsonSerializer.Serialize(listOfOrders, new JsonSerializerOptions{WriteIndented=true});
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void Add(M.LineItem p_IC){
+            List<M.LineItem> listOflineItems = GetAll(p_IC);
+            listOflineItems.Add(p_IC);
+            _jsonString = JsonSerializer.Serialize(listOflineItems, new JsonSerializerOptions{WriteIndented=true});
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void Add(M.Product p_IC){
+            List<M.Product> listOfProduct = GetAll(p_IC);
+            listOfProduct.Add(p_IC);
+            _jsonString = JsonSerializer.Serialize(listOfProduct, new JsonSerializerOptions{WriteIndented=true});
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }
+
+
+
+
+
+        //File IClass will announce their place and be put in a .json they choose
+        //Try to read all text from the file and turn into List. If nothings there alert and send blank List.
+        public List<M.Customer> GetAll(M.Customer p_IC){ 
+            try{
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json"); 
+                return JsonSerializer.Deserialize<List<M.Customer>>(_jsonString);    
+            }catch (System.IO.FileNotFoundException){
+                Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+                return new List<M.Customer>(); 
+            }
+            
+        }public List<M.Storefront> GetAll(M.Storefront p_IC){  
+            try{
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json"); 
+                return JsonSerializer.Deserialize<List<M.Storefront>>(_jsonString);
+            }catch (System.IO.FileNotFoundException){
+                Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+                return new List<M.Storefront>(); 
+            }
+        }public List<M.Order> GetAll(M.Order p_IC){ 
+            try{
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json"); 
+                return JsonSerializer.Deserialize<List<M.Order>>(_jsonString);    
+            }catch (System.IO.FileNotFoundException){
+                Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+                return new List<M.Order>(); 
+            } 
+        }public List<M.LineItem> GetAll(M.LineItem p_IC){
+            try{
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json"); 
+                return JsonSerializer.Deserialize<List<M.LineItem>>(_jsonString);    
+            }catch (System.IO.FileNotFoundException){
+                Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+                return new List<M.LineItem>(); 
+            } 
+        }public List<M.Product> GetAll(M.Product p_IC){  
+            try{
+                _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json"); 
+                return JsonSerializer.Deserialize<List<M.Product>>(_jsonString);    
+            }catch (System.IO.FileNotFoundException){
+                Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
+                return new List<M.Product>(); 
+            } 
+        }
+
+
+        //Overridden Delete a Class. Receives Class and a List<M.Class> from Class.json.
+        //Uses List.Remove(p_IC) on the list then Overwriting the file with the shorter list.
+        public void Delete(M.Customer p_IC){
+            List<M.Customer> listOfCustomer = GetAll(p_IC);
+            listOfCustomer.Remove(p_IC);
+            _jsonString = JsonSerializer.Serialize(listOfCustomer, new JsonSerializerOptions{WriteIndented=true});
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void Delete(M.Storefront p_IC){
+            List<M.Storefront> listOfStorefront = GetAll(p_IC);
+            listOfStorefront.Remove(p_IC);
+            _jsonString = JsonSerializer.Serialize(listOfStorefront, new JsonSerializerOptions{WriteIndented=true});
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void Delete(M.Order p_IC){
+            List<M.Order> listOfOrders = GetAll(p_IC);
+            listOfOrders.Remove(p_IC);
+            _jsonString = JsonSerializer.Serialize(listOfOrders, new JsonSerializerOptions{WriteIndented=true});
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void Delete(M.LineItem p_IC){
+            List<M.LineItem> listOflineItems = GetAll(p_IC);
+            listOflineItems.Remove(p_IC);
+            _jsonString = JsonSerializer.Serialize(listOflineItems, new JsonSerializerOptions{WriteIndented=true});
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }public void Delete(M.Product p_IC){
+            List<M.Product> listOfProduct = GetAll(p_IC);
+            listOfProduct.Remove(p_IC);
+            _jsonString = JsonSerializer.Serialize(listOfProduct, new JsonSerializerOptions{WriteIndented=true});
+            File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }
+    }
+}

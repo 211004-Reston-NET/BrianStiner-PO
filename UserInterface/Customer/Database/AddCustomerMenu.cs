@@ -31,7 +31,7 @@ namespace UserInterface
 
             Customer newCustomer = new Customer(name, address, email, phoneNumber);
             IBusiness BL = new Business();
-            BL.AddClass(newCustomer);
+            BL.Add(newCustomer);
 
             Builder.Pause("Customer added to database.");
         }

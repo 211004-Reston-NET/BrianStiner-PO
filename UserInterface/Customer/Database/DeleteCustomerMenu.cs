@@ -20,7 +20,7 @@ namespace UserInterface
 
             Customer OurCustomer = Builder.ChooseClassFromList(SelectCustomers); //Select Customer from Customer list
 
-            BL.DelClass(OurCustomer);                                            //Delete Customer
+            BL.Delete(OurCustomer);                                            //Delete Customer
     
             //Builder.ShowAll(BL.GetAllClasses(OurCustomer));                    //Show Customer database
         

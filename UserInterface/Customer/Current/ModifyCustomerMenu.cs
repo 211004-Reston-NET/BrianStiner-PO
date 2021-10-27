@@ -41,7 +41,7 @@ namespace UserInterface
                         Current.customer.Email = Builder.GetEmail();
                         break;
                     case 4:
-                        Current.customer.PhoneNumber = Builder.GetPhoneNumber();
+                        Current.customer.Phone = Builder.GetPhoneNumber();
                         break;
                     default:
                         break;

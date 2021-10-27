@@ -23,7 +23,7 @@ namespace UserInterface
 
         //Modify LineItem
             bool repeat = false;
-            BL.DelClass(OurLineItem);
+            BL.Delete(OurLineItem);
             do{
                 Builder.Add(new List<string>(){
                     "What do you want to change?",
@@ -49,7 +49,7 @@ namespace UserInterface
                 repeat = Builder.Choice();
 
             } while(repeat);
-            BL.AddClass(OurLineItem);
+            BL.Add(OurLineItem);
 
             //Reset display for new menu selection
             Builder.Pause();

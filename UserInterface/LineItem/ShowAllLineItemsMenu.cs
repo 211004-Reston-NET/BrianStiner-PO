@@ -6,9 +6,12 @@ using Models;
 
 namespace UserInterface{
     public class ShowAllLineItemsMenu : IMenu{
+        IBusiness BL; MenuBuilder Builder;
+        public ShowAllLineItemsMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
         public void Display(){
-            IBusiness BL = new Business();
-            MenuBuilder Builder = new MenuBuilder();
 
             Builder.ShowAll(BL.GetAll(new LineItem()));
 

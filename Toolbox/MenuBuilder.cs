@@ -15,7 +15,12 @@ namespace Toolbox
     {
         
         List<string> menulines = new List<string>();    //This is the list of strings that will be displayed
-        IBusiness BL = new Business();                  //This is the business logic object that will be used to interact with the database
+        IBusiness BL;                  //This is the business logic object that will be used to interact with the database
+        public MenuBuilder(IBusiness BL)
+        {
+            this.BL = BL;
+        }
+
 
         public void BuildMenu()
         {
@@ -365,7 +370,6 @@ namespace Toolbox
         public Product Select(List<Product> p_ICList){
             int choice = 0;
             bool repeat = false;
-            Add();
             Add("Enter number for your choice.",'b');
             do{
                 try{
@@ -379,7 +383,6 @@ namespace Toolbox
         public LineItem Select(List<LineItem> p_ICList){
             int choice = 0;
             bool repeat = false;
-            Add();
             Add("Enter number for your choice.",'b');
             do{
                 try{choice = GetInt(); repeat = false;}
@@ -391,7 +394,6 @@ namespace Toolbox
         public Order Select(List<Order> p_ICList){
             int choice = 0;
             bool repeat = false;
-            Add();
             Add("Enter number for your choice.",'b');
             do{
                 try{
@@ -404,7 +406,6 @@ namespace Toolbox
         public Customer Select(List<Customer> p_ICList){
             int choice = 0;
             bool repeat = false;
-            Add();
             Add("Enter number for your choice.",'b');
             do{
                 try{
@@ -418,7 +419,6 @@ namespace Toolbox
         public Storefront Select(List<Storefront> p_ICList){
             int choice = 0;
             bool repeat = false;
-            Add();
             Add("Enter number for your choice.",'b');
             do{
                 try{

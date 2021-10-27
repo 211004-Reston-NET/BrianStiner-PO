@@ -4,13 +4,14 @@ using Toolbox;
 using Models;
 using BusinessLogic;
 
-namespace UserInterface
-{
-    public class AddProductMenu : IMenu
-    {
-        public void Display()
-        {
-            MenuBuilder Builder = new MenuBuilder();    
+namespace UserInterface{
+    public class AddProductMenu : IMenu{
+        IBusiness BL; MenuBuilder Builder;
+        public AddProductMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
+        public void Display(){    
  
             Builder.Add("Fill in Product's info,");
             Builder.Add("What is their name?",'b');
@@ -30,7 +31,6 @@ namespace UserInterface
             Builder.Add("${price}");
 
             Product newProduct = new Product(name, category, description, price);
-            IBusiness BL = new Business();
             BL.Add(newProduct);
 
             Builder.Pause($"{newProduct.Name} Added!");   

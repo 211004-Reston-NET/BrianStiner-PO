@@ -7,9 +7,9 @@ namespace UserInterface{
         public static Storefront storefront = new Storefront();      // The current storefront
 
 
-        private static readonly Current instance = new Current();    // Singleton instance for Current
+        private static readonly Current instance = new Current();    // Singleton instance for Current. This version is thread safe.
         static Current(){} 
         private Current(){}    
-        public static Current Instance{get{return instance;}}    
+        public static Current Instance{get{return instance;}} 
     }  
 }

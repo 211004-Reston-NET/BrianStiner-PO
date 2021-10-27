@@ -1,10 +1,15 @@
 using System;
 using System.Collections.Generic;
+using BusinessLogic;
 using Toolbox;
 
 namespace UserInterface{
     public class ProductMenu : IMenu{
-        MenuBuilder Builder = new MenuBuilder();
+        MenuBuilder Builder; IBusiness BL;
+        public ProductMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
         public void Display(){
             Builder.Reset(new List<string>()
                 {"Product Menu,",

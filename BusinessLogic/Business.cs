@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Models;
-using DAL = DataAccessLogic;
+using DataAccessLogic;
 
 namespace BusinessLogic
 {
@@ -13,7 +13,11 @@ namespace BusinessLogic
     /// </summary>
     public class Business :IBusiness
     {
-        private DAL.IRepository _repo;
+        private IRepository _repo;
+        public Business(IRepository repo)
+        {
+            _repo = repo;
+        }
 
 
         //Customer

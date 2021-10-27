@@ -1,14 +1,22 @@
 using System;
 using System.Collections.Generic;
 using Toolbox;
+using BusinessLogic;
 
 namespace UserInterface
 {
     public class CustomerMenu : IMenu
     {
+        IBusiness BL;
+        MenuBuilder Builder;
+        public CustomerMenu(IBusiness BL)
+        {
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
+
         public void Display()
         {
-            MenuBuilder Builder = new MenuBuilder();
             Builder.Reset(new List<string>()
                 {"Customer Menu,",
                 "What do you want to do?", 
@@ -27,7 +35,6 @@ namespace UserInterface
 
         public MenuType Choice()
         {
-            MenuBuilder Builder = new MenuBuilder();
 
             switch (Builder.GetInt())
             {

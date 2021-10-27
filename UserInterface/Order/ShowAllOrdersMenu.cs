@@ -4,14 +4,14 @@ using Toolbox;
 using BusinessLogic;
 using Models;
 
-namespace UserInterface
-{
-    public class ShowAllOrdersMenu : IMenu
-    {
-        public void Display()
-        {
-            IBusiness BL = new Business();
-            MenuBuilder Builder = new MenuBuilder();
+namespace UserInterface{
+    public class ShowAllOrdersMenu : IMenu{
+        IBusiness BL; MenuBuilder Builder;
+        public ShowAllOrdersMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
+        public void Display(){
 
             Builder.ShowAll(BL.GetAll(new Order()));
 
@@ -26,21 +26,7 @@ namespace UserInterface
 
         }
 
-        public MenuType Choice()
-        {
-            MenuBuilder Builder = new MenuBuilder();
-            int userChoice = Builder.GetInt();
-            switch (userChoice)
-            {
-                case 0:
-                    return MenuType.Order;
-                case 1:
-                    return MenuType.ShowAllOrders;
-                default:
-                    Builder.Pause("Not a choice. Try again.");
-                    return MenuType.Main;
-            }
-            
-        }
+        public MenuType Choice() {return MenuType.Order;}    
+        
     }
 }

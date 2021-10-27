@@ -1,10 +1,16 @@
 using System;
 using System.Collections.Generic;
+using BusinessLogic;
 using Toolbox;
 
 namespace UserInterface{
     public class LineItemMenu : IMenu{
-        MenuBuilder Builder = new MenuBuilder();
+        MenuBuilder Builder; IBusiness BL;
+        public LineItemMenu(IBusiness BusinessLogic){
+            BL = BusinessLogic;
+            Builder = new MenuBuilder(BL);
+        }
+        
         public void Display(){
             
             Builder.Reset(new List<string>()
@@ -18,7 +24,7 @@ namespace UserInterface{
         }
 
         public MenuType Choice(){
-            
+
             switch (Builder.GetInt()){
                 case 0:
                     return MenuType.Main;

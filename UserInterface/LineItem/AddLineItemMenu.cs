@@ -6,9 +6,12 @@ using BusinessLogic;
 
 namespace UserInterface{
     public class AddLineItemMenu : IMenu{
-        public void Display(){
-            MenuBuilder Builder = new MenuBuilder();
-            IBusiness BL = new Business();    
+        IBusiness BL; MenuBuilder Builder;
+        public AddLineItemMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
+        public void Display(){ 
  
             Builder.Add("Fill in LineItem's info:");
             Builder.Add("What is their name?",'b');

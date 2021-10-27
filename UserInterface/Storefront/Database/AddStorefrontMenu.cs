@@ -6,8 +6,13 @@ using BusinessLogic;
 
 namespace UserInterface{
     public class AddStorefrontMenu : IMenu{
-        public void Display(){
-            MenuBuilder Builder = new MenuBuilder();    
+        IBusiness BL;
+        MenuBuilder Builder;
+        public AddStorefrontMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
+        public void Display(){   
  
             Builder.Add("Fill in Storefront's info:");
             Builder.Add("What is their name?",'b');
@@ -21,7 +26,6 @@ namespace UserInterface{
 
             Storefront newStorefront = new Storefront(name, address);
 
-            IBusiness BL = new Business();
             BL.Add(newStorefront);
 
             Builder.Pause("Storefront added!");

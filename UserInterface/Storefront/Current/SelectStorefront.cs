@@ -6,10 +6,15 @@ using BusinessLogic;
 
 namespace UserInterface{
     public class SelectStorefrontMenu : IMenu{
+        IBusiness BL;
+        MenuBuilder Builder;
+        public SelectStorefrontMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
 
         //Search database for Storefront list, Select Storefront from search list, Assign to Current.storefront
         public void Display(){
-            MenuBuilder Builder = new MenuBuilder();
             
             Current.storefront = Builder.SearchAndSelect(new Storefront());  
 

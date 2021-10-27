@@ -6,8 +6,12 @@ using BusinessLogic;
 
 namespace UserInterface{
     public class AddOrderMenu : IMenu{
-        public void Display(){
-            MenuBuilder Builder = new MenuBuilder();    
+        IBusiness BL; MenuBuilder Builder;
+        public AddOrderMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
+        public void Display(){   
  
             Builder.Add("Fill in Order's info,");
             Builder.Add("Where is the Order from?",'b');
@@ -15,7 +19,7 @@ namespace UserInterface{
             Builder.Add(location);
 
             Order newOrder = new Order(location);
-            IBusiness BL = new Business();
+
             BL.Add(newOrder);
 
             Builder.Pause("Order Added!");

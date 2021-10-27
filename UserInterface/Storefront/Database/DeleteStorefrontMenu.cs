@@ -6,11 +6,13 @@ using BusinessLogic;
 
 namespace UserInterface{
     public class DeleteStorefrontMenu : IMenu{
-
-        
+        IBusiness BL;
+        MenuBuilder Builder;
+        public DeleteStorefrontMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
         public void Display(){
-            MenuBuilder Builder = new MenuBuilder();
-            IBusiness BL = new Business();
             
             List<Storefront> SelectStorefronts = Builder.Search(new Storefront());      //Search database for Storefront list
 

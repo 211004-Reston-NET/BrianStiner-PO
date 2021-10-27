@@ -9,9 +9,9 @@ namespace DataAccessLogic
     public class Repository : IRepository
     {
         private Entity.revaturedatabaseContext _context;
-        public Repository(Entity.revaturedatabaseContext context)
+        public Repository(Entity.revaturedatabaseContext p_context)
         {
-            _context = context;
+            _context = p_context;
         }
         
 

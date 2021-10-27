@@ -4,16 +4,16 @@ using Toolbox;
 using Models;
 using BusinessLogic;
 
-namespace UserInterface
-{
-    public class ModifyOrderMenu : IMenu
-    {
+namespace UserInterface{
+    public class ModifyOrderMenu : IMenu{
+        IBusiness BL; MenuBuilder Builder;
+        public ModifyOrderMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
 
         //ask for a string and search against all of the Order database to return a select List<Order>, show it, user selects one, modify that Order.
-        public void Display()
-        {
-            MenuBuilder Builder = new MenuBuilder();
-            IBusiness BL = new Business();
+        public void Display(){
             Builder.Reset();
 
         //Search database for Order list
@@ -53,35 +53,11 @@ namespace UserInterface
             } while(repeat);
             BL.Add(OurOrder);
 
-        //Reset display for new menu selection
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
-
-            Builder.Reset(new List<string>(){
-                "Order Modified!",
-                "---------------",
-                "What do you want to do?",
-                "[0] - Go back",
-                "[1] - Find another Order"});
+            Builder.Pause("Order Modified!");
         }
 
-        public MenuType Choice()
-        {
-            MenuBuilder Builder = new MenuBuilder();
-            int userChoice = Builder.GetInt();
-            switch (userChoice)
-            {
-                case 0:
-                    return MenuType.Order;
-                case 1:
-                    return MenuType.ModifyOrder;
-                default:
-                    Builder.Pause("Not a choice. Try again.");
-                    return MenuType.Main;
-            }
+        public MenuType Choice(){return MenuType.Order;}
             
-        }
 
     }
 }

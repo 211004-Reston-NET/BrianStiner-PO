@@ -4,26 +4,22 @@ using Toolbox;
 using Models;
 using BusinessLogic;
 
-namespace UserInterface
-{
-    public class ModifyProductMenu : IMenu
-    {
+namespace UserInterface{
+    public class ModifyProductMenu : IMenu{
+        IBusiness BL; MenuBuilder Builder;
+        public ModifyProductMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
 
         //ask for a string and search against all of the Product database to return a select List<Product>, show it, user selects one, modify that Product.
-        public void Display()
-        {
-            MenuBuilder Builder = new MenuBuilder();
-            IBusiness BL = new Business();
-            Builder.Reset();
+        public void Display(){
 
-        //Search database for Product list
-            List<Product> SelectProducts = Builder.Search(new Product());
-        //Select Product from list
-            Product OurProduct = Builder.Select(SelectProducts);
+            Product OurProduct = Builder.SearchAndSelect(new Product());//Search database for Product list//Select Product from list
 
-        //Modify Product
-            bool repeat = false;
+            
             BL.Delete(OurProduct);
+
             do{
                 Builder.Add(new List<string>(){
                     "What do you want to change?",
@@ -32,25 +28,29 @@ namespace UserInterface
                     "[3] - Description",
                     "[4] - Price"});
 
-                string choice2 = Console.ReadLine();
+                int choice = Builder.GetInt();
 
                 Builder.Add("What is the new value?",'b');
 
-                switch(choice2)
+                switch(choice)              //Modify Product value
                 {
-                    case "1":
-                        OurProduct.Name = Console.ReadLine();
+                    case 1:
+                        OurProduct.Name = Builder.GetString();
                         break;
-                    case "2":
-                        OurProduct.Category = Console.ReadLine();
+                    case 2:
+                        OurProduct.Category = Builder.GetString();
                         break;  
-                    case "3":
-                        OurProduct.Description = Console.ReadLine();
+                    case 3:
+                        OurProduct.Description = Builder.GetString();
                         break;
-                    case "4":
-                        OurProduct.Price = decimal.Parse(Console.ReadLine());
+                    case 4:
+                        OurProduct.Price = Builder.GetDecimal();
                         break;
                     default:
+                        Builder.Reset(new List<string>(){
+                            "Invalid choice, only 1-4 are valid",
+                            "You have not made a change to the product",
+                            "",});
                         break;
                 }
                 Builder.Add(new List<string>(){
@@ -58,40 +58,14 @@ namespace UserInterface
                     "Do you want to make another",
                    $"change to {OurProduct.Name}?"});
 
-                repeat = Builder.Choice();
+            } while(Builder.Choice());
 
-            } while(repeat);
             BL.Add(OurProduct);
 
-        //Reset display for new menu selection
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
-
-            Builder.Reset(new List<string>(){
-                "Product Modified!",
-                "---------------",
-                "What do you want to do?",
-                "[0] - Go back",
-                "[1] - Find another Product"});
+            Builder.Pause($"{OurProduct.Name} updated!");
         }
 
-        public MenuType Choice()
-        {
-            MenuBuilder Builder = new MenuBuilder();
-            int userChoice = Builder.GetInt();
-            switch (userChoice)
-            {
-                case 0:
-                    return MenuType.Product;
-                case 1:
-                    return MenuType.ModifyProduct;
-                default:
-                    Builder.Pause("Not a choice. Try again.");
-                    return MenuType.Main;
-            }
-            
-        }
+        public MenuType Choice(){return MenuType.Product;}
 
     }
 }

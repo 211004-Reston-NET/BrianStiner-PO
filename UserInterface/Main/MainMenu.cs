@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using BusinessLogic;
 using Toolbox;
 
-namespace UserInterface
-{
-    public class MainMenu : IMenu
-    {
-        public void Display()
-        {
-            MenuBuilder Builder = new MenuBuilder();
+namespace UserInterface{
+    public class MainMenu : IMenu{
+        MenuBuilder Builder; IBusiness BL;
+        public MainMenu(IBusiness BusinessLogic){
+            BL = BusinessLogic;
+            Builder = new MenuBuilder(BL);
+        }
+        
+        public void Display(){
             Builder.Reset(new List<string>()
                 {"Welcome to the Main Menu,",
                 "Which menu do you want?",
@@ -18,24 +21,21 @@ namespace UserInterface
                 "[3] - Products"});
         }
 
-        public MenuType Choice()
+        public MenuType Choice(){
+            switch (Builder.GetInt())
             {
-                MenuBuilder Builder = new MenuBuilder();
-                int userChoice = Builder.GetInt();
-                switch (userChoice)
-                {
-                    case 1:
-                        return MenuType.Customer;
-                    case 2:
-                        return MenuType.Storefront;
-                    case 3:
-                        return MenuType.Product;
-                    case 0:
-                        return MenuType.Exit;
-                    default:
-                        Builder.Pause("Not a choice. Try again.");
-                        return MenuType.Main;
-                }
+                case 1:
+                    return MenuType.Customer;
+                case 2:
+                    return MenuType.Storefront;
+                case 3:
+                    return MenuType.Product;
+                case 0:
+                    return MenuType.Exit;
+                default:
+                    Builder.Pause("Not a choice. Try again.");
+                    return MenuType.Main;
             }
+        }
     }
 }

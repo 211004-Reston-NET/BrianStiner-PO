@@ -6,11 +6,15 @@ using BusinessLogic;
 
 namespace UserInterface{
     public class DeleteCustomerMenu : IMenu{
+        IBusiness BL;
+        MenuBuilder Builder;
+        public  DeleteCustomerMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
 
         //ask for a string and search against all of the Customer database to return a select List<Customer>, show it, user selects one, modify that customer.
         public void Display(){
-            MenuBuilder Builder = new MenuBuilder();
-            IBusiness BL = new Business();
 
             Customer OurCustomer = Builder.SearchAndSelect(new Customer());     //Search and select a customer from the list
 

@@ -1,116 +1,96 @@
-using Microsoft;
-
+using System.Configuration;
+using System.IO;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using DataAccessLogic.Entity;
+using DataAccessLogic;
+using BusinessLogic;
 
 namespace UserInterface{ 
     class Factory : IFactory{
         public IMenu GetMenu(MenuType currentMenu){
 
-            /*/
-            var configuration = new Configuration()
+            var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .Build();/*/
+                .AddJsonFile("./../UserInterface/appsettings.json") //TODO: File not found exception. Get help.
+                .Build();
             
-        
+            DbContextOptionsBuilder<revaturedatabaseContext> options = new DbContextOptionsBuilder<revaturedatabaseContext>()
+                .UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
 
-            IMenu nextPage;
             switch (currentMenu){
 
-                case MenuType.Main:
-                    nextPage = new MainMenu();
-                    break;
-
+                //Customer
                 case MenuType.Customer:
-                    nextPage = new CustomerMenu();
-                    break;
+                    return new CustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+
                 case MenuType.ShowAllCustomers:
-                    nextPage = new ShowAllCustomersMenu();
-                    break;
+                    return new ShowAllCustomersMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));
                 case MenuType.AddCustomer:
-                    nextPage = new AddCustomerMenu();
-                    break;
-                case MenuType.ModifyCustomer:
-                    nextPage = new ModifyCustomerMenu();
-                    break;
+                    return new AddCustomerMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));
                 case MenuType.DeleteCustomer:
-                    nextPage = new DeleteCustomerMenu();
-                    break;
+                    return new DeleteCustomerMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));
+
+                case MenuType.ModifyCustomer:
+                    return new ModifyCustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
                 case MenuType.SelectCustomer:
-                    nextPage = new SelectCustomerMenu();
-                    break;
+                    return new SelectCustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
                 case MenuType.ShowCurrentCustomer:
-                    nextPage = new ShowCurrentCustomerMenu();
-                    break;    
+                    return new ShowCurrentCustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));     
 
+                //Storefront
                 case MenuType.Storefront:
-                    nextPage = new StorefrontMenu();
-                    break;
+                    return new StorefrontMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+
                 case MenuType.ShowAllStorefronts:
-                    nextPage = new ShowAllStorefrontsMenu();
-                    break;
+                    return new ShowAllStorefrontsMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
                 case MenuType.AddStorefront:
-                    nextPage = new AddStorefrontMenu();
-                    break;
-                case MenuType.ModifyStorefront:
-                    nextPage = new ModifyStorefrontMenu();
-                    break;
+                    return new AddStorefrontMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
                 case MenuType.DeleteStorefront:
-                    nextPage = new DeleteStorefrontMenu();
-                    break;
+                    return new DeleteStorefrontMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));
+
+                case MenuType.ModifyStorefront:
+                    return new ModifyStorefrontMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
                 case MenuType.SelectStorefront:
-                    nextPage = new SelectStorefrontMenu();
-                    break;
+                    return new SelectStorefrontMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
                 case MenuType.ShowCurrentStorefront:
-                    nextPage = new ShowCurrentCustomerMenu();
-                    break;
+                    return new ShowCurrentCustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
                 
-
+                //Product
                 case MenuType.Product:
-                    nextPage = new ProductMenu();
-                    break;
+                    return new ProductMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+
                 case MenuType.ShowAllProducts:
-                    nextPage = new ShowAllProductsMenu();
-                    break;
+                    return new ShowAllProductsMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
                 case MenuType.AddProduct:
-                    nextPage = new AddProductMenu();
-                    break; 
+                    return new AddProductMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));  
                 case MenuType.ModifyProduct:
-                    nextPage = new ModifyProductMenu();
-                    break;
+                    return new ModifyProductMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
                 case MenuType.DeleteProduct:
-                    nextPage = new DeleteProductMenu();
-                    break;
+                    return new DeleteProductMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
                 
-
+                //Order
                 case MenuType.Order:
-                    nextPage = new OrderMenu();
-                    break;
-                case MenuType.ShowAllOrders:
-                    nextPage = new ShowAllOrdersMenu();
-                    break;
-                case MenuType.AddOrder:
-                    nextPage = new AddOrderMenu();
-                    break; 
-                case MenuType.ModifyOrder:
-                    nextPage = new ModifyOrderMenu();
-                    break;
-                case MenuType.DeleteOrder:
-                    nextPage = new DeleteOrderMenu();
-                    break;
+                    return new OrderMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
 
+                case MenuType.ShowAllOrders:
+                    return new ShowAllOrdersMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
+                case MenuType.AddOrder:
+                    return new AddOrderMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));  
+                case MenuType.ModifyOrder:
+                    return new ModifyOrderMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
+                case MenuType.DeleteOrder:
+                    return new DeleteOrderMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
+
+                //Others
                 case MenuType.Exit:
-                    nextPage = new ExitMenu();
-                    break;
+                    return new ExitMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
                 case MenuType.RealExit:
-                    nextPage = new RealExitMenu();
-                    break;
+                    return new RealExitMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
                     
                 default:
-                    nextPage = new MainMenu();
-                    break; 
+                    return new MainMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));  
             }
-            
-            return nextPage;
         }
     }
 }

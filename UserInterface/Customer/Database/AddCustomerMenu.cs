@@ -6,9 +6,12 @@ using BusinessLogic;
 
 namespace UserInterface{
     public class AddCustomerMenu : IMenu{
+        IBusiness BL;
+        public AddCustomerMenu(IBusiness p_BL){
+            BL = p_BL;
+        }
         public void Display(){
-            MenuBuilder Builder = new MenuBuilder();
-            IBusiness BL = new Business();    
+            MenuBuilder Builder = new MenuBuilder(BL);   
  
             Builder.Add("Fill in Customer's info:");
             Builder.Add("What is their name?",'b');
@@ -28,6 +31,7 @@ namespace UserInterface{
             Builder.Add(phoneNumber);
 
             BL.Add(new Customer(name, address, email, phoneNumber));
+            Builder.Add();
 
             Builder.Pause("Customer added to database!");
         }

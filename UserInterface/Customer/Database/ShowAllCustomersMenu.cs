@@ -6,12 +6,15 @@ using Models;
 
 namespace UserInterface{
     public class ShowAllCustomersMenu : IMenu{
+        
+        IBusiness BL;
+        MenuBuilder Builder;
+        public ShowAllCustomersMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
         public void Display(){
-            IBusiness BL = new Business();
-            MenuBuilder Builder = new MenuBuilder();
-
             Builder.ShowAll(BL.GetAll(new Customer()));
-
             Builder.Pause();
         }
         public MenuType Choice(){return MenuType.Customer;}

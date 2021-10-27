@@ -2,13 +2,19 @@ using System;
 using System.Collections.Generic;
 using Toolbox;
 using Models;
+using BusinessLogic;
 
 namespace UserInterface{
     public class SelectCustomerMenu : IMenu{
+        IBusiness BL;
+        MenuBuilder Builder;
+        public  SelectCustomerMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
 
         //Calls Search and Select from builder, then sets CurrentCustomer to the selected customer
         public void Display(){
-            MenuBuilder Builder = new MenuBuilder();
 
             Customer OurCustomer = Builder.SearchAndSelect(new Customer());
 

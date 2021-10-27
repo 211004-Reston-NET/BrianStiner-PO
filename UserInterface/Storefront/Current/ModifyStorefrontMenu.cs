@@ -6,8 +6,13 @@ using BusinessLogic;
 
 namespace UserInterface{
     public class ModifyStorefrontMenu : IMenu{
+        IBusiness BL;
+        MenuBuilder Builder;
+        public ModifyStorefrontMenu(IBusiness BL){
+            this.BL = BL;
+            Builder = new MenuBuilder(BL);
+        }
         public void Display(){
-            MenuBuilder Builder = new MenuBuilder();
 
             do{
                 Builder.Add(new List<string>(){
@@ -27,8 +32,7 @@ namespace UserInterface{
                         Builder.Reset(new List<string>(){
                             $"Invalid choice. Only 1 and 2 work.",
                             $"{Current.storefront.Name} has not been updated.",
-                            $"Please try again."});
-                        break;
+                            $"Please try again."});                         break;
                 }
                 Builder.Add(new List<string>(){
                     "---------------------------",

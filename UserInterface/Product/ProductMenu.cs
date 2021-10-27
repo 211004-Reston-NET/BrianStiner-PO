@@ -2,13 +2,10 @@ using System;
 using System.Collections.Generic;
 using Toolbox;
 
-namespace UserInterface
-{
-    public class ProductMenu : IMenu
-    {
-        public void Display()
-        {
-            MenuBuilder Builder = new MenuBuilder();
+namespace UserInterface{
+    public class ProductMenu : IMenu{
+        MenuBuilder Builder = new MenuBuilder();
+        public void Display(){
             Builder.Reset(new List<string>()
                 {"Product Menu,",
                 "What do you want to do?", 
@@ -19,12 +16,9 @@ namespace UserInterface
                 "[4] - Show all Products"});
         }
 
-        public MenuType Choice()
-        {
-            MenuBuilder Builder = new MenuBuilder();
-            int userChoice = Builder.GetInt();
-            switch (userChoice)
-            {
+        public MenuType Choice(){
+            
+            switch (Builder.GetInt()){
                 case 0:
                     return MenuType.Main;
                 case 1:

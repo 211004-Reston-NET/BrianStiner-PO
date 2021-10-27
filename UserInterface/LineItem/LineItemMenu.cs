@@ -2,13 +2,11 @@ using System;
 using System.Collections.Generic;
 using Toolbox;
 
-namespace UserInterface
-{
-    public class LineItemMenu : IMenu
-    {
-        public void Display()
-        {
-            MenuBuilder Builder = new MenuBuilder();
+namespace UserInterface{
+    public class LineItemMenu : IMenu{
+        MenuBuilder Builder = new MenuBuilder();
+        public void Display(){
+            
             Builder.Reset(new List<string>()
                 {"LineItem Menu,",
                 "What do you want to do?", 
@@ -19,26 +17,22 @@ namespace UserInterface
                 "[4] - Show all LineItems"});
         }
 
-        public MenuType Choice()
-        {
-            string userChoice = Console.ReadLine();
-            switch (userChoice)
-            {
-                case "0":
+        public MenuType Choice(){
+            
+            switch (Builder.GetInt()){
+                case 0:
                     return MenuType.Main;
-                case "1":
+                case 1:
                     return MenuType.AddLineItem;
-                case "2":
+                case 2:
                     return MenuType.DeleteLineItem; 
-                case "3":
+                case 3:
                     return MenuType.ModifyLineItem; 
-                case "4":
+                case 4:
                     return MenuType.ShowAllLineItems;
                 default:
-                    Console.WriteLine("Not a choice. Try again.");
-                    Console.WriteLine("Press Enter to continue");
-                    Console.ReadLine();
-                    return MenuType.Main;
+                    Builder.Pause("Not a choice. Try again.");
+                    return MenuType.LineItem;
             }
             
         }

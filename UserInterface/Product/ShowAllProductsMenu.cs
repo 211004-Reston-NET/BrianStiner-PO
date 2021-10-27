@@ -15,32 +15,11 @@ namespace UserInterface
 
             Builder.ShowAll(BL.GetAll(new Product()));
 
-            Builder.Pause();
-
-            Builder.Reset(new List<string>(){
-                "Products in database shown!",
-                "---------------",
-                "What do you want to do?",
-                "[0] - Go back",
-                "[1] - Show Products again."});
-
+            Builder.Pause("Products in database shown!");
         }
 
-        public MenuType Choice()
-        {
-            MenuBuilder Builder = new MenuBuilder();
-            int userChoice = Builder.GetInt();
-            switch (userChoice)
-            {
-                case 0:
-                    return MenuType.Product;
-                case 1:
-                    return MenuType.ShowAllProducts;
-                default:
-                    Builder.Pause("Not a choice. Try again.");
-                    return MenuType.Main;
-            }
+        public MenuType Choice(){return MenuType.Product;}
             
-        }
+        
     }
 }

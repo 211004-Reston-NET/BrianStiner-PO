@@ -4,52 +4,25 @@ using Toolbox;
 using Models;
 using BusinessLogic;
 
-namespace UserInterface
-{
-    public class DeleteProductMenu : IMenu
-    {
+namespace UserInterface{
+    public class DeleteProductMenu : IMenu{
 
         //Ask for a string and search against all of the Product database to return a select List<Product>, show it, user selects one, modify that Product.
         public void Display()
         {
             MenuBuilder Builder = new MenuBuilder();
             IBusiness BL = new Business();
-            Builder.Reset();
 
-            List<Product> SelectProducts = Builder.Search(new Product());
-
-            Product OurProduct = Builder.ChooseClassFromList(SelectProducts);
+            Product OurProduct = Builder.SearchAndSelect(new Product());
 
             BL.Delete(OurProduct);
 
-            Builder.ShowAll(BL.GetAll(OurProduct));
-
-            Builder.Pause();
-
-            Builder.Reset(new List<string>(){
-                "Product Deleted!",
-                "---------------",
-                "What do you want to do?",
-                "[0] - Go back",
-                "[1] - Find another Product"});
+            Builder.Pause($"{OurProduct.Name} has been deleted.");
         }
 
-        public MenuType Choice()
-        {
-            MenuBuilder Builder = new MenuBuilder();
-            int userChoice = Builder.GetInt();
-            switch (userChoice)
-            {
-                case 0:
-                    return MenuType.Product;
-                case 1:
-                    return MenuType.DeleteProduct;
-                default:
-                    Builder.Pause("Not a choice. Try again.");
-                    return MenuType.Main;
-            }
+        public MenuType Choice(){return MenuType.Product;}
             
-        }
+        
 
     }
 }

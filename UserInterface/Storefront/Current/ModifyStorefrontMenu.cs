@@ -8,11 +8,8 @@ namespace UserInterface{
     public class ModifyStorefrontMenu : IMenu{
         public void Display(){
             MenuBuilder Builder = new MenuBuilder();
-            IBusiness BL = new Business();
-            Builder.Reset();
 
             do{
-                
                 Builder.Add(new List<string>(){
                     "What do you want to change?",
                     "[1] - Name",
@@ -21,16 +18,17 @@ namespace UserInterface{
                 int choice = Builder.GetInt();
                 Builder.Add(choice.ToString());
 
-                Builder.Add("What is the new value?",'b');
-                string newvalue = Builder.GetString();
-                Builder.Add(newvalue);
-
                 switch(choice){
                     case 1:
-                        Current.storefront.Name = newvalue;     break;
+                        Current.storefront.Name = Builder.GetString();      break;
                     case 2:
-                        Current.storefront.Address = newvalue;  break;
-                    default:                                    break;
+                        Current.storefront.Address = Builder.GetAddress();  break;
+                    default:                                                
+                        Builder.Reset(new List<string>(){
+                            $"Invalid choice. Only 1 and 2 work.",
+                            $"{Current.storefront.Name} has not been updated.",
+                            $"Please try again."});
+                        break;
                 }
                 Builder.Add(new List<string>(){
                     "---------------------------",
@@ -39,7 +37,7 @@ namespace UserInterface{
 
             } while(Builder.Choice());
 
-            Builder.Pause(); // Pause for the user to read the menu.
+            Builder.Pause($"{Current.storefront.Name} has been updated!");
         }
 
         public MenuType Choice(){return MenuType.Storefront;}

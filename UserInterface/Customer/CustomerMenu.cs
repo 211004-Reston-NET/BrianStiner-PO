@@ -28,8 +28,8 @@ namespace UserInterface
         public MenuType Choice()
         {
             MenuBuilder Builder = new MenuBuilder();
-            int userChoice = Builder.GetInt();
-            switch (userChoice)
+
+            switch (Builder.GetInt())
             {
                 case 0:
                     return MenuType.Main;

@@ -4,51 +4,26 @@ using Toolbox;
 using Models;
 using BusinessLogic;
 
-namespace UserInterface
-{
-    public class AddOrderMenu : IMenu
-    {
-        public void Display()
-        {
+namespace UserInterface{
+    public class AddOrderMenu : IMenu{
+        public void Display(){
             MenuBuilder Builder = new MenuBuilder();    
  
             Builder.Add("Fill in Order's info,");
             Builder.Add("Where is the Order from?",'b');
-            string location = Console.ReadLine();
+            string location = Builder.GetAddress();
             Builder.Add(location);
-
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
 
             Order newOrder = new Order(location);
             IBusiness BL = new Business();
             BL.Add(newOrder);
 
-            Builder.Reset(new List<string>(){
-                "Order Added!",
-                "---------------",
-                "What do you want to do?",
-                "[0] - Go back",
-                "[1] - Add another Order"});
-            
+            Builder.Pause("Order Added!");
         }
 
-        public MenuType Choice()
-        {
-            MenuBuilder Builder = new MenuBuilder();
-            int userChoice = Builder.GetInt();
-            switch (userChoice)
-            {
-                case 0:
-                    return MenuType.Order;
-                case 1:
-                    return MenuType.AddOrder;
-                default:
-                    Builder.Pause("Not a choice. Try again.");
-                    return MenuType.Main;
-            }
+        public MenuType Choice(){return MenuType.Order;}
+        
             
-        }
+        
     }
 }

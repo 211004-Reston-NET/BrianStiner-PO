@@ -14,48 +14,18 @@ namespace UserInterface
         {
             MenuBuilder Builder = new MenuBuilder();
             IBusiness BL = new Business();
-            Builder.Reset();
 
-            //Search database for LineItem list
-            List<LineItem> SelectLineItems = Builder.Search(new LineItem());
+            LineItem OurLineItem = Builder.SearchAndSelect(new LineItem()); //Search database for LineItem list//Select LineItem from list
 
-            //Select LineItem from list
-            LineItem OurLineItem = Builder.ChooseClassFromList(SelectLineItems);
+            BL.Delete(OurLineItem);                                         //Delete LineItem
 
-            //Delete LineItem
-            BL.Delete(OurLineItem);
-
-            //Show LineItem database
-            Builder.ShowAll(BL.GetAll(OurLineItem));
-
-            //Reset menu for new menu selection
-            Builder.Pause();
-
-            Builder.Reset(new List<string>(){
-                "LineItem Deleted!",
-                "---------------",
-                "What do you want to do?",
-                "[0] - Go back",
-                "[1] - Find another LineItem"});
+            Builder.Pause("LineItem Deleted!");
         }
 
-        public MenuType Choice()
-        {
-            string userChoice = Console.ReadLine();
-            switch (userChoice)
-            {
-                case "0":
-                    return MenuType.LineItem;
-                case "1":
-                    return MenuType.DeleteLineItem;
-                default:
-                    Console.WriteLine("Not a choice. Try again.");
-                    Console.WriteLine("Press Enter to continue");
-                    Console.ReadLine();
-                    return MenuType.Main;
-            }
+        public MenuType Choice(){return MenuType.LineItem;}
+        
             
-        }
-
     }
+
 }
+

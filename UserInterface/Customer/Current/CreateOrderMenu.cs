@@ -3,24 +3,15 @@ using System.Collections.Generic;
 using Models;
 using Toolbox;
 
-namespace UserInterface
-{
-    class CreateOrderMenu : IMenu
-    {
-        public void Display()
-        {
+namespace UserInterface{
+    class CreateOrderMenu : IMenu{
+        public void Display(){
             MenuBuilder Builder = new MenuBuilder();
             Builder.Reset(new List<string>(){
                 "Welcome to the Create Order Menu",
                 "[0] - Go Back"
-
             });
         }
-        public MenuType Choice()
-        {
-            return MenuType.Customer;
-        }
-
-
+        public MenuType Choice(){return MenuType.Customer;}
     }
 }

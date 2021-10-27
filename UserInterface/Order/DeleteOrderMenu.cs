@@ -14,49 +14,15 @@ namespace UserInterface
         {
             MenuBuilder Builder = new MenuBuilder();
             IBusiness BL = new Business();
-            Builder.Reset();
 
-        //Search database for Order list
-            List<Order> SelectOrders = Builder.Search(new Order());
+            Order OurOrder = Builder.SearchAndSelect(new Order());  //Search database for Order list, Select Order from list
 
-        //Select Order from list
-            Order OurOrder = Builder.ChooseClassFromList(SelectOrders);
+            BL.Delete(OurOrder);                                    //Delete Order
 
-        //Delete Order
-            BL.Delete(OurOrder);
-
-        //Show Order database
-            Builder.ShowAll(BL.GetAll(OurOrder));
-
-            //Reset menu for new menu selection
-            Builder.Add(" ");
-            Builder.Add("Press Enter to Continue...",'b');
-            Console.ReadLine();
-
-            Builder.Reset(new List<string>(){
-                "Order Deleted!",
-                "---------------",
-                "What do you want to do?",
-                "[0] - Go back",
-                "[1] - Find another Order"});
+            Builder.Pause("Order Deleted!");
         }
 
-        public MenuType Choice()
-        {
-            MenuBuilder Builder = new MenuBuilder();
-            int userChoice = Builder.GetInt();
-            switch (userChoice)
-            {
-                case 0:
-                    return MenuType.Order;
-                case 1:
-                    return MenuType.DeleteOrder;
-                default:
-                    Builder.Pause("Not a choice. Try again.");
-                    return MenuType.Main;
-            }
-            
-        }
+        public MenuType Choice(){return MenuType.Order;}
 
     }
 }

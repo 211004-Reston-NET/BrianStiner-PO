@@ -19,7 +19,7 @@ namespace UserInterface
         //Search database for Order list
             List<Order> SelectOrders = Builder.Search(new Order());
         //Select Order from list
-            Order OurOrder = Builder.ChooseClassFromList(SelectOrders);
+            Order OurOrder = Builder.Select(SelectOrders);
 
         //Modify Order
             bool repeat = false;

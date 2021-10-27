@@ -19,7 +19,7 @@ namespace UserInterface
         //Search database for Product list
             List<Product> SelectProducts = Builder.Search(new Product());
         //Select Product from list
-            Product OurProduct = Builder.ChooseClassFromList(SelectProducts);
+            Product OurProduct = Builder.Select(SelectProducts);
 
         //Modify Product
             bool repeat = false;

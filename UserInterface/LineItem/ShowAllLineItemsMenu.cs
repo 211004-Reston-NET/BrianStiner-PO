@@ -4,44 +4,18 @@ using Toolbox;
 using BusinessLogic;
 using Models;
 
-namespace UserInterface
-{
-    public class ShowAllLineItemsMenu : IMenu
-    {
-        public void Display()
-        {
+namespace UserInterface{
+    public class ShowAllLineItemsMenu : IMenu{
+        public void Display(){
             IBusiness BL = new Business();
             MenuBuilder Builder = new MenuBuilder();
 
             Builder.ShowAll(BL.GetAll(new LineItem()));
 
-            Builder.Pause();
-
-            Builder.Reset(new List<string>(){
-                "LineItems in database shown!",
-                "---------------",
-                "What do you want to do?",
-                "[0] - Go back",
-                "[1] - Show LineItems again."});
-
+            Builder.Pause("LineItems in database shown!");
         }
 
-        public MenuType Choice()
-        {
-            string userChoice = Console.ReadLine();
-            switch (userChoice)
-            {
-                case "0":
-                    return MenuType.LineItem;
-                case "1":
-                    return MenuType.ShowAllLineItems;
-                default:
-                    Console.WriteLine("Not a choice. Try again.");
-                    Console.WriteLine("Press Enter to continue");
-                    Console.ReadLine();
-                    return MenuType.Main;
-            }
-            
-        }
+        public MenuType Choice(){return MenuType.LineItem;}
+        
     }
 }

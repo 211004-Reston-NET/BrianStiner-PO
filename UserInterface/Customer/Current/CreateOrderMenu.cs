@@ -14,19 +14,18 @@ namespace UserInterface{
         
         public void Display(){
 
-            Order freshOrder = new Order();
+            Order newOrder = new Order();
+            var CC = Current.customer;
+            
             do{    
-                freshOrder = Builder.CreateOrder();
-                Current.customer.CustomerOrders.Add(freshOrder);
+                newOrder = Builder.CreateOrder(CC.Address);
+                CC.CustomerOrders.Add(newOrder);
                 Builder.Add("Would you like to add another order?");
             }while(Builder.Choice());
-            BL.Update(Current.customer);
-         
 
-            Builder.Reset(new List<string>(){
-                "Welcome to the Create Order Menu",
-                "[0] - Go Back"
-            });
+            BL.Update(CC);
+
+            Builder.Pause($"{CC.Name}'s Order created!");
         }
         public MenuType Choice(){return MenuType.Customer;}
     }

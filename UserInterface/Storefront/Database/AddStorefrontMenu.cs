@@ -16,12 +16,10 @@ namespace UserInterface{
  
             Builder.Add("Fill in Storefront's info:");
             Builder.Add("What is their name?",'b');
-            string name = Console.ReadLine();
-            Builder.Add(name);
+            string name = Builder.GetString();
 
             Builder.Add("What is their address?",'b');
-            string address = Console.ReadLine();
-            Builder.Add(address);
+            string address = Builder.GetAddress();
 
 
             Storefront newStorefront = new Storefront(name, address);

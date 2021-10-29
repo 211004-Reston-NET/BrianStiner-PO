@@ -13,39 +13,41 @@ namespace Models
         //Variables -----------------------------------------------------------------------------
         public int Id { get; set; }
         private string name, address, email, phone;
-        private List<string> picture = new List<string>(){@"¯\_(ツ)_/¯"," （˶′◡‵˶）"};
+        private List<string> picture = new FaceFarm().GetFace();
         private List<Order> customerOrders = new List<Order>();
 
         //Constructors ---------------------------------------------------------------------------
         public Customer(){}
         public Customer(string p_name){this.name = p_name;}
+        public Customer(string p_name, string p_address){this.name = p_name; this.address = p_address;}
+        public Customer(string p_name, string p_address, string p_email){this.name = p_name; this.address = p_address; this.email = p_email;}
         public Customer(string p_name, string p_address, string p_email, string p_phone){
             this.name = p_name;
             this.address = p_address;
             this.email = p_email;
             this.phone = p_phone;
         }
-        public Customer(string p_name, string p_address, string p_email, string p_phoneNumber, List<string> p_picture){
+        public Customer(string p_name, string p_address, string p_email, string p_phone, List<string> p_picture){
             this.name = p_name;
             this.address = p_address;
             this.email = p_email;
-            this.phone = p_phoneNumber;
+            this.phone = p_phone;
             this.picture = p_picture;
         }
-        public Customer(string p_name, string p_address, string p_email, string p_phoneNumber, List<Order> p_Orders){
+        public Customer(string p_name, string p_address, string p_email, string p_phone, List<Order> p_Orders){
             this.name = p_name;
             this.address = p_address;
             this.email = p_email;
-            this.phone = p_phoneNumber;
+            this.phone = p_phone;
             this.customerOrders = p_Orders;
         }
-        public Customer(string p_name, string p_address, string p_email, string p_phoneNumber, List<string> p_picture, List<Order> p_Orders){
+        public Customer(string p_name, string p_address, string p_email, string p_phone, List<Order> p_Orders, List<string> p_picture){
             this.name = p_name;
             this.address = p_address;
             this.email = p_email;
-            this.phone = p_phoneNumber;
-            this.picture = p_picture;
+            this.phone = p_phone;
             this.customerOrders = p_Orders;
+            this.picture = p_picture;
         }
 
 
@@ -55,7 +57,7 @@ namespace Models
         public string Email { get => email; set => email = value; }
         public string Phone { get => phone; set => phone = value; }
         public List<Order> CustomerOrders { get => customerOrders; set => customerOrders = value; }
-        public List<string> Picture { get => picture; set => picture = value; }
+        public List<string> Picture { get => picture; }
 
         //Interface --------------------------------------------------------------------------------
         public string Identify() { return "Customer"; }
@@ -74,10 +76,10 @@ namespace Models
                     }
                 }
             }catch (System.Exception){
-                stringlist.Add("Customer has no orders.");
+                stringlist.Add("Customer has NULL orders.");
                 throw;
             }
-            stringlist.Add(""); stringlist.AddRange(picture);
+            stringlist.Add("");stringlist.Add("Picture:"); stringlist.AddRange(picture);
             return stringlist;
         }
     }
@@ -88,38 +90,28 @@ namespace Models
         //Variables -----------------------------------------------------------------------------
         public int Id { get; set; }
         private string name, address;
-        private List<string> picture = new List<string>(){@"¯\_(ツ)_/¯"," （˶′◡‵˶）"};
-        private List<Product> storeProducts;
-        private List<Order> storeOrders;
+        private List<Product> storeProducts = new List<Product>();
+        private List<Order> storeOrders = new List<Order>();
 
         //Constructors ---------------------------------------------------------------------------
         public Storefront(){}
         public Storefront(string p_name, string p_address){
             this.name = p_name;
             this.address = p_address;
-
-            storeProducts = new List<Product>();
-            storeOrders = new List<Order>();
-
         }
-        public Storefront(string p_name, string p_address, List<string> p_picture){
+        public Storefront(string p_name, string p_address, List<Product> p_products){
             this.name = p_name;
             this.address = p_address;
-            this.picture = p_picture;
-
-            storeProducts = new List<Product>();
-            storeOrders = new List<Order>();
+            storeProducts = p_products;
+        }
+        public Storefront(string p_name, string p_address, List<Order> p_orders){
+            this.name = p_name;
+            this.address = p_address;
+            storeOrders = p_orders;
         }
         public Storefront(string p_name, string p_address, List<Product> p_Products, List<Order> p_Orders){
             this.name = p_name;
             this.address = p_address;
-            this.storeProducts = p_Products;
-            this.storeOrders = p_Orders;
-        }
-        public Storefront(string p_name, string p_address, List<string> p_picture, List<Product> p_Products, List<Order> p_Orders){
-            this.name = p_name;
-            this.address = p_address;
-            this.picture = p_picture;
             this.storeProducts = p_Products;
             this.storeOrders = p_Orders;
         }
@@ -129,7 +121,6 @@ namespace Models
         public string Address { get => address; set => address = value; }
         public List<Product> StoreProducts { get => storeProducts; set => storeProducts = value; }
         public List<Order> StoreOrders { get => storeOrders; set => storeOrders = value; }
-        public List<string> Picture { get => picture; set => picture = value; }
 
         //Interface --------------------------------------------------------------------------------
         public string Identify() { return "Storefront"; }
@@ -138,20 +129,19 @@ namespace Models
             $"name: {name}",
             $"address: {address}",
             $"Products: "};
-            foreach(Product p in storeProducts){
-                foreach(string s in p.ToStringList()){
-                    stringlist.Add(s);
+            if(storeProducts.Count != 0){
+                foreach(Product p in storeProducts){
+                    stringlist.Add("---------------------------");
+                    stringlist.AddRange(p.ToStringList());
                 }
-            }
+            }else{stringlist.Add("   None");}
             stringlist.Add($"Orders: ");
-            foreach(Order o in storeOrders){
-                foreach(string s in o.ToStringList()){
-                    stringlist.Add(s);
+            if(storeOrders.Count != 0){
+                foreach(Order o in storeOrders){
+                    stringlist.Add("---------------------------");
+                    stringlist.AddRange(o.ToStringList());
                 }
-            }
-
-            stringlist.Add("");
-            stringlist.AddRange(Picture);
+            }else{stringlist.Add("   None");}
             return stringlist;
         }
             
@@ -287,4 +277,104 @@ namespace Models
             return stringlist;
         }
     }
+
+    class FaceFarm
+    {
+        private List<List<string>> faceList = new List<List<string>>();
+        public FaceFarm()
+        {
+            int n = 0;
+            faceList[n++] =    new List<string>(){  @"    ___________",
+                                                    @"   /___     ___\",
+                                                    @"  //   `---'   \\",
+                                                    @"  ||           || ",
+                                                    @"  |/ _________ \| ",
+                                                    @" n|=|-o-)=(-o-|=|n ",
+                                                    @" \| `--'| |`--' |/ ",
+                                                    @"  |    `._.'    | ",
+                                                    @"   \   _____   / ",
+                                                    @"    \    --   / ",
+                                                    @"    |`-.____-'| "};
+
+            faceList[n++] =    new List<string>(){  @"   _,-'}{'-._  ",
+                                                    @"  /,;;//\\;;.\ ",
+                                                    @"  ///'_  _`\\\ ",
+                                                    @"  |Y '_  _` Y| ",
+                                                    @"  || ( .. ) || ",
+                                                    @"  (_  (__)  _) ",
+                                                    @"   l        j  ",
+                                                    @"    l  --' j  ",
+                                                    @"     \_  _/  ",
+                                                    @"    _j    l_",
+                                                    @"  ,' `.__,' `.",
+                                                    @" /            \",
+                                                    @"|__Y________Y__|"};
+
+            faceList[n++] =    new List<string>(){  @"     ,-~~~~~\~~-.  ",
+                                                    @"   ,'        \   \  ",
+                                                    @"  , .--------'\_  | ",
+                                                    @" ,|/| --. .--  |\ |\ ",
+                                                    @" | |  (o) (o)   |, \", 
+                                                    @" |(|    |)      | ",
+                                                    @" /`|    `-'     |' \ ",
+                                                    @" |/ \   ____   /| || ",
+                                                    @" / / \   --   /   \  ",
+                                                    @" />   |\____/ |   \\ ",
+                                                    @"  //-|\      / |-\\ ",
+                                                    @"     \_\____/ / \\  "};
+
+            faceList[n++] =    new List<string>(){  @"  ,-~~~~~\~~-.  ",
+                                                    @"  |        \   \  ",
+                                                    @"  | .--------'\_  | ",
+                                                    @"  |/| --. .--  |\ |\ ",
+                                                    @"  | | (o)  (o)   |, \", 
+                                                    @"  |(|   |  )     | ",
+                                                    @"  /`|   `--'     |' \ ",
+                                                    @"  |/ \  _____   /| || ",
+                                                    @"  / / \   --   /   \  ",
+                                                    @" />   |\_____/ |   \\ ",
+                                                    @"  //-|\       / |-\\ ",
+                                                    @"     \_\_____/ / \\  "};
+
+            faceList[n++] =    new List<string>(){  @"      ________",
+                                                    @"     / ~~'~~~ \",
+                                                    @"   /  _/ - -\_  \",
+                                                    @" .   /        \  \", 
+                                                    @" | / ---   ---    |", 
+                                                    @" |_l (O}   {O)  |_|", 
+                                                    @" (|.            .|)",   
+                                                    @"  |.     --'    .|",   
+                                                    @"   \   .::::,   /",   
+                                                    @"    \  `----  /",   
+                                                    @"     |\,,,,,,'|",   
+                                                    @"     |  . ..  |",  
+                                                    @"    /'. . . . '\",   
+                                                    @" _/______________\_"};
+
+            faceList[n++] =    new List<string>(){  @"         _____    ",
+                                                    @"       --=====-- ",
+                                                    @"     // ======= \\  ",
+                                                    @"    ||/         \|| ",
+                                                    @"    | .-==_ _==-. |  ",
+                                                    @"   _|  -o-   -o-  |_ ",
+                                                    @"   ||     / \     ||  ",
+                                                    @"   \|    '-_-`    |/ ",
+                                                    @"     |   _===_   | ",
+                                                    @"     |  |-___-|  | ",
+                                                    @"      \ |.....| /  ",
+                                                    @"   ____`-|||||-'____  ",
+                                                    @"  ______\_____/______"};
+                                                    
+            //faceList[n++] =    new List<string>(){  @"  ,-~~~~~\~~-.  ",
+        }
+
+        //Method GetFace returns a random face
+        public List<string> GetFace()
+        {
+            Random rnd = new Random();
+            int randint = rnd.Next(0, faceList.Count);
+            return faceList[randint];
+        }
+    }
+
 }

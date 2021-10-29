@@ -5,7 +5,7 @@ namespace UserInterface
     {
         Main,
         Customer, ShowAllCustomers, AddCustomer, ModifyCustomer, DeleteCustomer, SelectCustomer, ShowCurrentCustomer,
-        Storefront, ShowAllStorefronts, AddStorefront, ModifyStorefront, DeleteStorefront, SelectStorefront, ShowCurrentStorefront,
+        Storefront, ShowAllStorefronts, AddStorefront, ModifyStorefront, DeleteStorefront, SelectStorefront, ShowStorefront,
         Order, ShowAllOrders, AddOrder, ModifyOrder, DeleteOrder,
         LineItem, ShowAllLineItems, AddLineItem, ModifyLineItem, DeleteLineItem,
         Product, ShowAllProducts, AddProduct, ModifyProduct, DeleteProduct,

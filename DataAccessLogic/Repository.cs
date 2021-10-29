@@ -51,6 +51,11 @@ namespace DataAccessLogic
             _context.SaveChanges();
         }
         public void Add(Model.Product p_IC){
+            var test  = new Entity.Product(){
+                Name = p_IC.Name,
+                Description = p_IC.Description,
+                Price = p_IC.Price
+            };
             _context.Add(
                 new Entity.Product(){
                     Name = p_IC.Name,
@@ -93,6 +98,7 @@ namespace DataAccessLogic
         public List<Model.Customer> GetAll(Model.Customer p_IC){
             return _context.Customers.Select(IC =>
                 new Model.Customer(){
+                    Id = IC.Id,
                     Name = IC.Name,
                     Email = IC.Email,
                     Phone = IC.Phone,
@@ -102,6 +108,7 @@ namespace DataAccessLogic
         public List<Model.Storefront> GetAll(Model.Storefront p_IC){
             return _context.Storefronts.Select(IC =>
                 new Model.Storefront(){
+                    Id = IC.Id,
                     Name = IC.Name,
                     Address = IC.Address,
                 }).ToList();
@@ -109,18 +116,21 @@ namespace DataAccessLogic
         public List<Model.Order> GetAll(Model.Order p_IC){
             return _context.Orders.Select(IC =>
                 new Model.Order(){
+                    Id = IC.Id,
                     Location = IC.Location,
                 }).ToList();
         }
         public List<Model.LineItem> GetAll(Model.LineItem p_IC){
             return _context.LineItems.Select(IC =>
                 new Model.LineItem(){
+                    Id = IC.Id,
                     Quantity = (int)IC.Quantity,
                 }).ToList();
         }
         public List<Model.Product> GetAll(Model.Product p_IC){
             return _context.Products.Select(IC =>
                 new Model.Product(){
+                    Id = IC.Id,
                     Name = IC.Name,
                     Description = IC.Description,
                     Category = IC.Category,
@@ -135,6 +145,7 @@ namespace DataAccessLogic
         public Model.Customer Get(Model.Customer p_IC){
             return _context.Customers.Select(IC =>
                 new Model.Customer(){
+                    Id = IC.Id,
                     Name = IC.Name,
                     Email = IC.Email,
                     Phone = IC.Phone,
@@ -144,6 +155,7 @@ namespace DataAccessLogic
         public Model.Storefront Get(Model.Storefront p_IC){
             return _context.Storefronts.Select(IC =>
                 new Model.Storefront(){
+                    Id = IC.Id,
                     Name = IC.Name,
                     Address = IC.Address,
                 }).FirstOrDefault(IC => IC.Id == p_IC.Id);
@@ -151,18 +163,21 @@ namespace DataAccessLogic
         public Model.Order Get(Model.Order p_IC){
             return _context.Orders.Select(IC =>
                 new Model.Order(){
+                    Id = IC.Id,
                     Location = IC.Location,
                 }).FirstOrDefault(IC => IC.Id == p_IC.Id);
         }
         public Model.LineItem Get(Model.LineItem p_IC){
             return _context.LineItems.Select(IC =>
                 new Model.LineItem(){
+                    Id = IC.Id,
                     Quantity = (int)IC.Quantity,
                 }).FirstOrDefault(IC => IC.Id == p_IC.Id);
         }
         public Model.Product Get(Model.Product p_IC){
             return _context.Products.Select(IC =>
                 new Model.Product(){
+                    Id = IC.Id,
                     Name = IC.Name,
                     Description = IC.Description,
                     Category = IC.Category,
@@ -208,6 +223,7 @@ namespace DataAccessLogic
         public List<Model.Customer> Search(Model.Customer p_IC, string p_Search){
             return _context.Customers.Select(IC =>
                 new Model.Customer(){
+                    Id = IC.Id,
                     Name = IC.Name,
                     Email = IC.Email,
                     Phone = IC.Phone,
@@ -217,6 +233,7 @@ namespace DataAccessLogic
         public List<Model.Storefront> Search(Model.Storefront p_IC, string p_Search){
             return _context.Storefronts.Select(IC =>
                 new Model.Storefront(){
+                    Id = IC.Id,
                     Name = IC.Name,
                     Address = IC.Address,
                 }).Where(IC => IC.Name.Contains(p_Search) || IC.Address.Contains(p_Search)).ToList(); 
@@ -224,18 +241,21 @@ namespace DataAccessLogic
         public List<Model.Order> Search(Model.Order p_IC, string p_search){
             return _context.Orders.Select(IC =>
                 new Model.Order(){
+                    Id = IC.Id,
                     Location = IC.Location,
                 }).Where(IC => IC.Location.Contains(p_search)).ToList();
         }
         public List<Model.LineItem> Search(Model.LineItem p_IC, string p_Search){
             return _context.LineItems.Select(IC =>
                 new Model.LineItem(){
+                    Id = IC.Id,
                     Quantity = (int)IC.Quantity,
-                }).Where(IC => IC.Quantity.ToString().Contains(p_Search)).ToList();
+                }).Where(IC => IC.Quantity.ToString().Contains(p_Search) || IC.LineProduct.Name.Contains(p_Search) || IC.LineProduct.Description.Contains(p_Search)|| IC.LineProduct.Category.Contains(p_Search)).ToList();
         }
         public List<Model.Product> Search(Model.Product p_IC, string p_Search){
             return _context.Products.Select(IC =>
                 new Model.Product(){
+                    Id = IC.Id,
                     Name = IC.Name,
                     Description = IC.Description,
                     Category = IC.Category,

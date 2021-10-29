@@ -29,10 +29,9 @@ namespace UserInterface{
                     "[4] - Price"});
 
                 int choice = Builder.GetInt();
-
                 Builder.Add("What is the new value?",'b');
 
-                switch(choice)              //Modify Product value
+                switch(choice)                                          
                 {
                     case 1:
                         OurProduct.Name = Builder.GetString();

@@ -16,19 +16,15 @@ namespace UserInterface{
             Builder.Add("Fill in Customer's info:");
             Builder.Add("What is their name?",'b');
             string name = Builder.GetString();
-            Builder.Add(name);
 
             Builder.Add("What is their address?",'b');
             string address = Builder.GetAddress();
-            Builder.Add(address);
 
             Builder.Add("What is their email?",'b');
             string email = Builder.GetEmail();
-            Builder.Add(email);
 
             Builder.Add("What is their phone number?",'b');
             string phoneNumber = Builder.GetPhoneNumber();
-            Builder.Add(phoneNumber);
 
             BL.Add(new Customer(name, address, email, phoneNumber));
             Builder.Add();

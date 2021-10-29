@@ -16,11 +16,11 @@ namespace UserInterface{
             
             List<Storefront> SelectStorefronts = Builder.Search(new Storefront());      //Search database for Storefront list
 
-            Storefront OurStorefront = Builder.Select(SelectStorefronts);  //Select Storefront from list
+            Storefront OurStorefront = Builder.Select(SelectStorefronts);               //Select Storefront from list
 
-            BL.Delete(OurStorefront);                                                 //Delete Storefront from database
+            BL.Delete(OurStorefront);                                                   //Delete Storefront from database
 
-            Builder.Pause("Storefront deleted!");                                      //Reset menu for new menu selection
+            Builder.Pause("Storefront deleted!");                                       //Reset menu for new menu selection
 
         }
 

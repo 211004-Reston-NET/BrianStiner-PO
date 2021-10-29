@@ -14,11 +14,14 @@ namespace UserInterface{
         public void Display(){ 
  
             Builder.Add("Fill in LineItem's info:");
-            Builder.Add("What is their name?",'b');
-            int quantity = Int32.Parse(Console.ReadLine());
-            Builder.Pause($"{quantity}");
+            Builder.Add("What is the Product?",'b');
 
-            LineItem newLineItem = new LineItem(quantity);
+            Product OurProduct = Builder.SearchAndSelect(new Product());
+
+            Builder.Add("How many of this product are there?",'b');
+            int quantity = Builder.GetInt();
+
+            LineItem newLineItem = new LineItem(quantity, OurProduct);
             BL.Add(newLineItem);
 
             Builder.Pause("LineItem Added!");

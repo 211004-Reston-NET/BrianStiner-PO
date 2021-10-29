@@ -1,5 +1,6 @@
 obj
 bin
 .vscode
-appsettings.json
+appsetting.json
 text Storage.txt
+UserInterface/appsetting.json

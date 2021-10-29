@@ -12,17 +12,20 @@ namespace UserInterface{
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("./../UserInterface/appsettings.json") //TODO: File not found exception. Get help.
+                .AddJsonFile("appsetting.json")  //TODO: File not found exception. Get help.     
                 .Build();
             
             DbContextOptionsBuilder<revaturedatabaseContext> options = new DbContextOptionsBuilder<revaturedatabaseContext>()
                 .UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
 
+            //All menus require dependency injection becuase all the menus require menubuilder which requires BusinessLogic.
+            //This could have been designed so that menubuilder doesn't require BusinessLogic, but I didn't want to change the design so close to the deadline.
+            //And functionality is not affected.
             switch (currentMenu){
 
                 //Customer
                 case MenuType.Customer:
-                    return new CustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+                    return new CustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
 
                 case MenuType.ShowAllCustomers:
                     return new ShowAllCustomersMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));
@@ -53,8 +56,8 @@ namespace UserInterface{
                     return new ModifyStorefrontMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
                 case MenuType.SelectStorefront:
                     return new SelectStorefrontMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
-                case MenuType.ShowCurrentStorefront:
-                    return new ShowCurrentCustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
+                case MenuType.ShowStorefront:
+                    return new ShowStorefrontMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
                 
                 //Product
                 case MenuType.Product:

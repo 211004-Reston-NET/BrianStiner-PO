@@ -15,7 +15,7 @@ namespace Toolbox
     {
         
         List<string> menulines = new List<string>();    //This is the list of strings that will be displayed
-        IBusiness BL;                  //This is the business logic object that will be used to interact with the database
+        IBusiness BL;                  //This is the business logic object that will be used to interact with the database in Search().
         public MenuBuilder(IBusiness BL)
         {
             this.BL = BL;
@@ -84,8 +84,9 @@ namespace Toolbox
         //Method GetAddress: Returns a string that is the address of the user's input.
         public string GetAddress(){
             Add("Please enter your address: ", 'f');
-            string address = Console.ReadLine(); Add(address); 
-            while(!Regex.IsMatch(address, @"\d{1,6}\s\w.\s(\b\w*\b\s){1,5}\w*\.?")){            //address must be in this format: "123 Main St."
+            string address = Console.ReadLine(); Add(address);                           //1 to 6 numbers, a space, 1 to 5 words, 5 numbers, then an enter.
+            while(!Regex.IsMatch(address, @"\d{1,6} (\b\w*\b\s){1,5}\d{5}\.?")){            //address must be in this format: "12325 Main Road St 12345"
+                Add("Enter number, street name, and zipcode.");
                 Add("Invalid address format. Please try again: ", 'f');
                 address = Console.ReadLine(); Add(address); 
             }
@@ -153,7 +154,7 @@ namespace Toolbox
             string i = "";
             bool valid = false;
             while(!valid){
-                if(Regex.IsMatch(s, @"^[a-zA-Z]+$")){                                           //regex for letters only.
+                if(Regex.IsMatch(s, @"^[a-zA-Z ]+$")){                                           //regex for letters and spaces only.
                     i = s;
                     valid = true;
                     i = s;
@@ -167,160 +168,125 @@ namespace Toolbox
         }
         //Method Choice: no parameters. char YorN reads first char of input and checks for a valid choice. y,a,1 are true. n,b,2 are false.
         public bool Choice(){
-            char YorN = Char.ToLower(Convert.ToChar(Console.ReadLine().Substring(0, 1))); 
-            if(YorN=='y'||YorN=='a'||YorN=='1'){
-                return true;
-            }else if(YorN=='n'||YorN=='b'||YorN=='2'){
-                return false;
-            }else{
+            char YorN;
+            try{YorN = Char.ToLower(Convert.ToChar(Console.ReadLine().Substring(0, 1)));} //gets first char of input and converts to lowercase.
+            catch(System.ArgumentOutOfRangeException){                                    //if no input, starts over.
+                Add("Type something. Then hit enter.", 'f');
+                return Choice();
+            }
+            if(YorN=='y'||YorN=='a'||YorN=='1'){return true;}                           
+            else if(YorN=='n'||YorN=='b'||YorN=='0'){return false;}  
+            else{
                 Add(YorN.ToString());
-                Add("Enter a valid choice. y/n a/b 1/2", 'f');
-                return Choice();                                             //recursion
+                Add("Enter a valid choice. y/n a/b 1/0", 'f');                            //if input is not valid, starts over.
+                return Choice();                                            
             }
         }
 
         //Methods named Search: Customer p_IC parameter: searchs Customer database List<Customer> that match the search string.
 
         public List<Customer> Search(Customer p_IC){
-            List<Customer> SelectC = new List<Customer>();
-            do
-            {   
-                Add();
-                Add($"Search {p_IC.Identify()}s:",'b');
-                string entered = Console.ReadLine();
-                Add(entered);
-
+            List<Customer> SelectC; int cnt;
+            do{   
+                Add(); Add($"Search {p_IC.Identify()}s:",'b');
+                string entered = Console.ReadLine(); Add(entered);
+                
                 SelectC = BL.Search(p_IC, entered);
 
                 if(SelectC.Count == 0){Add("No results.");}
                 else{
-                    Add();
-                    Add($" Showing {p_IC.Identify()}s");
-                    Add();
-                    int cnt = 0;
+                    Add();Add($" Showing {p_IC.Identify()}s");Add();
+                    cnt = 0;
                     foreach(Customer c in SelectC){
-                        cnt++;
-                        Add();
-                        Add($"[{cnt}] --------------------");
+                        Add();Add($"[{cnt++}] --------------------");
                         Add(c.ToStringList());
                     }
-                    Add();
-                    Add("Do you want to search again?", 'b');
+                    Add("=============================="); Add("Do you want to search again?", 'b');
                 }
-
             } while (Choice());
             return SelectC;
         }
         public List<Storefront> Search(Storefront p_IC){
-            List<Storefront> SelectC = new List<Storefront>();
-            do
-            {   
-                Add();
-                Add($"Search {p_IC.Identify()}s:",'B');
-                string entered = Console.ReadLine();
-                Add(entered);
+            List<Storefront> SelectC; int cnt = 0;
+            do{   
+                Add(); Add($"Search {p_IC.Identify()}s:",'b');
+                string entered = Console.ReadLine(); Add(entered);
 
                 SelectC = BL.Search(p_IC, entered);
 
                 if(SelectC.Count == 0){Add("No results.");}
                 else{
-                    Add();
-                    Add($" Showing {p_IC.Identify()}s");
-                    int cnt = 0;
+                    Add();Add($" Showing {p_IC.Identify()}s");Add();
+                    
                     foreach(Storefront c in SelectC){
-                        cnt++;
-                        Add();
-                        Add($"[{cnt}] --------------------");
+                        Add();Add($"[{cnt++}] --------------------");
                         Add(c.ToStringList());
                     }
-                    Add();
-                    Add("Do you want to search again?", 'b');
+                    Add("=============================="); Add("Do you want to search again?", 'b');
                 }
             } while (Choice());
             return SelectC;
         }
         public List<Order> Search(Order p_IC){
-            List<Order> SelectC = new List<Order>();
-            do
-            {   
-                Add();
-                Add($"Search {p_IC.Identify()}s:",'B');
-                string entered = Console.ReadLine();
-                Add(entered);
+            List<Order> SelectC; int cnt = 0;
+            do{   
+                Add(); Add($"Search {p_IC.Identify()}s:",'b');
+                string entered = Console.ReadLine(); Add(entered);
 
                 SelectC = BL.Search(p_IC, entered);
 
                 if(SelectC.Count == 0){Add("No results.");}
                 else{
-                    Add();
-                    Add($" Showing {p_IC.Identify()}s");
-                    int cnt = 0;
+                    Add();Add($" Showing {p_IC.Identify()}s");Add();
+                    
                     foreach(Order c in SelectC){
-                        cnt++;
-                        Add();
-                        Add($"[{cnt}] --------------------");
+                        Add();Add($"[{cnt++}] --------------------");
                         Add(c.ToStringList());
                     }
-                    Add();
-                    Add("Do you want to search again?", 'b');
+                    Add("=============================="); Add("Do you want to search again?", 'b');
                 }
 
             } while (Choice());
             return SelectC;
         }
         public List<LineItem> Search(LineItem p_IC){
-            List<LineItem> SelectC = new List<LineItem>();
-            do
-            {   
-                Add();
-                Add($"Search {p_IC.Identify()}s:",'B');
-                string entered = Console.ReadLine();
-                Add(entered);
+            List<LineItem> SelectC; int cnt = 0;
+            do{   
+                Add(); Add($"Search {p_IC.Identify()}s:",'b');
+                string entered = Console.ReadLine(); Add(entered);
 
                 SelectC = BL.Search(p_IC, entered);
 
                 if(SelectC.Count == 0){Add("No results.");}
                 else{
-                    Add();
-                    Add($" Showing {p_IC.Identify()}s");
-                    int cnt = 0;
+                    Add();Add($" Showing {p_IC.Identify()}s");Add();
+                    
                     foreach(LineItem c in SelectC){
-                        cnt++;
-                        Add();
-                        Add($"[{cnt}] --------------------");
+                        Add();Add($"[{cnt++}] --------------------");
                         Add(c.ToStringList());
                     }
-                    Add();
-                    Add("Do you want to search again?", 'b');
+                    Add("=============================="); Add("Do you want to search again?", 'b');
                 }
-
             } while (Choice());
             return SelectC;
         }
         public List<Product> Search(Product p_IC){
-            List<Product> SelectC = new List<Product>();
-            do
-            {   
-                Add();
-                Add($"Search {p_IC.Identify()}s:",'B');
-                string entered = Console.ReadLine();
-                Add(entered);
+            List<Product> SelectC; int cnt = 0;
+            do{   
+                Add(); Add($"Search {p_IC.Identify()}s:",'b');
+                string entered = Console.ReadLine(); Add(entered);
 
                 SelectC = BL.Search(p_IC, entered);
 
                 if(SelectC.Count == 0){Add("No results.");}
                 else{
-                    Add();
-                    Add($" Showing {p_IC.Identify()}s");
-                    int cnt = 0;
+                    Add();Add($" Showing {p_IC.Identify()}s");Add();
+                    
                     foreach(Product c in SelectC){
-                        cnt++;
-                        Add();
-                        Add($"[{cnt}] --------------------");
+                        Add();Add($"[{cnt++}] --------------------");
                         Add(c.ToStringList());
                     }
-                    Add();
-                    Add("Do you want to search again?", 'b');
+                    Add("=============================="); Add("Do you want to search again?", 'b');
                 }
 
             } while (Choice());
@@ -334,35 +300,35 @@ namespace Toolbox
             Add($"Show all {AllIC[0].Identify()}s,");
             foreach(Customer ic in AllIC){
                 Add(ic.ToStringList());
-                Add("  ----------  ");
+                Add("===================================");
             }
             Add("",'f');
         }public void ShowAll(List<Storefront> AllIC){
             Add($"Show all {AllIC[0].Identify()}s,");
             foreach(Storefront ic in AllIC){
                 Add(ic.ToStringList());
-                Add("  ----------  ");
+                Add("===================================");
             }
             Add("",'f');
         }public void ShowAll(List<Order> AllIC){
             Add($"Show all {AllIC[0].Identify()}s,");
             foreach(Order ic in AllIC){
                 Add(ic.ToStringList());
-                Add("  ----------  ");
+                Add("===================================");
             }
             Add("",'f');
         }public void ShowAll(List<LineItem> AllIC){
             Add($"Show all {AllIC[0].Identify()}s,");
             foreach(LineItem ic in AllIC){
                 Add(ic.ToStringList());
-                Add("  ----------  ");
+                Add("===================================");
             }
             Add("",'f');
         }public void ShowAll(List<Product> AllIC){
             Add($"Show all {AllIC[0].Identify()}s,");
             foreach(Product ic in AllIC){
                 Add(ic.ToStringList());
-                Add("  ----------  ");
+                Add("===================================");
             }
             Add("",'f');
         }
@@ -414,7 +380,7 @@ namespace Toolbox
                 catch (System.Exception){repeat = true; Pause("Thats not a valid selection. Try again.");}
             } while (repeat && choice <= p_ICList.Count && choice >= 1);
 
-            return p_ICList[choice-1];
+            return p_ICList[choice];
         }
         public Storefront Select(List<Storefront> p_ICList){
             int choice = 0;

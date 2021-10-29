@@ -5,16 +5,19 @@ using Models;
 using BusinessLogic;
 
 namespace UserInterface{
-    public class SelectStorefrontMenu : IMenu{
+    public class ShowStorefrontMenu : IMenu{
         IBusiness BL;
         MenuBuilder Builder;
-        public SelectStorefrontMenu(IBusiness BL){
+        public  ShowStorefrontMenu(IBusiness BL){
             this.BL = BL;
             Builder = new MenuBuilder(BL);
         }
         public void Display(){
-            Current.storefront = Builder.SearchAndSelect(new Storefront());  
-            Builder.Pause($"Store set to {Current.storefront.Name}!");
+            Builder.Add("---Showing Storefront---");
+            Builder.Add();
+            Builder.Add(Current.storefront.ToStringList());
+            Builder.Add();
+            Builder.Pause($"{Current.storefront.Name} Shown!");
         }
         public MenuType Choice(){return MenuType.Storefront;}
     }

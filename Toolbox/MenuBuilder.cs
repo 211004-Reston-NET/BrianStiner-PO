@@ -417,6 +417,8 @@ namespace Toolbox
 
         //Method CreateOrder: Creates an Order. Calls CreateLineItem() in a loop
         //Returns the created Order. Adds Orders to database.
+        //Used in CreateCustomerOrder() and CreateStorefrontOrder().
+
         public Order CreateOrder(){
             Order o = new Order();
             LineItem li = new LineItem();
@@ -424,25 +426,41 @@ namespace Toolbox
                 li = CreateLineItem();
                 o.OrderLineItems.Add(li);
                 Add("Where is this order from?",'b');
-                o.Location = GetAddress();
+                o.Location = SearchAndSelect(new Storefront()).Address;
                 Add("Do you want to add another LineItem?", 'b');
             }while(Choice());
             BL.Add(o);
             return o;
         }
+        //If you want to skip picking a location each time, send in an address.
+        public Order CreateOrder(string p_Location){
+            Order o = new Order();
+            LineItem li = new LineItem();
+            do{
+                li = CreateLineItem();
+                o.OrderLineItems.Add(li);
+                o.Location = p_Location;
+                Add("Another LineItem?", 'b');
+            }while(Choice());
+            BL.Add(o);
+            return o;
+        }
 
-        //Method CreateLineItem: Creates a LineItem. Returns the created LineItem.
-        //Adds LineItems to database. Pick a Product from the database in a loop.
+        //Method CreateLineItem: Creates a LineItem. Picks a Product from the database.
+        //Adds LineItems to database. Returns the created LineItem.
+        //Used in CreateOrder() method.
 
         public LineItem CreateLineItem(){
             LineItem li = new LineItem();
             Product p = new Product();
-            do{
-                p = SearchAndSelect(p);
-                li.Product = p;
-                Add("How many of this product do you want to order?", 'b');
-                li.Quantity = GetInt();
-                Add("Do you want to add another LineItem?", 'b');
+
+            p = SearchAndSelect(p);
+            li.LineProduct = p;
+            Add("How many of this product do you want?", 'b');
+            li.Quantity = GetInt();
+
+            BL.Add(li);
+            return li;
     }
     //----------------------------------------------------------------------------------------------------------------------
 }

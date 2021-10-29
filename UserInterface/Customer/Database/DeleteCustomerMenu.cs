@@ -20,7 +20,7 @@ namespace UserInterface{
 
             BL.Delete(OurCustomer);                                             //Delete Customer
         
-            Builder.Pause("Customer deleted from database");                    //Reset menu for new menu selection
+            Builder.ResetPause("Customer deleted from database");                    //Reset menu for new menu selection
         }
 
         public MenuType Choice(){return MenuType.Customer;}

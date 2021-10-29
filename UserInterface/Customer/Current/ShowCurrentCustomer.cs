@@ -14,10 +14,11 @@ namespace UserInterface{
         }
         public void Display(){
 
-            Builder.Add("---Showing Current Customer---");
+            BL.Update(Current.customer);
+            Builder.Reset("---Showing Current Customer---");
             Builder.Add();
             Builder.Add(Current.customer.ToStringList());
-
+            Builder.Add();
             Builder.Pause($"{Current.customer.Name} shown!");
         }
 

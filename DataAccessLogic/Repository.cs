@@ -25,6 +25,7 @@ namespace DataAccessLogic
                     Address = p_IC.Address,
                     Email = p_IC.Email,
                     Phone = p_IC.Phone,
+                    Picture = p_IC.Picture
                 });
             _context.SaveChanges();
         }
@@ -103,6 +104,7 @@ namespace DataAccessLogic
                     Email = IC.Email,
                     Phone = IC.Phone,
                     Address = IC.Address,
+                    Picture = IC.Picture
                 }).ToList();
         }
         public List<Model.Storefront> GetAll(Model.Storefront p_IC){
@@ -150,6 +152,7 @@ namespace DataAccessLogic
                     Email = IC.Email,
                     Phone = IC.Phone,
                     Address = IC.Address,
+                    Picture = IC.Picture
                 }).FirstOrDefault(IC => IC.Id == p_IC.Id);
         }
         public Model.Storefront Get(Model.Storefront p_IC){
@@ -192,6 +195,7 @@ namespace DataAccessLogic
             entity.Email = p_IC.Email;
             entity.Phone = p_IC.Phone;
             entity.Address = p_IC.Address;
+            entity.Picture = p_IC.Picture; //need to update 
             _context.SaveChanges();
         }
         public void Update(Model.Storefront p_IC){
@@ -228,6 +232,7 @@ namespace DataAccessLogic
                     Email = IC.Email,
                     Phone = IC.Phone,
                     Address = IC.Address,
+                    Picture = IC.Picture,
                 }).Where(IC => IC.Name.Contains(p_Search) || IC.Email.Contains(p_Search) || IC.Phone.Contains(p_Search) || IC.Address.Contains(p_Search)).ToList();
         }
         public List<Model.Storefront> Search(Model.Storefront p_IC, string p_Search){

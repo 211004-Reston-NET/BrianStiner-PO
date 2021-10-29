@@ -29,7 +29,7 @@ namespace UserInterface{
             BL.Add(new Customer(name, address, email, phoneNumber));
             Builder.Add();
 
-            Builder.Pause("Customer added to database!");
+            Builder.ResetPause("Customer added to database!");
         }
 
         public MenuType Choice(){return MenuType.Customer;}

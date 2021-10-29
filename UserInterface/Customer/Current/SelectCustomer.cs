@@ -20,7 +20,7 @@ namespace UserInterface{
 
             Current.customer = OurCustomer;
 
-            Builder.Pause($"Customer is now {Current.customer.Name}!");
+            Builder.ResetPause($"Customer is now {Current.customer.Name}!");
         }
         public MenuType Choice(){return MenuType.Customer;}
     }

@@ -39,7 +39,9 @@ namespace UserInterface{
                 case MenuType.SelectCustomer:
                     return new SelectCustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
                 case MenuType.ShowCurrentCustomer:
-                    return new ShowCurrentCustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));     
+                    return new ShowCurrentCustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+                case MenuType.CustomerOrder:
+                    return new CustomerOrderMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));     
 
                 //Storefront
                 case MenuType.Storefront:
@@ -86,6 +88,8 @@ namespace UserInterface{
                     return new DeleteOrderMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
 
                 //Others
+                // case MenuType.ModifyLineItem:
+                //     return new ModifyLineItemMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
                 case MenuType.Exit:
                     return new ExitMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
                 case MenuType.RealExit:

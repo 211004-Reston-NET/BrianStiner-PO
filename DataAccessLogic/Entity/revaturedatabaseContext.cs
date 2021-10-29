@@ -56,6 +56,8 @@ namespace DataAccessLogic.Entity
                     .HasMaxLength(20)
                     .IsUnicode(false)
                     .HasColumnName("phone");
+
+                entity.Property(e => e.Picture).HasColumnName("picture");
             });
 
             modelBuilder.Entity<CustomerOrder>(entity =>
@@ -71,12 +73,12 @@ namespace DataAccessLogic.Entity
                 entity.HasOne(d => d.Customer)
                     .WithMany()
                     .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK__Customer___Custo__0C85DE4D");
+                    .HasConstraintName("FK__Customer___Custo__236943A5");
 
                 entity.HasOne(d => d.Orders)
                     .WithMany()
                     .HasForeignKey(d => d.OrdersId)
-                    .HasConstraintName("FK__Customer___Order__0D7A0286");
+                    .HasConstraintName("FK__Customer___Order__245D67DE");
             });
 
             modelBuilder.Entity<Inventory>(entity =>
@@ -92,12 +94,12 @@ namespace DataAccessLogic.Entity
                 entity.HasOne(d => d.Lineitem)
                     .WithMany()
                     .HasForeignKey(d => d.LineitemId)
-                    .HasConstraintName("FK__Inventory__Linei__07C12930");
+                    .HasConstraintName("FK__Inventory__Linei__1CBC4616");
 
                 entity.HasOne(d => d.Storefront)
                     .WithMany()
                     .HasForeignKey(d => d.StorefrontId)
-                    .HasConstraintName("FK__Inventory__Store__06CD04F7");
+                    .HasConstraintName("FK__Inventory__Store__1BC821DD");
             });
 
             modelBuilder.Entity<LineItem>(entity =>
@@ -106,7 +108,14 @@ namespace DataAccessLogic.Entity
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.ProductId).HasColumnName("Product_ID");
+
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.LineItems)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK__LineItem__Produc__19DFD96B");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -136,12 +145,12 @@ namespace DataAccessLogic.Entity
                 entity.HasOne(d => d.LineItem)
                     .WithMany()
                     .HasForeignKey(d => d.LineItemId)
-                    .HasConstraintName("FK__Orders_Li__LineI__0A9D95DB");
+                    .HasConstraintName("FK__Orders_Li__LineI__1F98B2C1");
 
                 entity.HasOne(d => d.Orders)
                     .WithMany()
                     .HasForeignKey(d => d.OrdersId)
-                    .HasConstraintName("FK__Orders_Li__Order__09A971A2");
+                    .HasConstraintName("FK__Orders_Li__Order__1EA48E88");
             });
 
             modelBuilder.Entity<Product>(entity =>

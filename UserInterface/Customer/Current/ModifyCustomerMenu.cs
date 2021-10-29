@@ -16,19 +16,21 @@ namespace UserInterface{
         //ask for a string and search against all of the Customer database to return a select List<Customer>, show it, user selects one, modify that customer.
         public void Display(){
 
-            Builder.Reset(Current.customer.ToStringList());
+            
 
             //Modify Customer
             do{
+                Builder.Reset(Current.customer.ToStringList());
                 Builder.Add(new List<string>(){
                     "What do you want to change?",
                     "[1] - Name",
                     "[2] - Address",
                     "[3] - Email",
-                    "[4] - Phone Number"},'f');
+                    "[4] - Phone Number",
+                    "[5] - Face"},'f');
 
                 int choice = Builder.GetInt();
-
+                Builder.Add("Enter the new value:",'f');
                 switch(choice){
                     case 1:
                         Current.customer.Name = Builder.GetString(); break;
@@ -38,9 +40,11 @@ namespace UserInterface{
                         Current.customer.Email = Builder.GetEmail(); break;
                     case 4:
                         Current.customer.Phone = Builder.GetPhoneNumber(); break;
+                    case 5:
+                        Current.customer.Picture = Builder.AssignFace(); break;
                     default:
                         Builder.Reset(new List<string>(){
-                           $"Invalid Choice, only 1-4 are valid options",
+                           $"Invalid Choice, only 1-5 are valid options",
                            $"You have not updated {Current.customer.Name}",
                            $"Please try again."});
                         break;
@@ -52,7 +56,9 @@ namespace UserInterface{
                    $"change to {Current.customer.Name}?"},'f');
             } while(Builder.Choice());
 
-            Builder.Pause($"{Current.customer.Name} Modified!");
+            BL.Update(Current.customer);
+
+            Builder.ResetPause($"{Current.customer.Name} Modified!");
         }
 
         public MenuType Choice(){return MenuType.Customer;} //Best choice is no choice

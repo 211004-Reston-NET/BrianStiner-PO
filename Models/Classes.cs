@@ -13,42 +13,20 @@ namespace Models
         //Variables -----------------------------------------------------------------------------
         public int Id { get; set; }
         private string name, address, email, phone;
-        private List<string> picture = new FaceFarm().GetFace();
+        internal FaceFarm faceFarm = new FaceFarm();
+        private int picture = 0;
         private List<Order> customerOrders = new List<Order>();
 
         //Constructors ---------------------------------------------------------------------------
-        public Customer(){}
-        public Customer(string p_name){this.name = p_name;}
-        public Customer(string p_name, string p_address){this.name = p_name; this.address = p_address;}
-        public Customer(string p_name, string p_address, string p_email){this.name = p_name; this.address = p_address; this.email = p_email;}
-        public Customer(string p_name, string p_address, string p_email, string p_phone){
-            this.name = p_name;
-            this.address = p_address;
-            this.email = p_email;
-            this.phone = p_phone;
-        }
-        public Customer(string p_name, string p_address, string p_email, string p_phone, List<string> p_picture){
-            this.name = p_name;
-            this.address = p_address;
-            this.email = p_email;
-            this.phone = p_phone;
-            this.picture = p_picture;
-        }
-        public Customer(string p_name, string p_address, string p_email, string p_phone, List<Order> p_Orders){
-            this.name = p_name;
-            this.address = p_address;
-            this.email = p_email;
-            this.phone = p_phone;
-            this.customerOrders = p_Orders;
-        }
-        public Customer(string p_name, string p_address, string p_email, string p_phone, List<Order> p_Orders, List<string> p_picture){
-            this.name = p_name;
-            this.address = p_address;
-            this.email = p_email;
-            this.phone = p_phone;
-            this.customerOrders = p_Orders;
-            this.picture = p_picture;
-        }
+        public Customer(){this.picture = faceFarm.AssignFace();}
+        public Customer(string p_name):this(){this.name = p_name;}
+        public Customer(string p_name, string p_address):this(p_name){this.address = p_address;}
+        public Customer(string p_name, string p_address, string p_email):this(p_name, p_address){this.email = p_email;}
+        
+        public Customer(string p_name, string p_address, string p_email, string p_phone):this(p_name, p_address, p_email){this.phone = p_phone;}
+        public Customer(string p_name, string p_address, string p_email, string p_phone, int p_picture):this(p_name, p_address, p_email, p_phone){this.picture = p_picture;}
+        public Customer(string p_name, string p_address, string p_email, string p_phone, List<Order> p_Orders):this(p_name, p_address, p_email, p_phone){this.customerOrders = p_Orders;}
+        public Customer(string p_name, string p_address, string p_email, string p_phone, int p_picture, List<Order> p_Orders):this(p_name, p_address, p_email, p_phone, p_Orders){this.picture = p_picture;}
 
 
         //Get & Set -------------------------------------------------------------------------------
@@ -57,7 +35,7 @@ namespace Models
         public string Email { get => email; set => email = value; }
         public string Phone { get => phone; set => phone = value; }
         public List<Order> CustomerOrders { get => customerOrders; set => customerOrders = value; }
-        public List<string> Picture { get => picture; }
+        public int Picture { get => picture; set => picture = value; }
 
         //Interface --------------------------------------------------------------------------------
         public string Identify() { return "Customer"; }
@@ -70,16 +48,18 @@ namespace Models
             $"phoneNumber: {this.phone}",
             $"Orders: "};
             try{
+                int cnt = 0;
                 foreach(Order o in this.customerOrders){
+                    stringlist.Add($"-[{cnt++}]-");
                     foreach(string s in o.ToStringList()){
-                        stringlist.Add(s);
+                        stringlist.Add($"|  {s}");
                     }
                 }
             }catch (System.Exception){
                 stringlist.Add("Customer has NULL orders.");
                 throw;
             }
-            stringlist.Add("");stringlist.Add("Picture:"); stringlist.AddRange(picture);
+            stringlist.Add("");stringlist.Add("Picture:"); stringlist.AddRange(faceFarm.GetFace(picture));
             return stringlist;
         }
     }
@@ -137,9 +117,12 @@ namespace Models
             }else{stringlist.Add("   None");}
             stringlist.Add($"Orders: ");
             if(storeOrders.Count != 0){
+                int cnt = 0;
                 foreach(Order o in storeOrders){
-                    stringlist.Add("---------------------------");
-                    stringlist.AddRange(o.ToStringList());
+                    stringlist.Add($"-[{cnt++}]-");
+                    foreach(string s in o.ToStringList()){
+                        stringlist.Add($"  {s}");
+                    }
                 }
             }else{stringlist.Add("   None");}
             return stringlist;
@@ -152,33 +135,23 @@ namespace Models
     {
         //Variables -----------------------------------------------------------------------------
         public int Id { get; set; }
-        private List<LineItem> orderLineItems; 
-        private string location;
-        private decimal totalPrice;
+        private List<LineItem> orderLineItems = new List<LineItem>(); 
+        private string location = "";
+        private decimal totalPrice; //CalculateTotalPrice();
 
         //Constructors ---------------------------------------------------------------------------
         public Order(){}
-        public Order(string p_location)
-        {
-            this.location = p_location;
-            this.totalPrice = 0;
-            OrderLineItems = new List<LineItem>();
-        }
-        public Order(string p_location, List<LineItem> p_LineItems)
-        {
+        public Order(string p_location):this(){this.location = p_location;}
+        public Order(string p_location, List<LineItem> p_LineItems){
             location = p_location;
             OrderLineItems = p_LineItems;
-            foreach(LineItem LI in OrderLineItems){
-                totalPrice += LI.Quantity*LI.LineProduct.Price;
-            }
         }
-
 
         //Get & Set -------------------------------------------------------------------------------
 
         public List<LineItem> OrderLineItems { get => orderLineItems; set => orderLineItems = value; }
         public string Location { get => location; set => location = value; }
-        public decimal TotalPrice { get => totalPrice; set => totalPrice = value; }
+        public decimal TotalPrice { get => CalculateTotalPrice();}
         
 
         //Interface --------------------------------------------------------------------------------
@@ -187,15 +160,23 @@ namespace Models
         
         public List<string> ToStringList(){
             List<string> stringlist = new List<string>(){
-            $"location: {location}",
-            $"totalPrice: {totalPrice}",
+            $"location:{location}",
             $"LineItems: "};
-            foreach(LineItem LI in OrderLineItems){
+            foreach(LineItem LI in OrderLineItems){ 
                 foreach(string s in LI.ToStringList()){
-                    stringlist.Add(s);
+                    stringlist.Add($"| {s}");
                 }
             }
+            stringlist.Add($"-------------------------------");
+            stringlist.Add($"                 Total: {TotalPrice}");
             return stringlist;
+        }
+
+        //Methods ---------------------------------------------------------------------------------
+        public decimal CalculateTotalPrice(){
+            decimal orderTotal = 0;
+            foreach(LineItem LI in OrderLineItems){orderTotal += LI.Total;}
+            return orderTotal;
         }
     }
 
@@ -234,12 +215,14 @@ namespace Models
         //Interface --------------------------------------------------------------------------------
         public string Identify() { return "LineItem"; }
         public List<string> ToStringList(){
-            List<string> stringlist = new List<string>(){
-            $"quantity: {quantity}",
-            $"product: {lineProduct.ToStringList()}",
-            $"------------------------------",
-            $"                Total: {Total}",
-            ""};
+            List<string> stringlist = new List<string>();
+            stringlist.Add($"Product:");
+            foreach(string s in lineProduct.ToStringList()){
+                stringlist.Add($"| {s}");
+            }
+            stringlist.Add($"Quantity: {quantity}");
+            stringlist.Add($"------------------------------");
+            stringlist.Add($"                Total: {Total}");
             return stringlist;
         }
     }
@@ -278,13 +261,12 @@ namespace Models
         }
     }
 
-    class FaceFarm
+    public class FaceFarm
     {
         private List<List<string>> faceList = new List<List<string>>();
         public FaceFarm()
         {
-            int n = 0;
-            faceList[n++] =    new List<string>(){  @"    ___________",
+            faceList.Add(      new List<string>(){  @"    ___________",
                                                     @"   /___     ___\",
                                                     @"  //   `---'   \\",
                                                     @"  ||           || ",
@@ -294,9 +276,9 @@ namespace Models
                                                     @"  |    `._.'    | ",
                                                     @"   \   _____   / ",
                                                     @"    \    --   / ",
-                                                    @"    |`-.____-'| "};
+                                                    @"    |`-.____-'| "});
 
-            faceList[n++] =    new List<string>(){  @"   _,-'}{'-._  ",
+            faceList.Add(      new List<string>(){  @"   _,-'}{'-._  ",
                                                     @"  /,;;//\\;;.\ ",
                                                     @"  ///'_  _`\\\ ",
                                                     @"  |Y '_  _` Y| ",
@@ -308,9 +290,9 @@ namespace Models
                                                     @"    _j    l_",
                                                     @"  ,' `.__,' `.",
                                                     @" /            \",
-                                                    @"|__Y________Y__|"};
+                                                    @"|__Y________Y__|"});
 
-            faceList[n++] =    new List<string>(){  @"     ,-~~~~~\~~-.  ",
+            faceList.Add(      new List<string>(){  @"     ,-~~~~~\~~-.  ",
                                                     @"   ,'        \   \  ",
                                                     @"  , .--------'\_  | ",
                                                     @" ,|/| --. .--  |\ |\ ",
@@ -321,22 +303,22 @@ namespace Models
                                                     @" / / \   --   /   \  ",
                                                     @" />   |\____/ |   \\ ",
                                                     @"  //-|\      / |-\\ ",
-                                                    @"     \_\____/ / \\  "};
+                                                    @"     \_\____/ / \\  "});
 
-            faceList[n++] =    new List<string>(){  @"  ,-~~~~~\~~-.  ",
-                                                    @"  |        \   \  ",
-                                                    @"  | .--------'\_  | ",
-                                                    @"  |/| --. .--  |\ |\ ",
+            faceList.Add(      new List<string>(){  @"  ,-~~~~~\~~~~~-.  ",
+                                                    @"  |          \   \  ",
+                                                    @"  | .---------'\_  | ",
+                                                    @"  |/|_--. .--_  |\ |\ ",
                                                     @"  | | (o)  (o)   |, \", 
                                                     @"  |(|   |  )     | ",
                                                     @"  /`|   `--'     |' \ ",
-                                                    @"  |/ \  _____   /| || ",
-                                                    @"  / / \   --   /   \  ",
+                                                    @"  |/ \  ______  /| || ",
+                                                    @"  / / \  ---   /   \  ",
                                                     @" />   |\_____/ |   \\ ",
                                                     @"  //-|\       / |-\\ ",
-                                                    @"     \_\_____/ / \\  "};
+                                                    @"     \_\_____/ / \\  "});
 
-            faceList[n++] =    new List<string>(){  @"      ________",
+            faceList.Add(      new List<string>(){  @"      ________",
                                                     @"     / ~~'~~~ \",
                                                     @"   /  _/ - -\_  \",
                                                     @" .   /        \  \", 
@@ -349,9 +331,9 @@ namespace Models
                                                     @"     |\,,,,,,'|",   
                                                     @"     |  . ..  |",  
                                                     @"    /'. . . . '\",   
-                                                    @" _/______________\_"};
+                                                    @" _/______________\_"});
 
-            faceList[n++] =    new List<string>(){  @"         _____    ",
+            faceList.Add(      new List<string>(){  @"         _____    ",
                                                     @"       --=====-- ",
                                                     @"     // ======= \\  ",
                                                     @"    ||/         \|| ",
@@ -363,17 +345,21 @@ namespace Models
                                                     @"     |  |-___-|  | ",
                                                     @"      \ |.....| /  ",
                                                     @"   ____`-|||||-'____  ",
-                                                    @"  ______\_____/______"};
-                                                    
-            //faceList[n++] =    new List<string>(){  @"  ,-~~~~~\~~-.  ",
+                                                    @"  ______\_____/______"});
+
+            //faceList.Add(      new List<string>(){  @"  ,-~~~~~\~~-.  ",
         }
 
-        //Method GetFace returns a random face
-        public List<string> GetFace()
+        //Returns a random face's index
+        public int AssignFace()
         {
             Random rnd = new Random();
-            int randint = rnd.Next(0, faceList.Count);
-            return faceList[randint];
+            return rnd.Next(0, faceList.Count);
+        }
+        //Given an index, returns a face
+        public List<string> GetFace(int index)
+        {
+            return faceList[index];
         }
     }
 

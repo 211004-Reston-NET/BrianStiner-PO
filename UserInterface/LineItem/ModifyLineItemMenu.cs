@@ -5,7 +5,7 @@ using Models;
 using BusinessLogic;
 
 namespace UserInterface{
-    public class ModifyLineItemMenu : Menu{
+    public class ModifyLineItemMenu : IMenu{
         IBusiness BL; MenuBuilder Builder;
         public ModifyLineItemMenu(IBusiness BL, MenuBuilder Builder){
             this.BL = BL;

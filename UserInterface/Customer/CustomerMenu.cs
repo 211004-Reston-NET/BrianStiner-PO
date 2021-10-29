@@ -53,7 +53,7 @@ namespace UserInterface
                 case 6:
                     return MenuType.ShowCurrentCustomer;
                 case 7:
-                //    return MenuType.CreateOrder;
+                    return MenuType.CustomerOrder;
                 case 8:
                 //    return MenuType.DeleteCurrentOrder;
                 default:

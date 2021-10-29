@@ -4,8 +4,8 @@ namespace UserInterface
     public enum MenuType
     {
         Main,
-        Customer, ShowAllCustomers, AddCustomer, ModifyCustomer, DeleteCustomer, SelectCustomer, ShowCurrentCustomer,
-        Storefront, ShowAllStorefronts, AddStorefront, ModifyStorefront, DeleteStorefront, SelectStorefront, ShowStorefront,
+        Customer, ShowAllCustomers, AddCustomer, ModifyCustomer, DeleteCustomer, SelectCustomer, ShowCurrentCustomer, CustomerOrder,
+        Storefront, ShowAllStorefronts, AddStorefront, ModifyStorefront, DeleteStorefront, SelectStorefront, ShowStorefront, StorefrontOrder,
         Order, ShowAllOrders, AddOrder, ModifyOrder, DeleteOrder,
         LineItem, ShowAllLineItems, AddLineItem, ModifyLineItem, DeleteLineItem,
         Product, ShowAllProducts, AddProduct, ModifyProduct, DeleteProduct,

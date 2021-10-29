@@ -16,7 +16,6 @@ namespace UserInterface{
             Builder.Add("Fill in Order's info,");
             Builder.Add("Where is the Order from?",'b');
             string location = Builder.GetAddress();
-            Builder.Add(location);
 
             Order newOrder = new Order(location);
 

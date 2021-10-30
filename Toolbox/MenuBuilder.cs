@@ -36,7 +36,7 @@ namespace Toolbox
                 if(line.Length<max){
                     Console.WriteLine($"    |   {line}{new string(' ', max-line.Length)}|.   ");
                 }else{
-                    foreach(string subline in line.Split(' ')){
+                    foreach(string subline in line.Insert(line.Length/2, "-").Split("-")){
                         Console.WriteLine($"    |   {subline}{new string(' ', max-subline.Length)}|.   ");}
                 }
             } 
@@ -429,22 +429,7 @@ namespace Toolbox
         //Method CreateOrder: Creates an Order. Calls CreateLineItem() in a loop
         //Returns the created Order. Adds Orders to database.
         //Used in CreateCustomerOrder() and CreateStorefrontOrder().
-
-        public Order CreateOrder(){
-            Order o = new Order();
-            LineItem li = new LineItem();
-            do{
-                li = CreateLineItem();
-                o.OrderLineItems.Add(li);
-                Add("Select a store that this order is from.");
-                o.Location = SearchAndSelect(new Storefront()).Address;
-                Add("Do you want to add another LineItem?", 'b');
-            }while(Choice());
-            BL.Add(o);
-            return o;
-        }
-
-        //If you want to skip picking a location each time, send in an address.
+        //To skip picking a location each time, send in location
         public Order CreateOrder(string p_Location){
             Order o = new Order();
             LineItem li = new LineItem();
@@ -452,9 +437,10 @@ namespace Toolbox
                 li = CreateLineItem();
                 o.OrderLineItems.Add(li);
                 o.Location = p_Location;
-                Add("Another LineItem?", 'b');
+                Add("Another Lineitem?", 'b');
             }while(Choice());
-            BL.Add(o);
+            o = BL.Add(o);
+            BL.Update(o);
             return o;
         }
 
@@ -471,10 +457,21 @@ namespace Toolbox
             li.LineProduct = p;
             Add("How many of this product do you want?", 'b');
             li.Quantity = GetInt();
+            li.ProductId = p.Id;
 
-            BL.Add(li);
+            li = BL.Add(li);
+            BL.Update(li);
             return li;
         }
+
+
+
+
+
+
+
+
+
 
         //Method to reset face to a new value
         public int AssignFace(){

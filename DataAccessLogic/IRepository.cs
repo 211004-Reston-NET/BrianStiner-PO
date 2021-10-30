@@ -13,11 +13,12 @@ namespace DataAccessLogic
         /// These will add a Class in our database
         /// </summary>
         /// <param name="p_IC">This is the Class we will be adding to the database</M.param>
-        void Add(M.Customer p_IC);
-        void Add(M.Storefront p_IC);
-        void Add(M.Order p_IC);
-        void Add(M.LineItem p_IC);
-        void Add(M.Product p_IC);
+        M.Customer Add(M.Customer p_IC);
+        M.Storefront Add(M.Storefront p_IC);
+        M.Order Add(M.Order p_IC);
+        
+        M.LineItem Add(M.LineItem p_IC);
+        M.Product Add(M.Product p_IC);
 
 
         /// <summary>

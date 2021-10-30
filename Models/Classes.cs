@@ -64,13 +64,12 @@ namespace Models
         }
     }
 
-    //Storefront has a list of products and orders, as well as a name and address.
     public class Storefront : IClass
     {
         //Variables -----------------------------------------------------------------------------
         public int Id { get; set; }
         private string name, address;
-        private List<Product> storeProducts = new List<Product>();
+        private List<LineItem> storeLineItems = new List<LineItem>();
         private List<Order> storeOrders = new List<Order>();
 
         //Constructors ---------------------------------------------------------------------------
@@ -79,27 +78,27 @@ namespace Models
             this.name = p_name;
             this.address = p_address;
         }
-        public Storefront(string p_name, string p_address, List<Product> p_products){
+        public Storefront(string p_name, string p_address, List<LineItem> p_LineItems){
             this.name = p_name;
             this.address = p_address;
-            storeProducts = p_products;
+            storeLineItems = p_LineItems;
         }
         public Storefront(string p_name, string p_address, List<Order> p_orders){
             this.name = p_name;
             this.address = p_address;
             storeOrders = p_orders;
         }
-        public Storefront(string p_name, string p_address, List<Product> p_Products, List<Order> p_Orders){
+        public Storefront(string p_name, string p_address, List<LineItem> p_LineItems, List<Order> p_Orders){
             this.name = p_name;
             this.address = p_address;
-            this.storeProducts = p_Products;
+            this.storeLineItems = p_LineItems;
             this.storeOrders = p_Orders;
         }
 
         //Get & Set -------------------------------------------------------------------------------
         public string Name { get => name; set => name = value; }
         public string Address { get => address; set => address = value; }
-        public List<Product> StoreProducts { get => storeProducts; set => storeProducts = value; }
+        public List<LineItem> StoreLineItems { get => storeLineItems; set => storeLineItems = value; }
         public List<Order> StoreOrders { get => storeOrders; set => storeOrders = value; }
 
         //Interface --------------------------------------------------------------------------------
@@ -109,10 +108,10 @@ namespace Models
             $"name: {name}",
             $"address: {address}",
             $"Products: "};
-            if(storeProducts.Count != 0){
-                foreach(Product p in storeProducts){
+            if(storeLineItems.Count != 0){
+                foreach(LineItem l in storeLineItems){
                     stringlist.Add("---------------------------");
-                    stringlist.AddRange(p.ToStringList());
+                    stringlist.AddRange(l.ToStringList());
                 }
             }else{stringlist.Add("   None");}
             stringlist.Add($"Orders: ");
@@ -130,7 +129,6 @@ namespace Models
             
     }
 
-    //Order has a list of LineItems, a total price, and an address to ship to
     public class Order : IClass
     {
         //Variables -----------------------------------------------------------------------------
@@ -180,11 +178,11 @@ namespace Models
         }
     }
 
-    //LineItem has a quantity and a product. Total is calulated without storing it.
     public class LineItem : IClass
     {
         //Variables -----------------------------------------------------------------------------
         public int Id { get; set; }
+        public int ProductId { get; set; }
         private Product lineProduct;
         private int quantity;
 

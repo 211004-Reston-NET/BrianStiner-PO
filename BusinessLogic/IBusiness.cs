@@ -14,11 +14,11 @@ namespace BusinessLogic
     
         /// <summary> These will pass a Class to our _repo database </summary>
         /// <param name="p_IC">This is the IClass we will be adding to the database</param>
-        void Add(Customer p_IC);
-        void Add(Storefront p_IC);
-        void Add(Order p_IC);
-        void Add(LineItem p_IC);
-        void Add(Product p_IC);
+        Customer Add(Customer p_IC);
+        Storefront Add(Storefront p_IC);
+        Order Add(Order p_IC);
+        LineItem Add(LineItem p_IC);
+        Product Add(Product p_IC);
 
 
         /// <summary> These will pass a Class to the database. </summary>

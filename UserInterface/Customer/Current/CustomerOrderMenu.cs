@@ -21,14 +21,15 @@ namespace UserInterface{
                 if(Current.storefront.Name == null || Current.storefront.Name == ""){
                     Builder.ResetPause("Please select a storefront for you Order.");
                     Current.storefront = Builder.SearchAndSelect(Current.storefront);}
+                    
                 newOrder = Builder.CreateOrder(Current.storefront.Name);
 
                 Current.customer.CustomerOrders.Add(newOrder);
                 Builder.Reset("Would you like to add another order?");
             }while(Builder.Choice());
 
-            BL.Update(Current.customer);
-            BL.Update(Current.storefront);
+            // BL.Update(Current.customer);
+            // BL.Update(Current.storefront);
 
             Builder.ResetPause($"{Current.customer.Name}'s Order created!");
         }

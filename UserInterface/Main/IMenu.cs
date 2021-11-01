@@ -3,7 +3,7 @@ namespace UserInterface
      //This enum will hold the different types of Menu the user can go through
     public enum MenuType
     {
-        Main,
+        Main, Checkout,
         Customer, ShowAllCustomers, AddCustomer, ModifyCustomer, DeleteCustomer, SelectCustomer, ShowCurrentCustomer, CustomerOrder,
         Storefront, ShowAllStorefronts, AddStorefront, ModifyStorefront, DeleteStorefront, SelectStorefront, ShowStorefront, StorefrontOrder,
         Order, ShowAllOrders, AddOrder, ModifyOrder, DeleteOrder,

@@ -90,6 +90,8 @@ namespace UserInterface{
                 //Others
                 // case MenuType.ModifyLineItem:
                 //     return new ModifyLineItemMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+                case MenuType.Checkout:
+                    return new CheckoutMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));    
                 case MenuType.Exit:
                     return new ExitMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
                 case MenuType.RealExit:

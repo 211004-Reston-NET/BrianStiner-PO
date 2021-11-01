@@ -13,6 +13,7 @@ namespace Models
         //Variables -----------------------------------------------------------------------------
         public int Id { get; set; }
         private string name, address, email, phone;
+        private decimal totalSpent;
         internal FaceFarm faceFarm = new FaceFarm();
         private int picture = 0;
         private List<Order> customerOrders = new List<Order>();
@@ -24,9 +25,11 @@ namespace Models
         public Customer(string p_name, string p_address, string p_email):this(p_name, p_address){this.email = p_email;}
         
         public Customer(string p_name, string p_address, string p_email, string p_phone):this(p_name, p_address, p_email){this.phone = p_phone;}
-        public Customer(string p_name, string p_address, string p_email, string p_phone, int p_picture):this(p_name, p_address, p_email, p_phone){this.picture = p_picture;}
+        public Customer(string p_name, string p_address, string p_email, string p_phone, decimal p_totalSpent):this(p_name, p_address, p_email, p_phone){this.totalSpent = p_totalSpent;}
+        public Customer(string p_name, string p_address, string p_email, string p_phone, int p_picture, decimal p_totalSpent):this(p_name, p_address, p_email, p_phone, p_totalSpent){this.picture = p_picture;}
         public Customer(string p_name, string p_address, string p_email, string p_phone, List<Order> p_Orders):this(p_name, p_address, p_email, p_phone){this.customerOrders = p_Orders;}
         public Customer(string p_name, string p_address, string p_email, string p_phone, int p_picture, List<Order> p_Orders):this(p_name, p_address, p_email, p_phone, p_Orders){this.picture = p_picture;}
+        public Customer(string p_name, string p_address, string p_email, string p_phone, int p_picture, decimal p_totalSpent, List<Order> p_Orders):this(p_name, p_address, p_email, p_phone, p_picture, p_totalSpent){this.customerOrders = p_Orders;}
 
 
         //Get & Set -------------------------------------------------------------------------------
@@ -34,6 +37,7 @@ namespace Models
         public string Address { get => address; set => address = value; }
         public string Email { get => email; set => email = value; }
         public string Phone { get => phone; set => phone = value; }
+        public decimal TotalSpent { get => totalSpent; set => totalSpent = value; }
         public List<Order> CustomerOrders { get => customerOrders; set => customerOrders = value; }
         public int Picture { get => picture; set => picture = value; }
 
@@ -46,6 +50,7 @@ namespace Models
             $"address: {this.address}",
             $"email: {this.email}",
             $"phoneNumber: {this.phone}",
+            $"totalSpent: {this.totalSpent}",
             $"Orders: "};
             try{
                 int cnt = 0;
@@ -69,6 +74,7 @@ namespace Models
         //Variables -----------------------------------------------------------------------------
         public int Id { get; set; }
         private string name, address;
+        private decimal expenses, revenue;
         private List<LineItem> storeLineItems = new List<LineItem>();
         private List<Order> storeOrders = new List<Order>();
 
@@ -98,6 +104,9 @@ namespace Models
         //Get & Set -------------------------------------------------------------------------------
         public string Name { get => name; set => name = value; }
         public string Address { get => address; set => address = value; }
+        public decimal Expenses { get => expenses; set => expenses = value; }
+        public decimal Revenue { get => revenue; set => revenue = value; }
+        public decimal Profit { get => revenue - expenses; }
         public List<LineItem> StoreLineItems { get => storeLineItems; set => storeLineItems = value; }
         public List<Order> StoreOrders { get => storeOrders; set => storeOrders = value; }
 
@@ -107,7 +116,10 @@ namespace Models
             List<string> stringlist = new List<string>() {
             $"name: {name}",
             $"address: {address}",
-            $"Products: "};
+            $"Inventory: ",
+            $"Expenses: {expenses}",
+            $"Revenue: {revenue}",
+            $"Profit: {Profit}",};
             if(storeLineItems.Count != 0){
                 foreach(LineItem l in storeLineItems){
                     stringlist.Add("---------------------------");
@@ -135,21 +147,18 @@ namespace Models
         public int Id { get; set; }
         private List<LineItem> orderLineItems = new List<LineItem>(); 
         private string location = "";
-        private decimal totalPrice; //CalculateTotalPrice();
+        private decimal totalPrice;
 
         //Constructors ---------------------------------------------------------------------------
-        public Order(){}
+        public Order(){totalPrice = CalculateTotalPrice();}
         public Order(string p_location):this(){this.location = p_location;}
-        public Order(string p_location, List<LineItem> p_LineItems){
-            location = p_location;
-            OrderLineItems = p_LineItems;
-        }
+        public Order(string p_location, List<LineItem> p_LineItems):this(p_location){this.orderLineItems = p_LineItems;}
 
         //Get & Set -------------------------------------------------------------------------------
 
         public List<LineItem> OrderLineItems { get => orderLineItems; set => orderLineItems = value; }
         public string Location { get => location; set => location = value; }
-        public decimal TotalPrice { get => CalculateTotalPrice();}
+        public decimal TotalPrice { get => CalculateTotalPrice(); set => totalPrice = CalculateTotalPrice(); }
         
 
         //Interface --------------------------------------------------------------------------------

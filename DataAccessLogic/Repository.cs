@@ -14,67 +14,93 @@ namespace DataAccessLogic
         {
             _context = p_context;
         }
-        
-
-
-
-
-
-
-
-
 
         // Useful Methods in Repository: Add, Update, Delete, Get, GetAll
 
         // Method AddClass: Class parameter. Overloaded 5 times. Used to add a new Class to the database.
         public Model.Customer Add(Model.Customer p_IC){ 
-            var p = new Entity.Customer(){
+            var entity = new Entity.Customer(){
                 Name = p_IC.Name,
                 Address = p_IC.Address,
                 Email = p_IC.Email,
                 Phone = p_IC.Phone,
                 Picture = p_IC.Picture
                 };
-            _context.Add(p);
+            _context.Add(entity);
             _context.SaveChanges();
-            return Get(Translate(p));
+
+            foreach(var order in p_IC.CustomerOrders){
+                entity.CustomerOrders.Add(
+                    new CustomerOrder(){
+                    CustomerId = entity.Id,
+                    OrdersId = order.Id,
+                });
+            }
+            _context.SaveChanges();
+            return Translate(entity);
         }
         public Model.Storefront Add(Model.Storefront p_IC){
-            var p = new Entity.Storefront(){
+            var entity = new Entity.Storefront(){
                 Name = p_IC.Name,
                 Address = p_IC.Address,
                 };
-            _context.Add(p);
+            _context.Add(entity);
             _context.SaveChanges();
-            return Get(Translate(p));
+
+            foreach(var lineitem in p_IC.StoreLineItems){
+                entity.Inventories.Add(
+                    new Inventory(){
+                        StorefrontId = entity.Id,
+                        LineitemId = lineitem.Id,
+                    });
+            }
+            foreach(var order in p_IC.StoreOrders){
+                entity.StorefrontOrders.Add(
+                    new StorefrontOrder(){
+                        StorefrontId = entity.Id,
+                        OrdersId = order.Id,
+                    });
+                
+            }
+            _context.SaveChanges();
+            return Translate(entity);
         }
         public Model.Order Add(Model.Order p_IC){
-            var p = new Entity.Order(){
-                Location = p_IC.Location,
-                }; 
+            var entity = new Entity.Order(){
+                Location = p_IC.Location
+                };
+            _context.Add(entity);
             _context.SaveChanges();
-            return Get(Translate(p));
+            foreach(var lineitem in p_IC.OrderLineItems){
+                entity.OrdersLineitems.Add(
+                    new OrdersLineitem(){
+                        OrdersId = entity.Id,
+                        LineItemId = lineitem.Id,
+                    });
+            }
+            _context.SaveChanges();
+            return Translate(entity);
         }
         public Model.LineItem Add(Model.LineItem p_IC){
-            var p = new Entity.LineItem(){
+            var entity = new Entity.LineItem(){
                 ProductId = p_IC.ProductId,
                 Quantity = p_IC.Quantity,
                 };
-            _context.Add(p);
+            _context.Add(entity);
             _context.SaveChanges();
-            return Get(Translate(p));
+            return Translate(entity);
         }
 
         public Model.Product Add(Model.Product p_IC){
-            var p = new Entity.Product(){
+            var entity = new Entity.Product(){
                     Name = p_IC.Name,
                     Description = p_IC.Description,
                     Category = p_IC.Category,
                     Price = p_IC.Price
                 };
-            _context.Add(p);
+            _context.Add(entity);
             _context.SaveChanges();
-            return Get(Translate(p));
+            return Translate(entity);
         }
 
 
@@ -165,13 +191,53 @@ namespace DataAccessLogic
                     Id = IC.Id,
                     Name = IC.Name,
                     Address = IC.Address,
-                }).ToList();
+                    StoreLineItems = _context.LineItems.Where(x => x.Id == _context.Inventories.Where(y => y.StorefrontId == IC.Id).Select(z => z.LineitemId).FirstOrDefault()).Select(x => new Model.LineItem(){
+                        Id = x.Id,
+                        Quantity = x.Quantity,
+                        ProductId = x.ProductId,
+                        LineProduct = _context.Products.Where(y => y.Id == x.ProductId).Select(a => new Model.Product(){
+                            Id = a.Id,
+                            Name = a.Name,
+                            Description = a.Description,
+                            Price = (decimal)a.Price,
+                            Category = a.Category
+                            }).FirstOrDefault()
+                        }).ToList(),
+                    StoreOrders = _context.Orders.Where(x => x.Id == _context.StorefrontOrders.Where(y => y.StorefrontId == IC.Id).Select(z => z.OrdersId).FirstOrDefault()).Select(x => new Model.Order(){
+                        Id = x.Id,
+                        Location = x.Location,
+                        OrderLineItems = _context.LineItems.Where(y => y.Id == _context.OrdersLineitems.Where(z => z.OrdersId == x.Id).Select(a => a.LineItemId).FirstOrDefault()).Select(y => new Model.LineItem(){
+                            Id = y.Id,
+                            Quantity = y.Quantity,
+                            ProductId = y.ProductId,
+                            LineProduct = _context.Products.Where(z => z.Id == y.ProductId).Select(a => new Model.Product(){
+                                Id = a.Id,
+                                Name = a.Name,
+                                Description = a.Description,
+                                Price = (decimal)a.Price,
+                                Category = a.Category
+                                }).FirstOrDefault()
+                            }).ToList()
+                        }).ToList()
+                    }).ToList();
         }
         public List<Model.Order> GetAll(Model.Order p_IC){
             return _context.Orders.Select(IC =>
                 new Model.Order(){
                     Id = IC.Id,
                     Location = IC.Location,
+                    OrderLineItems = _context.LineItems.Where(x => x.Id == _context.OrdersLineitems.Where(y => y.OrdersId == IC.Id).Select(z => z.LineItemId).FirstOrDefault()).Select(x => new Model.LineItem(){
+                        Id = x.Id,
+                        Quantity = x.Quantity,
+                        ProductId = x.ProductId,
+                        LineProduct = _context.Products.Where(y => y.Id == x.ProductId).Select(a => new Model.Product(){
+                            Id = a.Id,
+                            Name = a.Name,
+                            Description = a.Description,
+                            Price = (decimal)a.Price,
+                            Category = a.Category
+                            }).FirstOrDefault()
+                        }).ToList()
                 }).ToList();
         }
         public List<Model.LineItem> GetAll(Model.LineItem p_IC){
@@ -179,6 +245,13 @@ namespace DataAccessLogic
                 new Model.LineItem(){
                     Id = IC.Id,
                     Quantity = IC.Quantity,
+                    LineProduct = _context.Products.Where(x => x.Id == IC.ProductId).Select(a => new Model.Product(){
+                        Id = a.Id,
+                        Name = a.Name,
+                        Description = a.Description,
+                        Price = (decimal)a.Price,
+                        Category = a.Category
+                        }).FirstOrDefault()
                 }).ToList();
         }
         public List<Model.Product> GetAll(Model.Product p_IC){
@@ -288,7 +361,7 @@ namespace DataAccessLogic
                             Category = a.Category
                             }).FirstOrDefault()
                         }).ToList()
-                }).FirstOrDefault(IC => IC.Id == p_IC.Id);
+                    }).FirstOrDefault(IC => IC.Id == p_IC.Id);
         }
         public Model.LineItem Get(Model.LineItem p_IC){
             return _context.LineItems.Select(IC =>
@@ -331,34 +404,94 @@ namespace DataAccessLogic
                     Phone = p_IC.Phone,
                     Address = p_IC.Address,
                     Picture = p_IC.Picture,
-                   // CustomerOrders = p_IC.CustomerOrders,
+                    CustomerOrders = _context.Orders.Where(x => x.Id == _context.CustomerOrders.Where(y => y.CustomerId == p_IC.Id).Select(z => z.OrdersId).FirstOrDefault()).Select(x => new Model.Order(){
+                        Id = x.Id,
+                        Location = x.Location,
+                        OrderLineItems = _context.LineItems.Where(y => y.Id == _context.OrdersLineitems.Where(z => z.OrdersId == x.Id).Select(a => a.LineItemId).FirstOrDefault()).Select(y => new Model.LineItem(){
+                            Id = y.Id,
+                            Quantity = y.Quantity,
+                            ProductId = y.ProductId,
+                            LineProduct = _context.Products.Where(z => z.Id == y.ProductId).Select(a => new Model.Product(){
+                                Id = a.Id,
+                                Name = a.Name,
+                                Description = a.Description,
+                                Price = (decimal)a.Price,
+                                Category = a.Category
+                                }).FirstOrDefault()
+                            }).ToList()
+                        }).ToList()
                 };
                 
         }
         public Model.Storefront Translate(Entity.Storefront p_IC){
             return new Model.Storefront(){
-                    Id = p_IC.Id,
-                    Name = p_IC.Name,
-                    Address = p_IC.Address,
+                Id = p_IC.Id,
+                Name = p_IC.Name,
+                Address = p_IC.Address,
+                StoreLineItems = _context.LineItems.Where(x => x.Id == _context.Inventories.Where(y => y.StorefrontId == p_IC.Id).Select(z => z.LineitemId).FirstOrDefault()).Select(x => new Model.LineItem(){
+                    Id = x.Id,
+                    Quantity = x.Quantity,
+                    ProductId = x.ProductId,
+                    LineProduct = _context.Products.Where(y => y.Id == x.ProductId).Select(a => new Model.Product(){
+                        Id = a.Id,
+                        Name = a.Name,
+                        Description = a.Description,
+                        Price = (decimal)a.Price,
+                        Category = a.Category
+                        }).FirstOrDefault()
+                    }).ToList(),
+                StoreOrders = _context.Orders.Where(x => x.Id == _context.StorefrontOrders.Where(y => y.StorefrontId == p_IC.Id).Select(z => z.OrdersId).FirstOrDefault()).Select(x => new Model.Order(){
+                    Id = x.Id,
+                    Location = x.Location,
+                    OrderLineItems = _context.LineItems.Where(y => y.Id == _context.OrdersLineitems.Where(z => z.OrdersId == x.Id).Select(a => a.LineItemId).FirstOrDefault()).Select(y => new Model.LineItem(){
+                        Id = y.Id,
+                        Quantity = y.Quantity,
+                        ProductId = y.ProductId,
+                        LineProduct = _context.Products.Where(z => z.Id == y.ProductId).Select(a => new Model.Product(){
+                            Id = a.Id,
+                            Name = a.Name,
+                            Description = a.Description,
+                            Price = (decimal)a.Price,
+                            Category = a.Category
+                            }).FirstOrDefault()
+                        }).ToList()
+                    }).ToList()
                 };
-                
+                    
         }
+                
         public Model.Order Translate(Entity.Order p_IC){
             return new Model.Order(){
-                    Id = p_IC.Id,
-                    Location = p_IC.Location,
-                   // OrderLineItems = p_IC.OrderLineItems,
+                Id = p_IC.Id,
+                Location = p_IC.Location,
+                OrderLineItems = _context.LineItems.Where(y => y.Id == _context.OrdersLineitems.Where(z => z.OrdersId == p_IC.Id).Select(a => a.LineItemId).FirstOrDefault()).Select(y => new Model.LineItem(){
+                    Id = y.Id,
+                    Quantity = y.Quantity,
+                    ProductId = y.ProductId,
+                    LineProduct = _context.Products.Where(z => z.Id == y.ProductId).Select(a => new Model.Product(){
+                        Id = a.Id,
+                        Name = a.Name,
+                        Description = a.Description,
+                        Price = (decimal)a.Price,
+                        Category = a.Category
+                        }).FirstOrDefault()
+                    }).ToList()
                 };
-                
         }
         public Model.LineItem Translate(Entity.LineItem p_IC){
             return new Model.LineItem(){
-                    Id = p_IC.Id,
-                    Quantity = p_IC.Quantity,
-                    ProductId = p_IC.ProductId,
-                    //LineProduct = p_IC.LineProduct,
-                };
-                
+                Id = p_IC.Id,
+                Quantity = p_IC.Quantity,
+                ProductId = p_IC.ProductId,
+                LineProduct = _context.Products.Where(z => z.Id == p_IC.ProductId).Select(a => new Model.Product(){
+                    Id = a.Id,
+                    Name = a.Name,
+                    Description = a.Description,
+                    Price = (decimal)a.Price,
+                    Category = a.Category
+                    }).FirstOrDefault()
+            };
+            
         }
         public Model.Product Translate(Entity.Product p_IC){
             return new Model.Product(){

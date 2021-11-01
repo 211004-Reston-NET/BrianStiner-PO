@@ -78,6 +78,10 @@ namespace Toolbox
             Add(s);
             Pause();
         }
+        public void Pause(List<string> s){
+            Add(s);
+            Pause();
+        }
         public void ResetPause(string s){
             Reset(s);
             Pause();
@@ -433,14 +437,16 @@ namespace Toolbox
         public Order CreateOrder(string p_Location){
             Order o = new Order();
             LineItem li = new LineItem();
+            o.Location = p_Location;    
+                        
             do{
                 li = CreateLineItem();
                 o.OrderLineItems.Add(li);
-                o.Location = p_Location;
                 Add("Another Lineitem?", 'b');
             }while(Choice());
+
             o = BL.Add(o);
-            BL.Update(o);
+            //BL.Update(o);
             return o;
         }
 
@@ -460,7 +466,7 @@ namespace Toolbox
             li.ProductId = p.Id;
 
             li = BL.Add(li);
-            BL.Update(li);
+            //BL.Update(li);
             return li;
         }
 

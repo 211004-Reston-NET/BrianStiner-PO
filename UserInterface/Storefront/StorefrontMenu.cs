@@ -22,8 +22,9 @@ namespace UserInterface
                 "[3] - View all Storefronts",
                 "----------Current-------------",
                 "[4] - Select Storefront",
-                "[5] - View Storefront",
-                "[6] - Modify Storefront",});
+                "[5] - Modify Storefront",
+                "[6] - View Storefront",
+                "[7] - Create Order",});
         }
 
         public MenuType Choice(){
@@ -41,9 +42,11 @@ namespace UserInterface
                 case 4:
                     return MenuType.SelectStorefront;
                 case 5:
-                    return MenuType.ShowStorefront;
-                case 6:
                     return MenuType.ModifyStorefront;
+                case 6:
+                    return MenuType.ShowStorefront;
+                case 7:
+                    return MenuType.StorefrontOrder;
                 default:
                     Builder.Pause("Not a choice. Try again.");
                     return MenuType.Storefront;

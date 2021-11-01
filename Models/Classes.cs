@@ -116,10 +116,11 @@ namespace Models
             List<string> stringlist = new List<string>() {
             $"name: {name}",
             $"address: {address}",
-            $"Inventory: ",
             $"Expenses: {expenses}",
             $"Revenue: {revenue}",
-            $"Profit: {Profit}",};
+            $"Profit: {Profit}",
+            $"Inventory: ",
+            };
             if(storeLineItems.Count != 0){
                 foreach(LineItem l in storeLineItems){
                     stringlist.Add("---------------------------");

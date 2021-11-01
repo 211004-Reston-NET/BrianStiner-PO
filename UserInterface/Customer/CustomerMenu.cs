@@ -29,8 +29,8 @@ namespace UserInterface
                 "[4] - Select Customer",
                 "[5] - Modify Customer",
                 "[6] - Show Customer",
-                "[7] - Create Order for Customer",
-                "[8] - Delete Order from Customer"});
+                "[7] - Create Order for Customer",});
+                //"[8] - Delete Order from Customer"
         }
 
         public MenuType Choice()
@@ -54,7 +54,7 @@ namespace UserInterface
                     return MenuType.ShowCurrentCustomer;
                 case 7:
                     return MenuType.CustomerOrder;
-                case 8:
+                //case 8:
                 //    return MenuType.DeleteCurrentOrder;
                 default:
                     Builder.Pause("Not a choice. Try again.");

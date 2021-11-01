@@ -60,6 +60,8 @@ namespace UserInterface{
                     return new SelectStorefrontMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
                 case MenuType.ShowStorefront:
                     return new ShowStorefrontMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
+                case MenuType.StorefrontOrder:
+                    return new StorefrontOrderMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
                 
                 //Product
                 case MenuType.Product:

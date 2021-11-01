@@ -15,8 +15,6 @@ namespace UserInterface{
         public void Display(){
 
             Order newOrder = new Order();
-            //C = Current.customer;
-            //S = Current.storefront;
             do{ 
                 if(Current.storefront.Name == null || Current.storefront.Name == ""){
                     Builder.ResetPause("Please select a storefront for you Order.");
@@ -28,10 +26,8 @@ namespace UserInterface{
                 Builder.Reset("Would you like to add another order?");
             }while(Builder.Choice());
 
-            // BL.Update(Current.customer);
-            // BL.Update(Current.storefront);
-
             Builder.ResetPause($"{Current.customer.Name}'s Order created!");
+            BL.Update(Current.customer);
         }
         public MenuType Choice(){return MenuType.Customer;}
     }

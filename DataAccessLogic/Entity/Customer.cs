@@ -18,6 +18,7 @@ namespace DataAccessLogic.Entity
         public string Phone { get; set; }
         public string Email { get; set; }
         public int Picture { get; set; }
+        public decimal Totalspent { get; set; }
 
         public virtual ICollection<CustomerOrder> CustomerOrders { get; set; }
     }

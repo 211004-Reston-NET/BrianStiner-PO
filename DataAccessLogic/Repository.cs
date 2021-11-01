@@ -24,6 +24,7 @@ namespace DataAccessLogic
                 Address = p_IC.Address,
                 Email = p_IC.Email,
                 Phone = p_IC.Phone,
+                Totalspent = p_IC.TotalSpent,
                 Picture = p_IC.Picture
                 };
             _context.Add(entity);
@@ -37,12 +38,15 @@ namespace DataAccessLogic
                 });
             }
             _context.SaveChanges();
-            return Translate(entity);
+            p_IC.Id = entity.Id;
+            return p_IC;
         }
         public Model.Storefront Add(Model.Storefront p_IC){
             var entity = new Entity.Storefront(){
                 Name = p_IC.Name,
                 Address = p_IC.Address,
+                Expenses = p_IC.Expenses,
+                Revenue = p_IC.Revenue,
                 };
             _context.Add(entity);
             _context.SaveChanges();
@@ -63,7 +67,8 @@ namespace DataAccessLogic
                 
             }
             _context.SaveChanges();
-            return Translate(entity);
+            p_IC.Id = entity.Id;
+            return p_IC;
         }
         public Model.Order Add(Model.Order p_IC){
             var entity = new Entity.Order(){
@@ -79,7 +84,8 @@ namespace DataAccessLogic
                     });
             }
             _context.SaveChanges();
-            return Translate(entity);
+            p_IC.Id = entity.Id;
+            return p_IC;
         }
         public Model.LineItem Add(Model.LineItem p_IC){
             var entity = new Entity.LineItem(){
@@ -88,7 +94,8 @@ namespace DataAccessLogic
                 };
             _context.Add(entity);
             _context.SaveChanges();
-            return Translate(entity);
+            p_IC.Id = entity.Id;
+            return p_IC;
         }
 
         public Model.Product Add(Model.Product p_IC){
@@ -100,7 +107,8 @@ namespace DataAccessLogic
                 };
             _context.Add(entity);
             _context.SaveChanges();
-            return Translate(entity);
+            p_IC.Id = entity.Id;
+            return p_IC;
         }
 
 
@@ -116,38 +124,93 @@ namespace DataAccessLogic
         // Method Delete: Class parameter. Overloaded 5 times. Used to delete a Class from the database.
         public void Delete(Model.Customer p_IC){
             var entity = _context.Customers.FirstOrDefault(x => x.Id == p_IC.Id);
-            _context.Customers.Remove(entity);
+            
+            _context.CustomerOrders.RemoveRange(entity.CustomerOrders);
+            var orders = _context.CustomerOrders.Where(x => x.CustomerId == p_IC.Id);
+            foreach(var order in orders){
+                _context.CustomerOrders.RemoveRange(order);
+            }
             foreach(var order in p_IC.CustomerOrders){
                 Delete(order);
             }
+
+            _context.Customers.Remove(entity);
             _context.SaveChanges();
         }
         public void Delete(Model.Storefront p_IC){
             var entity = _context.Storefronts.FirstOrDefault(x => x.Id == p_IC.Id);
-            _context.Storefronts.Remove(entity);
-            foreach(var order in p_IC.StoreOrders){
-                Delete(order);
+
+            _context.RemoveRange(entity.StorefrontOrders);
+            _context.RemoveRange(entity.Inventories);
+            // --------------------------------------------------
+            var so = _context.StorefrontOrders.Where(x => x.StorefrontId == entity.Id);
+            foreach(StorefrontOrder order in so){
+                entity.StorefrontOrders.Remove(order);
             }
+            var li = _context.Inventories.Where(x => x.StorefrontId == entity.Id);
+            foreach(Inventory lineitem in li){
+                entity.Inventories.Remove(lineitem);
+            }
+            // --------------------------------------------------
             foreach(var lineitem in p_IC.StoreLineItems){
                 Delete(lineitem);
             }
+            foreach(var order in p_IC.StoreOrders){
+                Delete(order);
+            }
+            _context.Remove(entity);
             _context.SaveChanges();
         }
         public void Delete(Model.Order p_IC){
             var entity = _context.Orders.FirstOrDefault(x => x.Id == p_IC.Id);
-            _context.Orders.Remove(entity);
+            _context.RemoveRange(entity.OrdersLineitems);
+            _context.RemoveRange(entity.CustomerOrders);
+            _context.RemoveRange(entity.StorefrontOrders);
+            
+
+            var li = _context.OrdersLineitems.Where(x => x.OrdersId == entity.Id);
+            foreach(OrdersLineitem lineitem in li){
+                entity.OrdersLineitems.Remove(lineitem);
+            }
+            var co = _context.CustomerOrders.Where(x => x.OrdersId == entity.Id);
+            foreach(CustomerOrder order in co){
+                entity.CustomerOrders.Remove(order);
+            }
+            var so = _context.StorefrontOrders.Where(x => x.OrdersId == entity.Id);
+            foreach(StorefrontOrder order in so){
+                entity.StorefrontOrders.Remove(order);
+            }
+
             foreach(var lineitem in p_IC.OrderLineItems){
                 Delete(lineitem);
             }
+            _context.Remove(entity);
             _context.SaveChanges();
         }
         public void Delete(Model.LineItem p_IC){
             var entity = _context.LineItems.FirstOrDefault(x => x.Id == p_IC.Id);
-            _context.LineItems.Remove(entity);
+            _context.RemoveRange(entity.OrdersLineitems);
+            _context.RemoveRange(entity.Inventories);
+            
+            var li = _context.OrdersLineitems.Where(x => x.LineItemId == entity.Id);
+            foreach(OrdersLineitem lineitem in li){
+                entity.OrdersLineitems.Remove(lineitem);
+            }
+            var inv = _context.Inventories.Where(x => x.LineitemId == entity.Id);
+            foreach(Inventory inventory in inv){
+                entity.Inventories.Remove(inventory);
+            }
+            _context.Remove(entity);
             _context.SaveChanges();
         }
         public void Delete(Model.Product p_IC){
             var entity = _context.Products.FirstOrDefault(x => x.Id == p_IC.Id);
+            _context.LineItems.RemoveRange(entity.LineItems);
+            var li = _context.LineItems.Where(x => x.ProductId == entity.Id);
+            foreach(LineItem lineitem in li){
+                entity.LineItems.Remove(lineitem);
+            }
+
             _context.Products.Remove(entity);
             _context.SaveChanges();
         }
@@ -166,6 +229,7 @@ namespace DataAccessLogic
                     Email = IC.Email,
                     Phone = IC.Phone,
                     Address = IC.Address,
+                    TotalSpent = IC.Totalspent,
                     Picture = IC.Picture,
                     CustomerOrders = _context.Orders.Where(x => x.Id == _context.CustomerOrders.Where(y => y.CustomerId == IC.Id).Select(z => z.OrdersId).FirstOrDefault()).Select(x => new Model.Order(){
                         Id = x.Id,
@@ -191,6 +255,8 @@ namespace DataAccessLogic
                     Id = IC.Id,
                     Name = IC.Name,
                     Address = IC.Address,
+                    Expenses = IC.Expenses,
+                    Revenue = IC.Revenue,
                     StoreLineItems = _context.LineItems.Where(x => x.Id == _context.Inventories.Where(y => y.StorefrontId == IC.Id).Select(z => z.LineitemId).FirstOrDefault()).Select(x => new Model.LineItem(){
                         Id = x.Id,
                         Quantity = x.Quantity,
@@ -199,10 +265,10 @@ namespace DataAccessLogic
                             Id = a.Id,
                             Name = a.Name,
                             Description = a.Description,
-                            Price = (decimal)a.Price,
+                            Price = a.Price,
                             Category = a.Category
-                            }).FirstOrDefault()
-                        }).ToList(),
+                        }).FirstOrDefault()
+                    }).ToList(),
                     StoreOrders = _context.Orders.Where(x => x.Id == _context.StorefrontOrders.Where(y => y.StorefrontId == IC.Id).Select(z => z.OrdersId).FirstOrDefault()).Select(x => new Model.Order(){
                         Id = x.Id,
                         Location = x.Location,
@@ -214,7 +280,7 @@ namespace DataAccessLogic
                                 Id = a.Id,
                                 Name = a.Name,
                                 Description = a.Description,
-                                Price = (decimal)a.Price,
+                                Price = a.Price,
                                 Category = a.Category
                                 }).FirstOrDefault()
                             }).ToList()
@@ -287,6 +353,7 @@ namespace DataAccessLogic
                     Email = IC.Email,
                     Phone = IC.Phone,
                     Address = IC.Address,
+                    TotalSpent = IC.Totalspent,
                     Picture = IC.Picture,
                     CustomerOrders = _context.Orders.Where(x => x.Id == _context.CustomerOrders.Where(y => y.CustomerId == IC.Id).Select(z => z.OrdersId).FirstOrDefault()).Select(x => new Model.Order(){
                         Id = x.Id,
@@ -312,6 +379,8 @@ namespace DataAccessLogic
                     Id = IC.Id,
                     Name = IC.Name,
                     Address = IC.Address,
+                    Expenses = IC.Expenses,
+                    Revenue = IC.Revenue,
                     StoreLineItems = _context.LineItems.Where(x => x.Id == _context.Inventories.Where(y => y.StorefrontId == IC.Id).Select(z => z.LineitemId).FirstOrDefault()).Select(x => new Model.LineItem(){
                         Id = x.Id,
                         Quantity = x.Quantity,
@@ -403,6 +472,7 @@ namespace DataAccessLogic
                     Email = p_IC.Email,
                     Phone = p_IC.Phone,
                     Address = p_IC.Address,
+                    TotalSpent = p_IC.Totalspent,
                     Picture = p_IC.Picture,
                     CustomerOrders = _context.Orders.Where(x => x.Id == _context.CustomerOrders.Where(y => y.CustomerId == p_IC.Id).Select(z => z.OrdersId).FirstOrDefault()).Select(x => new Model.Order(){
                         Id = x.Id,
@@ -428,6 +498,8 @@ namespace DataAccessLogic
                 Id = p_IC.Id,
                 Name = p_IC.Name,
                 Address = p_IC.Address,
+                Revenue = p_IC.Revenue,
+                Expenses = p_IC.Expenses,
                 StoreLineItems = _context.LineItems.Where(x => x.Id == _context.Inventories.Where(y => y.StorefrontId == p_IC.Id).Select(z => z.LineitemId).FirstOrDefault()).Select(x => new Model.LineItem(){
                     Id = x.Id,
                     Quantity = x.Quantity,
@@ -516,6 +588,7 @@ namespace DataAccessLogic
             entity.Email = p_IC.Email;
             entity.Phone = p_IC.Phone;
             entity.Address = p_IC.Address;
+            entity.Totalspent = p_IC.TotalSpent;
             entity.Picture = p_IC.Picture; 
             foreach(var order in p_IC.CustomerOrders){
                 entity.CustomerOrders.Add(
@@ -530,19 +603,26 @@ namespace DataAccessLogic
             var entity = _context.Storefronts.FirstOrDefault(x => x.Id == p_IC.Id);
             entity.Name = p_IC.Name;
             entity.Address = p_IC.Address;
+            entity.Revenue = p_IC.Revenue;
+            entity.Expenses = p_IC.Expenses;
+
             foreach(var lineitem in p_IC.StoreLineItems){
-                entity.Inventories.Add(
-                    new Inventory(){
-                        StorefrontId = p_IC.Id,
-                        LineitemId = lineitem.Id,
-                    });
+                if(entity.Inventories.Where(x => x.LineitemId == lineitem.Id).Count() == 0){
+                    entity.Inventories.Add(
+                        new Inventory(){
+                            LineitemId = lineitem.Id,
+                            StorefrontId = p_IC.Id,
+                        });
+                }
             }
             foreach(var order in p_IC.StoreOrders){
-                entity.StorefrontOrders.Add(
-                    new StorefrontOrder(){
-                        StorefrontId = p_IC.Id,
-                        OrdersId = order.Id,
-                    });
+                if(entity.StorefrontOrders.Where(x => x.OrdersId == order.Id).Count() == 0){
+                    entity.StorefrontOrders.Add(
+                        new StorefrontOrder(){
+                            OrdersId = order.Id,
+                            StorefrontId = p_IC.Id,
+                        });
+                }
                 
             }
             _context.SaveChanges();
@@ -552,16 +632,18 @@ namespace DataAccessLogic
             entity.Location = p_IC.Location;
 
             foreach(var lineitem in p_IC.OrderLineItems){
-                entity.OrdersLineitems.Add(
-                    new OrdersLineitem(){
-                        OrdersId = p_IC.Id,
-                        LineItemId = lineitem.Id,
-                    });
+                if(entity.OrdersLineitems.Where(x => x.LineItemId == lineitem.Id).Count() == 0){
+                    entity.OrdersLineitems.Add(
+                        new OrdersLineitem(){
+                            LineItemId = lineitem.Id,
+                            OrdersId = p_IC.Id,
+                        });
+                }
             }
             _context.SaveChanges();
         }
         public void Update(Model.LineItem p_IC){
-            var entity = _context.LineItems.FirstOrDefault(x => x.Id == p_IC.Id); //The M.Lineitem still doesn't have an ID after adding it to the database.
+            var entity = _context.LineItems.FirstOrDefault(x => x.Id == p_IC.Id); 
             entity.Quantity = p_IC.Quantity;
             entity.ProductId = p_IC.ProductId;
             _context.SaveChanges();
@@ -592,6 +674,7 @@ namespace DataAccessLogic
                     Email = IC.Email,
                     Phone = IC.Phone,
                     Address = IC.Address,
+                    TotalSpent = IC.Totalspent,
                     Picture = IC.Picture,
                 }).Where(IC => IC.Name.Contains(p_Search) || IC.Email.Contains(p_Search) || IC.Phone.Contains(p_Search) || IC.Address.Contains(p_Search)).ToList();
         }
@@ -601,6 +684,8 @@ namespace DataAccessLogic
                     Id = IC.Id,
                     Name = IC.Name,
                     Address = IC.Address,
+                    Revenue = IC.Revenue,
+                    Expenses = IC.Expenses,
                 }).Where(IC => IC.Name.Contains(p_Search) || IC.Address.Contains(p_Search)).ToList(); 
         }
         public List<Model.Order> Search(Model.Order p_IC, string p_search){

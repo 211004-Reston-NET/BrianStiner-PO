@@ -62,6 +62,10 @@ namespace DataAccessLogic.Entity
                     .HasColumnName("phone");
 
                 entity.Property(e => e.Picture).HasColumnName("picture");
+
+                entity.Property(e => e.Totalspent)
+                    .HasColumnType("decimal(19, 2)")
+                    .HasColumnName("totalspent");
             });
 
             modelBuilder.Entity<CustomerOrder>(entity =>
@@ -205,11 +209,19 @@ namespace DataAccessLogic.Entity
                     .IsUnicode(false)
                     .HasColumnName("address");
 
+                entity.Property(e => e.Expenses)
+                    .HasColumnType("decimal(19, 2)")
+                    .HasColumnName("expenses");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("name");
+
+                entity.Property(e => e.Revenue)
+                    .HasColumnType("decimal(19, 2)")
+                    .HasColumnName("revenue");
             });
 
             modelBuilder.Entity<StorefrontOrder>(entity =>

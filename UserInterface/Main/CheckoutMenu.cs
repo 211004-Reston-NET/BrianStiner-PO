@@ -28,7 +28,7 @@ namespace UserInterface{
                         s.Expenses += li.Total*.7M;                                                         //Stores get a discount from the distributor
                         if(s.StoreLineItems.Find(x => x.ProductId == li.ProductId) != null){                //does it exist
                         s.StoreLineItems.Find(x => x.ProductId == li.ProductId).Quantity += li.Quantity;    //add if it does
-                        }else{s.StoreLineItems.Add(li); }                                                   //add if it doesn't
+                        }else{s.StoreLineItems.Add(li);}                                                    //add if it doesn't
                     }
                     }   
                     o.Active = false;     

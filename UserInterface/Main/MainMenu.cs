@@ -19,7 +19,7 @@ namespace UserInterface{
                 "[1] - Customers", 
                 "[2] - Storefronts", 
                 "[3] - Products"});
-            if(Current.customer != null || Current.storefront != null){
+            if(Current.storefront != null){
             Builder.Add("[4] - Checkout",'f');}
             
             

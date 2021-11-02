@@ -181,9 +181,9 @@ namespace Models
         
         public List<string> ToStringList(){
             List<string> stringlist = new List<string>(){
-            $"Active:          {this.Active}",
+            $"Active:   {this.Active}",
             $"Order ID: {Id}",
-            $"Address: {delivery}",
+            $"Address:  {delivery}",
             $"LineItems: "};
             foreach(LineItem LI in OrderLineItems){ 
                 foreach(string s in LI.ToStringList()){

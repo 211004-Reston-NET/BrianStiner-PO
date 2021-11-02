@@ -596,6 +596,7 @@ namespace DataAccessLogic
 
         // Method UpdateClass: Class parameter. Overloaded 5 times. Used to update a class in the database.
         public void Update(Model.Customer p_IC){
+            if(!_context.Customers.Any(x => x.Id == p_IC.Id)){ p_IC = Add(p_IC); }
             var entity = _context.Customers.FirstOrDefault(x => x.Id == p_IC.Id);
             entity.Name = p_IC.Name;
             entity.Email = p_IC.Email;
@@ -611,12 +612,14 @@ namespace DataAccessLogic
                     OrdersId = order.Id,
                     });
                 }
+                _context.SaveChanges();
                 Update(order);
                 
             }
             _context.SaveChanges();
         }
         public void Update(Model.Storefront p_IC){
+            if(!_context.Storefronts.Any(x => x.Id == p_IC.Id)){ p_IC = Add(p_IC); }
             var entity = _context.Storefronts.FirstOrDefault(x => x.Id == p_IC.Id);
             entity.Name = p_IC.Name;
             entity.Address = p_IC.Address;
@@ -631,6 +634,7 @@ namespace DataAccessLogic
                         StorefrontId = p_IC.Id,
                         });
                 }
+                _context.SaveChanges();
                 Update(lineitem);
             }
             foreach(var order in p_IC.StoreOrders){
@@ -641,35 +645,40 @@ namespace DataAccessLogic
                     StorefrontId = p_IC.Id,
                     });
                 }
+                _context.SaveChanges();
                 Update(order);
                 
             }
             _context.SaveChanges();
         }
         public void Update(Model.Order p_IC){
-            var entity = _context.Orders.FirstOrDefault(x => x.Id == p_IC.Id);
-            entity.Location = p_IC.Location;
-            entity.Active = p_IC.Active;
+            if(!_context.Orders.Any(x => x.Id == p_IC.Id)){ p_IC = Add(p_IC); }
+            var entity1 = _context.Orders.Where(x => x.Id == p_IC.Id).First();
+            entity1.Location = p_IC.Location;
+            entity1.Active = p_IC.Active;
 
             foreach(var li in p_IC.OrderLineItems){
                 if(!_context.OrdersLineitems.Any(x => x.OrdersId == p_IC.Id && x.LineItemId == li.Id)){
-                    entity.OrdersLineitems.Add(
+                    entity1.OrdersLineitems.Add(
                     new OrdersLineitem(){
                     LineItemId = li.Id,
                     OrdersId = p_IC.Id,
                     });
                 }
+                _context.SaveChanges();
                 Update(li);
             }
             _context.SaveChanges();
         }
         public void Update(Model.LineItem p_IC){
+            if(!_context.LineItems.Any(x => x.Id == p_IC.Id)){ p_IC = Add(p_IC); }
             var entity = _context.LineItems.FirstOrDefault(x => x.Id == p_IC.Id); 
             entity.Quantity = p_IC.Quantity;
             entity.ProductId = p_IC.ProductId;
             _context.SaveChanges();
         }
         public void Update(Model.Product p_IC){
+            if(!_context.Products.Any(x => x.Id == p_IC.Id)){ p_IC = Add(p_IC); }
             var entity = _context.Products.FirstOrDefault(x => x.Id == p_IC.Id);
             entity.Name = p_IC.Name;
             entity.Description = p_IC.Description;

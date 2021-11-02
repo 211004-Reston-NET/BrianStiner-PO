@@ -266,23 +266,23 @@ namespace DataAccessLogic
                     Revenue = IC.Revenue,
                     Expenses = IC.Expenses,
                     StoreLineItems = 
-                        (from li in _context.LineItems
-                        join i in _context.Inventories on li.Id equals i.LineitemId
-                        where i.StorefrontId == IC.Id
-                        select
-                        new Model.LineItem(){
-                            Id = li.Id,
-                            Quantity = li.Quantity,
-                            ProductId = li.ProductId,
-                            LineProduct = _context.Products.Where(z => z.Id == li.ProductId).Select(a => 
-                            new Model.Product(){
-                                Id = a.Id,
-                                Name = a.Name,
-                                Description = a.Description,
-                                Price = a.Price,
-                                Category = a.Category
-                            }).FirstOrDefault()
-                        }).ToList(),
+                    (from li in _context.LineItems
+                    join i in _context.Inventories on li.Id equals i.LineitemId
+                    where i.StorefrontId == IC.Id
+                    select
+                    new Model.LineItem(){
+                        Id = li.Id,
+                        Quantity = li.Quantity,
+                        ProductId = li.ProductId,
+                        LineProduct = _context.Products.Where(z => z.Id == li.ProductId).Select(a => 
+                        new Model.Product(){
+                            Id = a.Id,
+                            Name = a.Name,
+                            Description = a.Description,
+                            Price = a.Price,
+                            Category = a.Category
+                        }).FirstOrDefault()
+                    }).ToList(),
                     StoreOrders =
                     (from o in _context.Orders
                     join so in _context.StorefrontOrders on o.Id equals so.OrdersId
@@ -352,7 +352,7 @@ namespace DataAccessLogic
                         Description = a.Description,
                         Price = a.Price,
                         Category = a.Category
-                        }).FirstOrDefault()
+                    }).FirstOrDefault()
                 }).ToList();
         }
         public List<Model.Product> GetAll(Model.Product p_IC){

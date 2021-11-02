@@ -11,12 +11,10 @@ namespace UnitTests
     using Entity = DataAccessLogic.Entity;
 
     [TestFixture]
-    public class UnitTest2
-    {
+    public class UnitTest2{
         [Test]
         var repo = new DataAccessLogic.Repository();
-        public ProductEntityTranslatesToProductModel()
-        {
+        public ProductEntityTranslatesToProductModel(){
             Entity.Order entity = new Entity.Order(){
                 Id = 101,
                 Location = "Test Location",

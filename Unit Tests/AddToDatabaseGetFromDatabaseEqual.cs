@@ -14,23 +14,22 @@ namespace UnitTests
     public class UnitTest2{
         [Test]
         var repo = new DataAccessLogic.Repository();
-        public ProductEntityTranslatesToProductModel(){
+        public AddToDatabaseGetFromDatabaseEqual(){
             
-            Entity.Product entity = new Entity.Product(){
-                Id = 101,
+            Model.Product model = new Model.Product(){
                 Name = "Test",
                 Description = "Test",
                 Category = "Test",
                 Price = 1.11m,
             };
+            var model1 = repo.Add(model);
+            var model2 = repo.Get(model1);
 
-            Model.Product model = repo.Translate(entity);
-
-            Assert.AreEqual(entity.Id, model.Id);
-            Assert.AreEqual(entity.Name, model.Name);
-            Assert.AreEqual(entity.Description, model.Description);
-            Assert.AreEqual(entity.Category, model.Category);
-            Assert.AreEqual(entity.Price, model.Price);
+            Assert.AreEqual(model1.Id, model2.Id);
+            Assert.AreEqual(model1.Name, model2.Name);
+            Assert.AreEqual(model1.Description, model2.Description);
+            Assert.AreEqual(model1.Category, model2.Category);
+            Assert.AreEqual(model1.Price, model2.Price);
         }
     }
 }

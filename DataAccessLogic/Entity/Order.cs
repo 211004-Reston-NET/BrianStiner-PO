@@ -15,8 +15,9 @@ namespace DataAccessLogic.Entity
         }
 
         public int Id { get; set; }
-        public decimal? Total { get; set; }
+        public decimal Total { get; set; }
         public string Location { get; set; }
+        public bool Active { get; set; }
 
         public virtual ICollection<CustomerOrder> CustomerOrders { get; set; }
         public virtual ICollection<OrdersLineitem> OrdersLineitems { get; set; }

@@ -72,7 +72,8 @@ namespace DataAccessLogic
         }
         public Model.Order Add(Model.Order p_IC){
             var entity = new Entity.Order(){
-                Location = p_IC.Location
+                Location = p_IC.Location,
+                Active = p_IC.Active,
                 };
             _context.Add(entity);
             _context.SaveChanges();
@@ -317,6 +318,7 @@ namespace DataAccessLogic
                 new Model.Order(){
                     Id = IC.Id,
                     Location = IC.Location,
+                    Active = IC.Active,
                     OrderLineItems = _context.LineItems.Where(x => x.Id == _context.OrdersLineitems.Where(y => y.OrdersId == IC.Id).Select(z => z.LineItemId).FirstOrDefault()).Select(x => new Model.LineItem(){
                         Id = x.Id,
                         Quantity = x.Quantity,
@@ -443,6 +445,7 @@ namespace DataAccessLogic
                 new Model.Order(){
                     Id = IC.Id,
                     Location = IC.Location,
+                    Active = IC.Active,
                     OrderLineItems = _context.LineItems.Where(y => y.Id == _context.OrdersLineitems.Where(z => z.OrdersId == IC.Id).Select(a => a.LineItemId).FirstOrDefault()).Select(y => new Model.LineItem(){
                         Id = y.Id,
                         Quantity = y.Quantity,
@@ -638,6 +641,7 @@ namespace DataAccessLogic
         public void Update(Model.Order p_IC){
             var entity = _context.Orders.FirstOrDefault(x => x.Id == p_IC.Id);
             entity.Location = p_IC.Location;
+            entity.Active = p_IC.Active;
 
             foreach(var lineitem in p_IC.OrderLineItems){
                 if(entity.OrdersLineitems.Where(x => x.LineItemId == lineitem.Id).Count() == 0){
@@ -701,6 +705,7 @@ namespace DataAccessLogic
                 new Model.Order(){
                     Id = IC.Id,
                     Location = IC.Location,
+                    Active = IC.Active,
                 }).Where(IC => IC.Location.Contains(p_search)).ToList();
         }
         public List<Model.LineItem> Search(Model.LineItem p_IC, string p_Search){

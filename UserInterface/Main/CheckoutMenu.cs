@@ -27,7 +27,7 @@ namespace UserInterface{
                             Current.storefront.StoreLineItems.Add(li);
                         }
                     }
-                    BL.Delete(o);
+                    o.Active = false;
                     o.OrderLineItems.Clear();
                 }
             }
@@ -38,7 +38,7 @@ namespace UserInterface{
                         Current.storefront.Revenue += li.Total;
                         Current.storefront.StoreLineItems.Find(x => x.ProductId == li.ProductId).Quantity -= li.Quantity;
                     }
-                    BL.Delete(o);
+                    o.Active = false;
                     o.OrderLineItems.Clear();
                 }
             }

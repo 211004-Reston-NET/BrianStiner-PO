@@ -135,6 +135,10 @@ namespace DataAccessLogic.Entity
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.Active)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.Location)
                     .HasMaxLength(50)
                     .IsUnicode(false)

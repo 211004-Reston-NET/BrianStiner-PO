@@ -604,11 +604,15 @@ namespace DataAccessLogic
             entity.Totalspent = p_IC.TotalSpent;
             entity.Picture = p_IC.Picture; 
             foreach(var order in p_IC.CustomerOrders){
-                entity.CustomerOrders.Add(
+                if(!_context.CustomerOrders.Any(x => x.OrdersId == order.Id && x.CustomerId == p_IC.Id)){
+                    entity.CustomerOrders.Add(
                     new CustomerOrder(){
                     CustomerId = p_IC.Id,
                     OrdersId = order.Id,
-                });
+                    });
+                }
+                Update(order);
+                
             }
             _context.SaveChanges();
         }
@@ -620,22 +624,24 @@ namespace DataAccessLogic
             entity.Expenses = p_IC.Expenses;
 
             foreach(var lineitem in p_IC.StoreLineItems){
-                if(entity.Inventories.Where(x => x.LineitemId == lineitem.Id).Count() == 0){
-                    entity.Inventories.Add(
+                if(!_context.Inventories.Any(x => x.LineitemId == lineitem.Id && x.StorefrontId == p_IC.Id)){
+                        entity.Inventories.Add(
                         new Inventory(){
-                            LineitemId = lineitem.Id,
-                            StorefrontId = p_IC.Id,
+                        LineitemId = lineitem.Id,
+                        StorefrontId = p_IC.Id,
                         });
                 }
+                Update(lineitem);
             }
             foreach(var order in p_IC.StoreOrders){
-                if(entity.StorefrontOrders.Where(x => x.OrdersId == order.Id).Count() == 0){
+                if(!_context.StorefrontOrders.Any(x => x.OrdersId == order.Id && x.StorefrontId == p_IC.Id)){
                     entity.StorefrontOrders.Add(
-                        new StorefrontOrder(){
-                            OrdersId = order.Id,
-                            StorefrontId = p_IC.Id,
-                        });
+                    new StorefrontOrder(){
+                    OrdersId = order.Id,
+                    StorefrontId = p_IC.Id,
+                    });
                 }
+                Update(order);
                 
             }
             _context.SaveChanges();
@@ -645,14 +651,15 @@ namespace DataAccessLogic
             entity.Location = p_IC.Location;
             entity.Active = p_IC.Active;
 
-            foreach(var lineitem in p_IC.OrderLineItems){
-                if(entity.OrdersLineitems.Where(x => x.LineItemId == lineitem.Id).Count() == 0){
+            foreach(var li in p_IC.OrderLineItems){
+                if(!_context.OrdersLineitems.Any(x => x.OrdersId == p_IC.Id && x.LineItemId == li.Id)){
                     entity.OrdersLineitems.Add(
-                        new OrdersLineitem(){
-                            LineItemId = lineitem.Id,
-                            OrdersId = p_IC.Id,
-                        });
+                    new OrdersLineitem(){
+                    LineItemId = li.Id,
+                    OrdersId = p_IC.Id,
+                    });
                 }
+                Update(li);
             }
             _context.SaveChanges();
         }

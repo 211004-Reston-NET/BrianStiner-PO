@@ -44,7 +44,7 @@ namespace Models
         //Interface --------------------------------------------------------------------------------
         public string Identify() { return "Customer"; }
         public List<string> ToStringList(){return ToStringList(false);}
-        public List<string> ToStringList(bool? p_showpastorders = false){
+        public List<string> ToStringList(bool p_showpastorders){
             List<string> stringlist = new List<string>(){
             " ",
             $"name: {this.name}",
@@ -56,7 +56,7 @@ namespace Models
             try{
                 int cnt = 0;
                 foreach(Order o in this.customerOrders){
-                    if(o.Active != p_showpastorders){
+                    if(o.Active || p_showpastorders){
                         stringlist.Add($"-[{cnt++}]-");
                         foreach(string s in o.ToStringList()){
                             stringlist.Add($"|  {s}");
@@ -116,7 +116,7 @@ namespace Models
         //Interface --------------------------------------------------------------------------------
         public string Identify() { return "Storefront"; }
         public List<string> ToStringList(){return ToStringList(false);}
-        public List<string> ToStringList(bool? p_showpastorders = false){
+        public List<string> ToStringList(bool p_showpastorders){
             List<string> stringlist = new List<string>() {
             $"name: {name}",
             $"address: {address}",
@@ -125,7 +125,7 @@ namespace Models
             $"Profit: {Profit}",
             $"Inventory: ",
             };
-            if(storeLineItems.Count != 0){
+            if(storeLineItems.Count > 0){
                 foreach(LineItem l in storeLineItems){
                     stringlist.Add("---------------------------");
                     stringlist.AddRange(l.ToStringList());
@@ -135,7 +135,7 @@ namespace Models
             if(storeOrders.Count != 0){
                 int cnt = 0;
                 foreach(Order o in storeOrders){
-                    if(o.Active != p_showpastorders){
+                    if(o.Active || p_showpastorders){
                         stringlist.Add($"-[{cnt++}]-");
                         foreach(string s in o.ToStringList()){
                             stringlist.Add($"  {s}");
@@ -181,9 +181,9 @@ namespace Models
         
         public List<string> ToStringList(){
             List<string> stringlist = new List<string>(){
-            $"Active:  {this.Active}",
+            $"Active:          {this.Active}",
             $"Order ID: {Id}",
-            $"location:{delivery}",
+            $"Address: {delivery}",
             $"LineItems: "};
             foreach(LineItem LI in OrderLineItems){ 
                 foreach(string s in LI.ToStringList()){

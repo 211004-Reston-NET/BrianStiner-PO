@@ -23,11 +23,13 @@ namespace UserInterface{
             if(s.StoreOrders.Count > 0){
                 Builder.ResetPause(s.ToStringList());
                 foreach(Order o in  s.StoreOrders){
+                    if(o.Active){
                     foreach(LineItem li in o.OrderLineItems){
                         s.Expenses += li.Total*.7M;                                                         //Stores get a discount from the distributor
                         if(s.StoreLineItems.Find(x => x.ProductId == li.ProductId) != null){                //does it exist
                         s.StoreLineItems.Find(x => x.ProductId == li.ProductId).Quantity += li.Quantity;    //add if it does
                         }else{s.StoreLineItems.Add(li); }                                                   //add if it doesn't
+                    }
                     }   
                     o.Active = false;     
                 } 
@@ -37,9 +39,9 @@ namespace UserInterface{
             if(c.CustomerOrders.Count > 0){
                 Builder.ResetPause(c.ToStringList());
                 foreach(Order o in  c.CustomerOrders){
-                    foreach(LineItem li in o.OrderLineItems){
-                        //does the store have enough?
-                        if(s.StoreLineItems.Find(sli => sli.ProductId == li.ProductId) != null){                        // if it exists,
+                    if(o.Active){
+                        foreach(LineItem li in o.OrderLineItems){
+                            if(s.StoreLineItems.Find(x => x.ProductId == li.ProductId) != null){                        // if it exists,
                             if(s.StoreLineItems.Find(sli => sli.ProductId == li.ProductId).Quantity >= li.Quantity){    // if it has enough,
                                 s.StoreLineItems.Find(sli => sli.ProductId == li.ProductId).Quantity -= li.Quantity;    // remove from store
                                 s.Revenue += li.Total;                                                                  // add to store revenue 
@@ -52,11 +54,12 @@ namespace UserInterface{
                                     "to complete your order" }); 
                                 orderSuccess = false;break;
                             }
-                        }  
-                    }
+                            }  
+                        }
                     o.Active = !orderSuccess;
-                }
+                    }
                 
+                }   
             }
             
 
@@ -65,6 +68,7 @@ namespace UserInterface{
             BL.Update(Current.customer);
             BL.Update(Current.storefront);
             Builder.Pause("Thank you for shopping with us!");
+            
         }
 
         public MenuType Choice(){return MenuType.Main;}

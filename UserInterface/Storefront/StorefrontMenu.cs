@@ -21,10 +21,13 @@ namespace UserInterface
                 "[2] - Delete a Storefront",
                 "[3] - View all Storefronts",
                 "----------Current-------------",
-                "[4] - Select Storefront",
-                "[5] - Modify Storefront",
+                "[4] - Select Storefront"});
+            if(Current.storefront != null){
+                Builder.Add(new List<string>()
+                {"[5] - Modify Storefront",
                 "[6] - View Storefront",
-                "[7] - Create Order",});
+                "[7] - Create Order"});
+            }
         }
 
         public MenuType Choice(){

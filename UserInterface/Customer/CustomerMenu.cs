@@ -3,20 +3,16 @@ using System.Collections.Generic;
 using Toolbox;
 using BusinessLogic;
 
-namespace UserInterface
-{
-    public class CustomerMenu : IMenu
-    {
+namespace UserInterface{
+    public class CustomerMenu : IMenu{
         IBusiness BL;
         MenuBuilder Builder;
-        public CustomerMenu(IBusiness BL)
-        {
+        public CustomerMenu(IBusiness BL){
             this.BL = BL;
             Builder = new MenuBuilder(BL);
         }
 
-        public void Display()
-        {
+        public void Display(){
             Builder.Reset(new List<string>()
                 {"Customer Menu,",
                 "What do you want to do?", 
@@ -26,18 +22,21 @@ namespace UserInterface
                 "[2] - Delete a Customer",
                 "[3] - Show all Customers",
                 "------ Current  -------",
-                "[4] - Select Customer",
+                "[4] - Select Customer",});
+
+            if(Current.customer != null){
+                Builder.Add(new List<string>(){
                 "[5] - Modify Customer",
                 "[6] - Show Customer",
                 "[7] - Create Order for Customer",});
                 //"[8] - Delete Order from Customer"
+            }
         }
+    
 
-        public MenuType Choice()
-        {
+        public MenuType Choice(){
 
-            switch (Builder.GetInt())
-            {
+            switch (Builder.GetInt()){
                 case 0:
                     return MenuType.Main;
                 case 1:

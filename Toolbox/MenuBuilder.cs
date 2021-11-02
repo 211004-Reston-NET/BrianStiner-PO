@@ -244,7 +244,7 @@ namespace Toolbox
             return SelectC;
         }
         public List<Order> Search(Order p_IC){
-            List<Order> SelectC = BL.GetAll(new Order()); 
+            List<Order> SelectC = BL.GetAll(new Order(), true); 
             if(SelectC.Count == 0){Add("No Orders to search.");}
             if(SelectC.Count < 5){return SelectC;}
             do{   
@@ -471,15 +471,6 @@ namespace Toolbox
             li = BL.Add(li);
             return li;
         }
-
-
-
-
-
-
-
-
-
 
         //Method to reset face to a new value
         public int AssignFace(){

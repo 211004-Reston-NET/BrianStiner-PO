@@ -39,7 +39,7 @@ namespace DataAccessLogic
         /// <returns>It will return a list of Classes</returns>
         List<M.Customer> GetAll(M.Customer p_IC, bool? p_Active);
         List<M.Storefront> GetAll(M.Storefront p_IC, bool? p_Active);
-        List<M.Order> GetAll(M.Order p_IC);
+        List<M.Order> GetAll(M.Order p_IC, bool? p_active);
         List<M.LineItem> GetAll(M.LineItem p_IC);
         List<M.Product> GetAll(M.Product p_IC);
 

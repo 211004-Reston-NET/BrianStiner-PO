@@ -54,8 +54,8 @@ namespace BusinessLogic
         public Order Add(Order p_IC){
             return _repo.Add(p_IC);       
         }
-        public List<Order> GetAll(Order p_IC){
-            return _repo.GetAll(p_IC);
+        public List<Order> GetAll(Order p_IC, bool? p_Active = true){
+            return _repo.GetAll(p_IC, p_Active);
         }
         public void Delete(Order p_IC){
             _repo.Delete(p_IC);       

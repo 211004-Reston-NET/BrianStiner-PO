@@ -155,7 +155,7 @@ namespace Models
         private List<LineItem> orderLineItems = new List<LineItem>(); 
         private string delivery = "";
         private bool active = true;
-        private decimal totalPrice;
+        private decimal totalPrice = 0;
 
         //Constructors ---------------------------------------------------------------------------
         public Order(){totalPrice = CalculateTotalPrice();}

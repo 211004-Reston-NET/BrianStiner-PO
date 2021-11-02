@@ -315,24 +315,30 @@ namespace DataAccessLogic
             return c;
 
         }
-        public List<Model.Order> GetAll(Model.Order p_IC){
+        public List<Model.Order> GetAll(Model.Order p_IC, bool? p_Active = true){
             return _context.Orders.Select(IC =>
                 new Model.Order(){
                     Id = IC.Id,
                     Location = IC.Location,
                     Active = IC.Active,
-                    OrderLineItems = _context.LineItems.Where(x => x.Id == _context.OrdersLineitems.Where(y => y.OrdersId == IC.Id).Select(z => z.LineItemId).FirstOrDefault()).Select(x => new Model.LineItem(){
-                        Id = x.Id,
-                        Quantity = x.Quantity,
-                        ProductId = x.ProductId,
-                        LineProduct = _context.Products.Where(y => y.Id == x.ProductId).Select(a => new Model.Product(){
+                    OrderLineItems = 
+                    (from li in _context.LineItems
+                    join oli in _context.OrdersLineitems on li.Id equals oli.LineItemId
+                    where oli.OrdersId == IC.Id
+                    where IC.Active == p_Active
+                    select  new Model.LineItem(){
+                        Id = li.Id,
+                        Quantity = li.Quantity,
+                        ProductId = li.ProductId,
+                        LineProduct = _context.Products.Where(y => y.Id == li.ProductId).Select(a => 
+                        new Model.Product(){
                             Id = a.Id,
                             Name = a.Name,
                             Description = a.Description,
-                            Price = (decimal)a.Price,
+                            Price = a.Price,
                             Category = a.Category
-                            }).FirstOrDefault()
-                        }).ToList()
+                        }).FirstOrDefault()
+                    }).ToList()
                 }).ToList();
         }
         public List<Model.LineItem> GetAll(Model.LineItem p_IC){
@@ -344,7 +350,7 @@ namespace DataAccessLogic
                         Id = a.Id,
                         Name = a.Name,
                         Description = a.Description,
-                        Price = (decimal)a.Price,
+                        Price = a.Price,
                         Category = a.Category
                         }).FirstOrDefault()
                 }).ToList();
@@ -356,136 +362,26 @@ namespace DataAccessLogic
                     Name = IC.Name,
                     Description = IC.Description,
                     Category = IC.Category,
-                    Price = (decimal)IC.Price,
+                    Price = IC.Price,
                 }).ToList();
         }
 
-
-
-
-
-
-
-
-
-        // Maybe the Get can use GetAll? Search the returned List for the Id and return the object?
-
-
         // Method Get. 
-        // Matches ID to an entry in the database. Grabs all info from the database and returns it as a class. 
-        // Can either send a Model or Entity and will return Model.
+        // Matches ID to an entry in the database. Grabs all info from the database and returns it as a class.
         public Model.Customer Get(Model.Customer p_IC){
-            return _context.Customers.Select(IC =>
-                new Model.Customer(){
-                    Id = IC.Id,
-                    Name = IC.Name,
-                    Email = IC.Email,
-                    Phone = IC.Phone,
-                    Address = IC.Address,
-                    TotalSpent = IC.Totalspent,
-                    Picture = IC.Picture,
-                    CustomerOrders = _context.Orders.Where(x => x.Id == _context.CustomerOrders.Where(y => y.CustomerId == IC.Id).Select(z => z.OrdersId).FirstOrDefault()).Select(x => new Model.Order(){
-                        Id = x.Id,
-                        Location = x.Location,
-                        OrderLineItems = _context.LineItems.Where(y => y.Id == _context.OrdersLineitems.Where(z => z.OrdersId == x.Id).Select(a => a.LineItemId).FirstOrDefault()).Select(y => new Model.LineItem(){
-                            Id = y.Id,
-                            Quantity = y.Quantity,
-                            ProductId = y.ProductId,
-                            LineProduct = _context.Products.Where(z => z.Id == y.ProductId).Select(a => new Model.Product(){
-                                Id = a.Id,
-                                Name = a.Name,
-                                Description = a.Description,
-                                Price = (decimal)a.Price,
-                                Category = a.Category
-                                }).FirstOrDefault()
-                            }).ToList()
-                        }).ToList()
-                }).FirstOrDefault(IC => IC.Id == p_IC.Id);
+            return GetAll(p_IC).FirstOrDefault(IC => IC.Id == p_IC.Id);
         }
         public Model.Storefront Get(Model.Storefront p_IC){
-            return _context.Storefronts.Select(IC =>
-                new Model.Storefront(){
-                    Id = IC.Id,
-                    Name = IC.Name,
-                    Address = IC.Address,
-                    Expenses = IC.Expenses,
-                    Revenue = IC.Revenue,
-                    StoreLineItems = _context.LineItems.Where(x => x.Id == _context.Inventories.Where(y => y.StorefrontId == IC.Id).Select(z => z.LineitemId).FirstOrDefault()).Select(x => new Model.LineItem(){
-                        Id = x.Id,
-                        Quantity = x.Quantity,
-                        ProductId = x.ProductId,
-                        LineProduct = _context.Products.Where(y => y.Id == x.ProductId).Select(a => new Model.Product(){
-                            Id = a.Id,
-                            Name = a.Name,
-                            Description = a.Description,
-                            Price = (decimal)a.Price,
-                            Category = a.Category
-                            }).FirstOrDefault()
-                        }).ToList(),
-                    StoreOrders = _context.Orders.Where(x => x.Id == _context.StorefrontOrders.Where(y => y.StorefrontId == IC.Id).Select(z => z.OrdersId).FirstOrDefault()).Select(x => new Model.Order(){
-                        Id = x.Id,
-                        Location = x.Location,
-                        OrderLineItems = _context.LineItems.Where(y => y.Id == _context.OrdersLineitems.Where(z => z.OrdersId == x.Id).Select(a => a.LineItemId).FirstOrDefault()).Select(y => new Model.LineItem(){
-                            Id = y.Id,
-                            Quantity = y.Quantity,
-                            ProductId = y.ProductId,
-                            LineProduct = _context.Products.Where(z => z.Id == y.ProductId).Select(a => new Model.Product(){
-                                Id = a.Id,
-                                Name = a.Name,
-                                Description = a.Description,
-                                Price = (decimal)a.Price,
-                                Category = a.Category
-                                }).FirstOrDefault()
-                            }).ToList()
-                        }).ToList()
-                    
-
-                }).FirstOrDefault(IC => IC.Id == p_IC.Id);
+            return GetAll(p_IC).FirstOrDefault(IC => IC.Id == p_IC.Id);
         }
         public Model.Order Get(Model.Order p_IC){
-            return _context.Orders.Select(IC =>
-                new Model.Order(){
-                    Id = IC.Id,
-                    Location = IC.Location,
-                    Active = IC.Active,
-                    OrderLineItems = _context.LineItems.Where(y => y.Id == _context.OrdersLineitems.Where(z => z.OrdersId == IC.Id).Select(a => a.LineItemId).FirstOrDefault()).Select(y => new Model.LineItem(){
-                        Id = y.Id,
-                        Quantity = y.Quantity,
-                        ProductId = y.ProductId,
-                        LineProduct = _context.Products.Where(z => z.Id == y.ProductId).Select(a => new Model.Product(){
-                            Id = a.Id,
-                            Name = a.Name,
-                            Description = a.Description,
-                            Price = (decimal)a.Price,
-                            Category = a.Category
-                            }).FirstOrDefault()
-                        }).ToList()
-                    }).FirstOrDefault(IC => IC.Id == p_IC.Id);
+            return GetAll(p_IC).FirstOrDefault(IC => IC.Id == p_IC.Id);
         }
         public Model.LineItem Get(Model.LineItem p_IC){
-            return _context.LineItems.Select(IC =>
-                new Model.LineItem(){
-                    Id = IC.Id,
-                    Quantity = IC.Quantity,
-                    ProductId = IC.ProductId,
-                    LineProduct = _context.Products.Where(z => z.Id == IC.ProductId).Select(a => new Model.Product(){
-                        Id = a.Id,
-                        Name = a.Name,
-                        Description = a.Description,
-                        Price = (decimal)a.Price,
-                        Category = a.Category
-                        }).FirstOrDefault()
-                }).FirstOrDefault(IC => IC.Id == p_IC.Id);
+            return GetAll(p_IC).FirstOrDefault(IC => IC.Id == p_IC.Id);
         }
         public Model.Product Get(Model.Product p_IC){
-            return _context.Products.Select(IC =>
-                new Model.Product(){
-                    Id = IC.Id,
-                    Name = IC.Name,
-                    Description = IC.Description,
-                    Category = IC.Category,
-                    Price = (decimal)IC.Price,
-                }).FirstOrDefault(IC => IC.Id == p_IC.Id);
+            return GetAll(p_IC).FirstOrDefault(IC => IC.Id == p_IC.Id);
         }
 
 

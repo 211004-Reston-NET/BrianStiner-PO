@@ -28,7 +28,7 @@ namespace UserInterface{
                 Builder.Add(new List<string>(){
                 "[5] - Modify Customer",
                 "[6] - Show Customer",
-                "[7] - Create Order for Customer",});
+                "[7] - Create Order for Customer",}, 'f');
                 //"[8] - Delete Order from Customer"
             }
         }

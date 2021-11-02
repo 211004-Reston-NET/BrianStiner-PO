@@ -26,7 +26,7 @@ namespace UserInterface
                 Builder.Add(new List<string>()
                 {"[5] - Modify Storefront",
                 "[6] - View Storefront",
-                "[7] - Create Order"});
+                "[7] - Create Order"}, 'f');
             }
         }
 

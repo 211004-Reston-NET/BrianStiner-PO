@@ -153,22 +153,22 @@ namespace Models
         //Variables -----------------------------------------------------------------------------
         public int Id { get; set; }
         private List<LineItem> orderLineItems = new List<LineItem>(); 
-        private string location = "";
+        private string delivery = "";
         private bool active = true;
         private decimal totalPrice;
 
         //Constructors ---------------------------------------------------------------------------
         public Order(){totalPrice = CalculateTotalPrice();}
         public Order(int p_Id):this(){this.Id = p_Id;}
-        public Order(string p_location):this(){this.location = p_location;}
-        public Order(string p_location, int p_Id):this(p_Id){this.location = p_location;}
+        public Order(string p_location):this(){this.delivery = p_location;}
+        public Order(string p_location, int p_Id):this(p_Id){this.delivery = p_location;}
         public Order(string p_location, int p_Id, List<LineItem> p_LineItems):this(p_location, p_Id){this.orderLineItems = p_LineItems;}
         public Order(string p_location, int p_Id, bool p_Active, List<LineItem> p_LineItems):this(p_location, p_Id, p_LineItems){this.Active = p_Active;}
 
         //Get & Set -------------------------------------------------------------------------------
 
         public List<LineItem> OrderLineItems { get => orderLineItems; set => orderLineItems = value; }
-        public string Location { get => location; set => location = value; }
+        public string Location { get => delivery; set => delivery = value; }
         public decimal TotalPrice { get => CalculateTotalPrice(); set => totalPrice = CalculateTotalPrice(); }
         public int ID { get => Id; set => Id = value; }
         public bool Active { get => active; set => active = value; }
@@ -183,7 +183,7 @@ namespace Models
             List<string> stringlist = new List<string>(){
             $"Active:  {this.Active}",
             $"Order ID: {Id}",
-            $"location:{location}",
+            $"location:{delivery}",
             $"LineItems: "};
             foreach(LineItem LI in OrderLineItems){ 
                 foreach(string s in LI.ToStringList()){

@@ -12,41 +12,56 @@ namespace UserInterface{
             Builder = new MenuBuilder(BL);
         }
         public void Display(){
-            Builder.Reset(new List<string>()
+            Builder.ResetPause(new List<string>()
                 {"Checkout time!",
                 "We'll auto-purchase and ring you up!"
                 });
+            var c = Current.customer;
+            var s = Current.storefront;
 
             // Store buying from distributor
-            if(Current.storefront.StoreOrders.Count > 0){
-                Builder.Pause(Current.storefront.ToStringList());
-                foreach(Order o in  Current.storefront.StoreOrders){
+            if(s.StoreOrders.Count > 0){
+                Builder.ResetPause(s.ToStringList());
+                foreach(Order o in  s.StoreOrders){
                     foreach(LineItem li in o.OrderLineItems){
-                        Current.storefront.Expenses += li.Total*.9M;            //Stores get a discount from the distributor
-                        if(Current.storefront.StoreLineItems.Find(x => x.ProductId == li.ProductId) != null){
-                            Current.storefront.StoreLineItems.Find(x => x.ProductId == li.ProductId).Quantity += li.Quantity;
-                        }else{
-                            Current.storefront.StoreLineItems.Add(li);
-                        }
-                    }
-                    o.Active = false;
-                    o.OrderLineItems.Clear();
-                }
+                        s.Expenses += li.Total*.7M;                                                         //Stores get a discount from the distributor
+                        if(s.StoreLineItems.Find(x => x.ProductId == li.ProductId) != null){                //does it exist
+                        s.StoreLineItems.Find(x => x.ProductId == li.ProductId).Quantity += li.Quantity;    //add if it does
+                        }else{s.StoreLineItems.Add(li); }                                                   //add if it doesn't
+                    }   
+                    o.Active = false;     
+                } 
             }
             // Customer buying from store
-            if(Current.customer.CustomerOrders.Count > 0){
-                Builder.Pause(Current.customer.ToStringList());
-                foreach(Order o in  Current.customer.CustomerOrders){
+            bool orderSuccess = true;
+            if(c.CustomerOrders.Count > 0){
+                Builder.ResetPause(c.ToStringList());
+                foreach(Order o in  c.CustomerOrders){
                     foreach(LineItem li in o.OrderLineItems){
-                        Current.storefront.StoreLineItems.Find(x => x.ProductId == li.ProductId).Quantity -= li.Quantity;
-                        Current.customer.TotalSpent += li.Total;
-                        Current.storefront.Revenue += li.Total;
+                        //does the store have enough?
+                        if(s.StoreLineItems.Find(sli => sli.ProductId == li.ProductId) != null){                        // if it exists,
+                            if(s.StoreLineItems.Find(sli => sli.ProductId == li.ProductId).Quantity >= li.Quantity){    // if it has enough,
+                                s.StoreLineItems.Find(sli => sli.ProductId == li.ProductId).Quantity -= li.Quantity;    // remove from store
+                                s.Revenue += li.Total;                                                                  // add to store revenue 
+                                c.TotalSpent += li.Total;                                                               // add to customer spent                                               
+                            }else{
+                                Builder.ResetPause(new List<string>()
+                                    {"Sorry, we don't",
+                                     "have enough of", 
+                                    $"{li.LineProduct.Name}", 
+                                    "to complete your order" }); 
+                                orderSuccess = false;break;
+                            }
+                        }  
                     }
-                    o.Active = false;
-                    o.OrderLineItems.Clear();
+                    o.Active = !orderSuccess;
                 }
+                
             }
-            Current.customer.CustomerOrders.Clear();
+            
+
+            Current.customer = c;
+            Current.storefront = s;
             BL.Update(Current.customer);
             BL.Update(Current.storefront);
             Builder.Pause("Thank you for shopping with us!");

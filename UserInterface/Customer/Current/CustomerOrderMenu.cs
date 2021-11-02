@@ -15,13 +15,8 @@ namespace UserInterface{
         public void Display(){
 
             Order newOrder = new Order();
-            do{ 
-                if(Current.storefront.Name == null || Current.storefront.Name == ""){
-                    Builder.ResetPause("Please select a storefront for you Order.");
-                    Current.storefront = Builder.SearchAndSelect(Current.storefront);}
-                    
-                newOrder = Builder.CreateOrder(Current.storefront.Name);
-
+            do{   
+                newOrder = Builder.CreateOrder(Current.customer.Address);
                 Current.customer.CustomerOrders.Add(newOrder);
                 Builder.Reset("Would you like to add another order?");
             }while(Builder.Choice());

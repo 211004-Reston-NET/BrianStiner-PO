@@ -16,10 +16,8 @@ namespace UserInterface{
 
             Order newOrder;
             do{    
-                newOrder = Builder.CreateOrder(Current.storefront.Name);
-
+                newOrder = Builder.CreateOrder(Current.storefront.Address);
                 Current.storefront.StoreOrders.Add(newOrder);
-                //List<Order> cc = Current.storefront.StoreOrders;
                 Builder.Reset("Would you like to add another order?");
             }while(Builder.Choice());
 

@@ -168,10 +168,7 @@ namespace Toolbox
             bool valid = false;
             while(!valid){
                 if(Regex.IsMatch(s, @"^[a-zA-Z ]+$")){                                           //regex for letters and spaces only.
-                    i = s;
-                    valid = true;
-                    i = s;
-                    valid = true;
+                    i = s; valid = true;
                 }else{
                     Add("Please enter a valid string.", 'f');
                     s = Console.ReadLine(); Add(s);

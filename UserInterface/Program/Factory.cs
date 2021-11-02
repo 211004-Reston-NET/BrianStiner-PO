@@ -79,23 +79,8 @@ namespace UserInterface{
                     return new ModifyProductMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
                 case MenuType.DeleteProduct:
                     return new DeleteProductMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
-                
-                //Order
-                case MenuType.Order:
-                    return new OrderMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
-
-                case MenuType.ShowAllOrders:
-                    return new ShowAllOrdersMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
-                case MenuType.AddOrder:
-                    return new AddOrderMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));  
-                case MenuType.ModifyOrder:
-                    return new ModifyOrderMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
-                case MenuType.DeleteOrder:
-                    return new DeleteOrderMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
 
                 //Others
-                // case MenuType.ModifyLineItem:
-                //     return new ModifyLineItemMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
                 case MenuType.Checkout:
                     return new CheckoutMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));    
                 case MenuType.Exit:

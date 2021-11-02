@@ -6,8 +6,6 @@ namespace UserInterface
         Main, Checkout,
         Customer, ShowAllCustomers, AddCustomer, ModifyCustomer, DeleteCustomer, SelectCustomer, ShowCurrentCustomer, CustomerOrder, CustomerPastOrder,
         Storefront, ShowAllStorefronts, AddStorefront, ModifyStorefront, DeleteStorefront, SelectStorefront, ShowStorefront, StorefrontOrder, StorefrontPastOrder,
-        Order, ShowAllOrders, AddOrder, ModifyOrder, DeleteOrder,
-        LineItem, ShowAllLineItems, AddLineItem, ModifyLineItem, DeleteLineItem,
         Product, ShowAllProducts, AddProduct, ModifyProduct, DeleteProduct,
         Exit, RealExit
     }

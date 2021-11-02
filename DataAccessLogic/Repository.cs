@@ -200,10 +200,10 @@ namespace DataAccessLogic
         }
         public void Delete(Model.Product p_IC){
             var entity = _context.Products.FirstOrDefault(x => x.Id == p_IC.Id);
-            _context.LineItems.RemoveRange(entity.LineItems);
+            
             var li = _context.LineItems.Where(x => x.ProductId == entity.Id);
             foreach(LineItem lineitem in li){
-                entity.LineItems.Remove(lineitem);
+                Delete(Translate(lineitem, entity));
             }
 
             _context.Products.Remove(entity);
@@ -562,13 +562,21 @@ namespace DataAccessLogic
                     
         }
                 
-        // public Model.Order Translate(Entity.Order p_Order, List<Entity.LineItem> p_LineItem){
-        //     return new Model.Order(){
-        //         Id = p_Order.Id,
-        //         Location = p_Order.Location,
-        //         OrderLineItems = Translate(p_LineItem, p_Product)
-        //         };
-        // }
+        public static Model.Order Translate(Entity.Order p_Order, List<Entity.LineItem> p_LineItem, List<Entity.Product> p_Product){
+
+            var o = new Model.Order(){
+                    Id = p_Order.Id,
+                    Location = p_Order.Location,
+                    Active = p_Order.Active,
+                    OrderLineItems = new List<Model.LineItem>()
+                    };
+
+                    for(int i = 0; i < p_LineItem.Count; i++){
+                        o.OrderLineItems.Add(Translate(p_LineItem[i], p_Product[i]));
+                    }
+
+            return o;
+        }
         public static Model.LineItem Translate(Entity.LineItem p_LineItem, Entity.Product p_Product){
             return new Model.LineItem(){
                 Id = p_LineItem.Id,

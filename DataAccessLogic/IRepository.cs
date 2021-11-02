@@ -15,6 +15,7 @@ namespace DataAccessLogic
         /// <param name="p_IC">This is the Class we will be adding to the database</M.param>
         M.Customer Add(M.Customer p_IC);
         M.Storefront Add(M.Storefront p_IC);
+        
         M.Order Add(M.Order p_IC);
         
         M.LineItem Add(M.LineItem p_IC);
@@ -36,8 +37,8 @@ namespace DataAccessLogic
         /// These will return a list of Classes stored in the database.
         /// </summary>
         /// <returns>It will return a list of Classes</returns>
-        List<M.Customer> GetAll(M.Customer p_IC);
-        List<M.Storefront> GetAll(M.Storefront p_IC);
+        List<M.Customer> GetAll(M.Customer p_IC, bool? p_Active);
+        List<M.Storefront> GetAll(M.Storefront p_IC, bool? p_Active);
         List<M.Order> GetAll(M.Order p_IC);
         List<M.LineItem> GetAll(M.LineItem p_IC);
         List<M.Product> GetAll(M.Product p_IC);

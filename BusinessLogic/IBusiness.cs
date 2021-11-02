@@ -23,8 +23,8 @@ namespace BusinessLogic
 
         /// <summary> These will pass a Class to the database. </summary>
         /// <returns>It will return a list of Classes</returns>
-        List<Customer> GetAll(Customer p_IC);
-        List<Storefront> GetAll(Storefront p_IC);
+        List<Customer> GetAll(Customer p_IC, bool? p_Active);
+        List<Storefront> GetAll(Storefront p_IC, bool? p_Active);
         List<Order> GetAll(Order p_IC);
         List<LineItem> GetAll(LineItem p_IC);
         List<Product> GetAll(Product p_IC);

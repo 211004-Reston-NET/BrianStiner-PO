@@ -216,7 +216,7 @@ namespace DataAccessLogic
 
 
         //Method GetAllClasses: Class parameter. Overloaded 5 times. Uses Linq to grab all classes from the database.
-        public List<Model.Customer> GetAll(Model.Customer p_IC){
+        public List<Model.Customer> GetAll(Model.Customer p_IC, bool? p_Active = true){
             var c = _context.Customers.Select(IC =>
                 new Model.Customer(){
                     Id = IC.Id,
@@ -230,6 +230,7 @@ namespace DataAccessLogic
                     (from o in _context.Orders
                     join co in _context.CustomerOrders on o.Id equals co.OrdersId
                     where co.CustomerId == IC.Id
+                    where o.Active == p_Active
                     select 
                     new Model.Order(){
                         Id = o.Id,
@@ -256,7 +257,7 @@ namespace DataAccessLogic
                 }).ToList();
             return c;
         }
-        public List<Model.Storefront> GetAll(Model.Storefront p_IC){
+        public List<Model.Storefront> GetAll(Model.Storefront p_IC, bool? p_Active = true){
             var c = _context.Storefronts.Select(IC =>
                 new Model.Storefront(){
                     Id = IC.Id,
@@ -286,6 +287,7 @@ namespace DataAccessLogic
                     (from o in _context.Orders
                     join so in _context.StorefrontOrders on o.Id equals so.OrdersId
                     where so.StorefrontId == IC.Id
+                    where o.Active == p_Active
                     select 
                     new Model.Order(){
                         Id = o.Id,

@@ -199,7 +199,7 @@ namespace Toolbox
         //Methods named Search: Customer p_IC parameter: searchs Customer database List<Customer> that match the search string.
 
         public List<Customer> Search(Customer p_IC){
-            List<Customer> SelectC = BL.GetAll(new Customer());
+            List<Customer> SelectC = BL.GetAll(new Customer(), true);
             if(SelectC.Count == 0){Pause("No Customers to search.");}
             if(SelectC.Count < 5){return SelectC;}
             do{   
@@ -223,7 +223,7 @@ namespace Toolbox
             return SelectC;
         }
         public List<Storefront> Search(Storefront p_IC){
-            List<Storefront> SelectC = BL.GetAll(new Storefront()); 
+            List<Storefront> SelectC = BL.GetAll(new Storefront(), true); 
             if(SelectC.Count == 0){Add("No Storefronts to search.");}
             if(SelectC.Count < 5){return SelectC;}
             do{   

@@ -43,7 +43,8 @@ namespace Models
 
         //Interface --------------------------------------------------------------------------------
         public string Identify() { return "Customer"; }
-        public List<string> ToStringList(){
+        public List<string> ToStringList(){return ToStringList(false);}
+        public List<string> ToStringList(bool? p_showpastorders = false){
             List<string> stringlist = new List<string>(){
             " ",
             $"name: {this.name}",
@@ -55,9 +56,11 @@ namespace Models
             try{
                 int cnt = 0;
                 foreach(Order o in this.customerOrders){
-                    stringlist.Add($"-[{cnt++}]-");
-                    foreach(string s in o.ToStringList()){
-                        stringlist.Add($"|  {s}");
+                    if(o.Active != p_showpastorders){
+                        stringlist.Add($"-[{cnt++}]-");
+                        foreach(string s in o.ToStringList()){
+                            stringlist.Add($"|  {s}");
+                        }
                     }
                 }
             }catch (System.Exception){
@@ -112,7 +115,8 @@ namespace Models
 
         //Interface --------------------------------------------------------------------------------
         public string Identify() { return "Storefront"; }
-        public List<string> ToStringList(){
+        public List<string> ToStringList(){return ToStringList(false);}
+        public List<string> ToStringList(bool? p_showpastorders = false){
             List<string> stringlist = new List<string>() {
             $"name: {name}",
             $"address: {address}",
@@ -131,9 +135,11 @@ namespace Models
             if(storeOrders.Count != 0){
                 int cnt = 0;
                 foreach(Order o in storeOrders){
-                    stringlist.Add($"-[{cnt++}]-");
-                    foreach(string s in o.ToStringList()){
-                        stringlist.Add($"  {s}");
+                    if(o.Active != p_showpastorders){
+                        stringlist.Add($"-[{cnt++}]-");
+                        foreach(string s in o.ToStringList()){
+                            stringlist.Add($"  {s}");
+                        }
                     }
                 }
             }else{stringlist.Add("   None");}

@@ -14,7 +14,7 @@ namespace UserInterface{
             Builder = new MenuBuilder(BL);
         }
         public void Display(){
-            Builder.ShowAll(BL.GetAll(new Customer()));
+            Builder.ShowAll(BL.GetAll(new Customer(), true));
             Builder.Pause();
         }
         public MenuType Choice(){return MenuType.Customer;}

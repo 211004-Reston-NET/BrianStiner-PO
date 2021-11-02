@@ -24,8 +24,8 @@ namespace BusinessLogic
         public Customer Add(Customer p_IC){
             return _repo.Add(p_IC);       
         }
-        public List<Customer> GetAll(Customer p_IC){
-            return _repo.GetAll(p_IC);
+        public List<Customer> GetAll(Customer p_IC, bool? p_Active = true){
+            return _repo.GetAll(p_IC, true);
         }
         public void Delete(Customer p_IC){
             _repo.Delete(p_IC);
@@ -39,8 +39,8 @@ namespace BusinessLogic
         public Storefront Add(Storefront p_IC){
             return _repo.Add(p_IC);       
         }
-        public List<Storefront> GetAll(Storefront p_IC){
-            return _repo.GetAll(p_IC);
+    public List<Storefront> GetAll(Storefront p_IC, bool? p_Active = true){
+            return _repo.GetAll(p_IC, p_Active);
         }
         public void Delete(Storefront p_IC){
             _repo.Delete(p_IC);       

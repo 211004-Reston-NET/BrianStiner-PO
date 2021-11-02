@@ -16,12 +16,14 @@ namespace UserInterface{
                 {"Checkout time!",
                 "We'll auto-purchase and ring you up!"
                 });
+
+            // Store buying from distributor
             if(Current.storefront.StoreOrders.Count > 0){
-                Builder.Pause(Current.customer.ToStringList());
+                Builder.Pause(Current.storefront.ToStringList());
                 foreach(Order o in  Current.storefront.StoreOrders){
                     foreach(LineItem li in o.OrderLineItems){
-                        Current.storefront.Expenses += li.Total*.9M; //Stores get a discount from the distributor
-                        if(Current.storefront.StoreLineItems.Contains(li)){
+                        Current.storefront.Expenses += li.Total*.9M;            //Stores get a discount from the distributor
+                        if(Current.storefront.StoreLineItems.Find(x => x.ProductId == li.ProductId) != null){
                             Current.storefront.StoreLineItems.Find(x => x.ProductId == li.ProductId).Quantity += li.Quantity;
                         }else{
                             Current.storefront.StoreLineItems.Add(li);
@@ -31,12 +33,14 @@ namespace UserInterface{
                     o.OrderLineItems.Clear();
                 }
             }
+            // Customer buying from store
             if(Current.customer.CustomerOrders.Count > 0){
+                Builder.Pause(Current.customer.ToStringList());
                 foreach(Order o in  Current.customer.CustomerOrders){
                     foreach(LineItem li in o.OrderLineItems){
+                        Current.storefront.StoreLineItems.Find(x => x.ProductId == li.ProductId).Quantity -= li.Quantity;
                         Current.customer.TotalSpent += li.Total;
                         Current.storefront.Revenue += li.Total;
-                        Current.storefront.StoreLineItems.Find(x => x.ProductId == li.ProductId).Quantity -= li.Quantity;
                     }
                     o.Active = false;
                     o.OrderLineItems.Clear();

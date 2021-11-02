@@ -13,9 +13,10 @@ namespace UserInterface{
         }
         public void Display(){
             Builder.ResetPause(new List<string>()
-                {"Checkout time!",
-                "We'll auto-purchase and ring you up!"
-                });
+            {"Checkout time!",
+            "We'll auto-purchase your orders",
+            "and ring you up!"});   
+                
             var c = Current.customer;
             var s = Current.storefront;
 
@@ -31,7 +32,8 @@ namespace UserInterface{
                         }else{s.StoreLineItems.Add(li);}                                                    //add if it doesn't
                     }
                     }   
-                    o.Active = false;     
+                    o.Active = false;
+                    Builder.Add($"Order {o.Id} with {o.OrderLineItems.Count} items complete.");     
                 } 
             }
             // Customer buying from store
@@ -48,17 +50,14 @@ namespace UserInterface{
                                 c.TotalSpent += li.Total;                                                               // add to customer spent                                               
                             }else{
                                 Builder.ResetPause(new List<string>()
-                                    {"Sorry, we don't",
-                                     "have enough of", 
-                                    $"{li.LineProduct.Name}", 
-                                    "to complete your order" }); 
-                                orderSuccess = false;break;
-                            }
-                            }  
+                                {"Sorry, we don't have enough of",
+                                $"{li.LineProduct.Name} to complete your order"});  
+                                orderSuccess = false; break;
+                            }}     
                         }
+                    Builder.Add($"Order {o.Id} with {o.OrderLineItems.Count} items complete.");     
                     o.Active = !orderSuccess;
                     }
-                
                 }   
             }
             
@@ -67,7 +66,7 @@ namespace UserInterface{
             Current.storefront = s;
             BL.Update(Current.customer);
             BL.Update(Current.storefront);
-            Builder.Pause("Thank you for shopping with us!");
+            Builder.ResetPause("Thank you for shopping with us!");
             
         }
 

@@ -441,12 +441,18 @@ namespace Toolbox
                         
             do{
                 li = CreateLineItem();
-                o.OrderLineItems.Add(li);
+
+                if(o.OrderLineItems.Find(x => x.ProductId == li.ProductId) == null){
+                    o.OrderLineItems.Add(li);
+                }else{
+                    Add("Merged items in your order.");
+                    o.OrderLineItems.Find(x => x.ProductId == li.ProductId).Quantity += li.Quantity;
+                }
+                
                 Add("Another Lineitem?", 'b');
             }while(Choice());
 
             o = BL.Add(o);
-            //BL.Update(o);
             return o;
         }
 
@@ -466,7 +472,6 @@ namespace Toolbox
             li.ProductId = p.Id;
 
             li = BL.Add(li);
-            //BL.Update(li);
             return li;
         }
 

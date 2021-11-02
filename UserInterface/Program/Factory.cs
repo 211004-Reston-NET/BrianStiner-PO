@@ -41,7 +41,9 @@ namespace UserInterface{
                 case MenuType.ShowCurrentCustomer:
                     return new ShowCurrentCustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
                 case MenuType.CustomerOrder:
-                    return new CustomerOrderMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));     
+                    return new CustomerOrderMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));  
+                case MenuType.CustomerPastOrder:
+                    return new CustomerPastOrdersMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));   
 
                 //Storefront
                 case MenuType.Storefront:
@@ -62,6 +64,8 @@ namespace UserInterface{
                     return new ShowStorefrontMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
                 case MenuType.StorefrontOrder:
                     return new StorefrontOrderMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+                case MenuType.StorefrontPastOrder:
+                    return new StorefrontPastOrdersMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
                 
                 //Product
                 case MenuType.Product:

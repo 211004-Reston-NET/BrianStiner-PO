@@ -54,8 +54,8 @@ namespace UserInterface
                     return MenuType.ShowCurrentCustomer;
                 case 7:
                     return MenuType.CustomerOrder;
-                //case 8:
-                //    return MenuType.DeleteCurrentOrder;
+                case 8:
+                    return MenuType.CustomerPastOrder;
                 default:
                     Builder.Pause("Not a choice. Try again.");
                     return MenuType.Customer;

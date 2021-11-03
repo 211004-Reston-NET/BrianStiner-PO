@@ -391,82 +391,81 @@ namespace DataAccessLogic
 
 
 
-        public Model.Customer Translate(Entity.Customer p_IC){
-            return new Model.Customer(){
-                    Id = p_IC.Id,
-                    Name = p_IC.Name,
-                    Email = p_IC.Email,
-                    Phone = p_IC.Phone,
-                    Address = p_IC.Address,
-                    TotalSpent = p_IC.Totalspent,
-                    Picture = p_IC.Picture,
-                    CustomerOrders = _context.Orders.Where(x => x.Id == _context.CustomerOrders.Where(y => y.CustomerId == p_IC.Id).Select(z => z.OrdersId).FirstOrDefault()).Select(x => new Model.Order(){
-                        Id = x.Id,
-                        Location = x.Location,
-                        OrderLineItems = _context.LineItems.Where(y => y.Id == _context.OrdersLineitems.Where(z => z.OrdersId == x.Id).Select(a => a.LineItemId).FirstOrDefault()).Select(y => new Model.LineItem(){
-                            Id = y.Id,
-                            Quantity = y.Quantity,
-                            ProductId = y.ProductId,
-                            LineProduct = _context.Products.Where(z => z.Id == y.ProductId).Select(a => new Model.Product(){
-                                Id = a.Id,
-                                Name = a.Name,
-                                Description = a.Description,
-                                Price = (decimal)a.Price,
-                                Category = a.Category
-                                }).FirstOrDefault()
-                            }).ToList()
-                        }).ToList()
-                };
+        // public Model.Customer Translate(Entity.Customer p_IC){
+        //     return new Model.Customer(){
+        //             Id = p_IC.Id,
+        //             Name = p_IC.Name,
+        //             Email = p_IC.Email,
+        //             Phone = p_IC.Phone,
+        //             Address = p_IC.Address,
+        //             TotalSpent = p_IC.Totalspent,
+        //             Picture = p_IC.Picture,
+        //             CustomerOrders = _context.Orders.Where(x => x.Id == _context.CustomerOrders.Where(y => y.CustomerId == p_IC.Id).Select(z => z.OrdersId).FirstOrDefault()).Select(x => new Model.Order(){
+        //                 Id = x.Id,
+        //                 Location = x.Location,
+        //                 OrderLineItems = _context.LineItems.Where(y => y.Id == _context.OrdersLineitems.Where(z => z.OrdersId == x.Id).Select(a => a.LineItemId).FirstOrDefault()).Select(y => new Model.LineItem(){
+        //                     Id = y.Id,
+        //                     Quantity = y.Quantity,
+        //                     ProductId = y.ProductId,
+        //                     LineProduct = _context.Products.Where(z => z.Id == y.ProductId).Select(a => new Model.Product(){
+        //                         Id = a.Id,
+        //                         Name = a.Name,
+        //                         Description = a.Description,
+        //                         Price = (decimal)a.Price,
+        //                         Category = a.Category
+        //                         }).FirstOrDefault()
+        //                     }).ToList()
+        //                 }).ToList()
+        //         };
                 
-        }
-        public Model.Storefront Translate(Entity.Storefront p_IC){
-            return new Model.Storefront(){
-                Id = p_IC.Id,
-                Name = p_IC.Name,
-                Address = p_IC.Address,
-                Revenue = p_IC.Revenue,
-                Expenses = p_IC.Expenses,
-                StoreLineItems = _context.LineItems.Where(x => x.Id == _context.Inventories.Where(y => y.StorefrontId == p_IC.Id).Select(z => z.LineitemId).FirstOrDefault()).Select(x => new Model.LineItem(){
-                    Id = x.Id,
-                    Quantity = x.Quantity,
-                    ProductId = x.ProductId,
-                    LineProduct = _context.Products.Where(y => y.Id == x.ProductId).Select(a => new Model.Product(){
-                        Id = a.Id,
-                        Name = a.Name,
-                        Description = a.Description,
-                        Price = (decimal)a.Price,
-                        Category = a.Category
-                        }).FirstOrDefault()
-                    }).ToList(),
-                StoreOrders = _context.Orders.Where(x => x.Id == _context.StorefrontOrders.Where(y => y.StorefrontId == p_IC.Id).Select(z => z.OrdersId).FirstOrDefault()).Select(x => new Model.Order(){
-                    Id = x.Id,
-                    Location = x.Location,
-                    OrderLineItems = _context.LineItems.Where(y => y.Id == _context.OrdersLineitems.Where(z => z.OrdersId == x.Id).Select(a => a.LineItemId).FirstOrDefault()).Select(y => new Model.LineItem(){
-                        Id = y.Id,
-                        Quantity = y.Quantity,
-                        ProductId = y.ProductId,
-                        LineProduct = _context.Products.Where(z => z.Id == y.ProductId).Select(a => new Model.Product(){
-                            Id = a.Id,
-                            Name = a.Name,
-                            Description = a.Description,
-                            Price = (decimal)a.Price,
-                            Category = a.Category
-                            }).FirstOrDefault()
-                        }).ToList()
-                    }).ToList()
-                };
+        //}
+        // public Model.Storefront Translate(Entity.Storefront p_IC){
+        //     return new Model.Storefront(){
+        //         Id = p_IC.Id,
+        //         Name = p_IC.Name,
+        //         Address = p_IC.Address,
+        //         Revenue = p_IC.Revenue,
+        //         Expenses = p_IC.Expenses,
+        //         StoreLineItems = _context.LineItems.Where(x => x.Id == _context.Inventories.Where(y => y.StorefrontId == p_IC.Id).Select(z => z.LineitemId).FirstOrDefault()).Select(x => new Model.LineItem(){
+        //             Id = x.Id,
+        //             Quantity = x.Quantity,
+        //             ProductId = x.ProductId,
+        //             LineProduct = _context.Products.Where(y => y.Id == x.ProductId).Select(a => new Model.Product(){
+        //                 Id = a.Id,
+        //                 Name = a.Name,
+        //                 Description = a.Description,
+        //                 Price = (decimal)a.Price,
+        //                 Category = a.Category
+        //                 }).FirstOrDefault()
+        //             }).ToList(),
+        //         StoreOrders = _context.Orders.Where(x => x.Id == _context.StorefrontOrders.Where(y => y.StorefrontId == p_IC.Id).Select(z => z.OrdersId).FirstOrDefault()).Select(x => new Model.Order(){
+        //             Id = x.Id,
+        //             Location = x.Location,
+        //             OrderLineItems = _context.LineItems.Where(y => y.Id == _context.OrdersLineitems.Where(z => z.OrdersId == x.Id).Select(a => a.LineItemId).FirstOrDefault()).Select(y => new Model.LineItem(){
+        //                 Id = y.Id,
+        //                 Quantity = y.Quantity,
+        //                 ProductId = y.ProductId,
+        //                 LineProduct = _context.Products.Where(z => z.Id == y.ProductId).Select(a => new Model.Product(){
+        //                     Id = a.Id,
+        //                     Name = a.Name,
+        //                     Description = a.Description,
+        //                     Price = (decimal)a.Price,
+        //                     Category = a.Category
+        //                     }).FirstOrDefault()
+        //                 }).ToList()
+        //             }).ToList()
+        //         };
                     
-        }
+        //}
                 
         public static Model.Order Translate(Entity.Order p_Order, List<Entity.LineItem> p_LineItem, List<Entity.Product> p_Product){
-
             var o = new Model.Order(){
                     Id = p_Order.Id,
                     Location = p_Order.Location,
                     Active = p_Order.Active,
                     OrderLineItems = new List<Model.LineItem>()
                     };
-
+                    
                     for(int i = 0; i < p_LineItem.Count; i++){
                         o.OrderLineItems.Add(Translate(p_LineItem[i], p_Product[i]));
                     }

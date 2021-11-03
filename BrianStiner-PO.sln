@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface", "UserInterface\UserInterface.csproj", "{06CE9090-3881-4155-B8D4-FEE2CC3DDA7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{35D3F35E-3DB9-4B31-8E9A-0C2712C69679}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +74,17 @@ Global
 		{06CE9090-3881-4155-B8D4-FEE2CC3DDA7A}.Release|x64.Build.0 = Release|Any CPU
 		{06CE9090-3881-4155-B8D4-FEE2CC3DDA7A}.Release|x86.ActiveCfg = Release|Any CPU
 		{06CE9090-3881-4155-B8D4-FEE2CC3DDA7A}.Release|x86.Build.0 = Release|Any CPU
+		{35D3F35E-3DB9-4B31-8E9A-0C2712C69679}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35D3F35E-3DB9-4B31-8E9A-0C2712C69679}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35D3F35E-3DB9-4B31-8E9A-0C2712C69679}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{35D3F35E-3DB9-4B31-8E9A-0C2712C69679}.Debug|x64.Build.0 = Debug|Any CPU
+		{35D3F35E-3DB9-4B31-8E9A-0C2712C69679}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{35D3F35E-3DB9-4B31-8E9A-0C2712C69679}.Debug|x86.Build.0 = Debug|Any CPU
+		{35D3F35E-3DB9-4B31-8E9A-0C2712C69679}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35D3F35E-3DB9-4B31-8E9A-0C2712C69679}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35D3F35E-3DB9-4B31-8E9A-0C2712C69679}.Release|x64.ActiveCfg = Release|Any CPU
+		{35D3F35E-3DB9-4B31-8E9A-0C2712C69679}.Release|x64.Build.0 = Release|Any CPU
+		{35D3F35E-3DB9-4B31-8E9A-0C2712C69679}.Release|x86.ActiveCfg = Release|Any CPU
+		{35D3F35E-3DB9-4B31-8E9A-0C2712C69679}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

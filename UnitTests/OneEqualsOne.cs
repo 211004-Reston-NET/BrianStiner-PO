@@ -1,8 +1,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using Models;
 
 namespace UnitTests{
     [TestClass]
-    public class UnitTest1{
+    public class OneEqualsOne{
         [TestMethod]
         public void one_equals_one_true(){
             Assert.AreEqual(1, 1);
@@ -16,4 +18,3 @@ namespace UnitTests{
     Your app must be able to replenish inventory and place orders.
     Your app should be able to view Order history.
     /*/
-

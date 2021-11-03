@@ -12,7 +12,7 @@ namespace UserInterface{
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsetting.json")  //TODO: File not found exception. Get help.     
+                .AddJsonFile("appsetting.json")    
                 .Build();
             
             DbContextOptionsBuilder<revaturedatabaseContext> options = new DbContextOptionsBuilder<revaturedatabaseContext>()

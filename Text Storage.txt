@@ -105,5 +105,3 @@
 
 
 
-
-dotnet ef dbcontext scaffold "Server=tcp:revature-database-server.database.windows.net,1433;Initial Catalog=revature-database;Persist Security Info=False;User ID=a-dmin;Password=FDFwhjnXM5Rx!L4;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" Microsoft.EntityFrameworkCore.SqlServer --startup-project ..\UserInterface\ --force --output-dir Entity --no-onconfiguring

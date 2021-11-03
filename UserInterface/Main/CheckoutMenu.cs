@@ -69,7 +69,6 @@ namespace UserInterface{
             Builder.ResetPause("Thank you for shopping with us!");
             
         }
-
         public MenuType Choice(){return MenuType.Main;}
     }
 }

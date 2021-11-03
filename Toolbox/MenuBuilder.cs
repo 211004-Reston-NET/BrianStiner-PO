@@ -439,11 +439,11 @@ namespace Toolbox
             do{
                 li = CreateLineItem();
 
-                if(o.OrderLineItems.Find(x => x.ProductId == li.ProductId) == null){
+                if(o.OrderLineItems.Find(x => x.ProductId == li.ProductId) == null){                    //if the product is not already in the order
                     o.OrderLineItems.Add(li);
                 }else{
                     Add("Merged items in your order.");
-                    o.OrderLineItems.Find(x => x.ProductId == li.ProductId).Quantity += li.Quantity;
+                    o.OrderLineItems.Find(x => x.ProductId == li.ProductId).Quantity += li.Quantity;    //add the quantity to the existing item
                 }
                 
                 Add("Another Lineitem?", 'b');

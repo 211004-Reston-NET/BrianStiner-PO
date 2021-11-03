@@ -14,7 +14,7 @@ namespace UnitTests
     public class UnitTest2{
         [Test]
         var repo = new DataAccessLogic.Repository();
-        public AddToDatabaseGetFromDatabaseEqual(){
+        public AddToDatabaseGetFromDatabaseAreTheSame(){
             
             Model.Product model = new Model.Product(){
                 Name = "Test",

@@ -21,6 +21,7 @@ namespace UserInterface{
             //All menus require dependency injection becuase all the menus require menubuilder which requires BusinessLogic.
             //This could have been designed so that menubuilder doesn't require BusinessLogic, but I didn't want to change the design so close to the deadline.
             //And functionality is not affected.
+            
             switch (currentMenu){
 
                 //Customer

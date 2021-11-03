@@ -120,7 +120,11 @@ namespace Toolbox
         //Method GetPhoneNumber: Returns a string of the phone number entered by the user.
         public string GetPhoneNumber(){
             Add($"Please enter your phone number: ", 'f');
-            string phone = Console.ReadLine(); Add(phone);
+            string phone = Console.ReadLine();      //regex to remove parentheses and replace spaces and dots with dashes
+            phone = Regex.Replace(phone, @"[()]", "");
+            phone = Regex.Replace(phone, @"[ .]", "-");
+            Add(phone);
+
             while(!Regex.IsMatch(phone, @"^\d{3}-\d{3}-\d{4}$")){                               //regex for phone number
                 Add("Invalid phone number. Please enter a valid phone number.", 'f');
                 phone = Console.ReadLine(); Add(phone);

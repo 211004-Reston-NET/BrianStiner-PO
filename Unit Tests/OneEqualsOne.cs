@@ -8,7 +8,7 @@ namespace UnitTests{
             Assert.AreEqual(1, 1);
         }
     }
-
+}
     /*/
     Your app should store meaningful logging information using serilog or Nlog
     Your app should have at least 10 meaningful unit tests. You can also unit test database calls.
@@ -16,4 +16,4 @@ namespace UnitTests{
     Your app must be able to replenish inventory and place orders.
     Your app should be able to view Order history.
     /*/
-}
+

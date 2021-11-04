@@ -7,7 +7,7 @@ namespace UnitTests{
     public class StorefrontIdentifiesAsStorefront{
         [TestMethod]
         public void Storefront_Equals_Storefront(){
-            Storefront store = new Storefront();
+            Store store = new Store();
             Assert.AreEqual(store.Identify(), "Storefront");
         }
     }

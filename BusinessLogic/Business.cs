@@ -21,11 +21,11 @@ namespace BusinessLogic
 
 
         //Customer
-        public Customer Add(Customer p_IC){
-            return _repo.Add(p_IC);       
+        public void Add(Customer p_IC){
+            _repo.Add(p_IC);       
         }
-        public List<Customer> GetAll(Customer p_IC, bool? p_Active = true){
-            return _repo.GetAll(p_IC, true);
+        public List<Customer> GetAll(Customer p_IC){
+            return _repo.GetAll(p_IC);
         }
         public void Delete(Customer p_IC){
             _repo.Delete(p_IC);
@@ -36,26 +36,26 @@ namespace BusinessLogic
 
 
         //Storefront
-        public Storefront Add(Storefront p_IC){
-            return _repo.Add(p_IC);       
+        public void Add(Store p_IC){
+            _repo.Add(p_IC);       
         }
-    public List<Storefront> GetAll(Storefront p_IC, bool? p_Active = true){
-            return _repo.GetAll(p_IC, p_Active);
+    public List<Store> GetAll(Store p_IC){
+            return _repo.GetAll(p_IC);
         }
-        public void Delete(Storefront p_IC){
+        public void Delete(Store p_IC){
             _repo.Delete(p_IC);       
         }
-        public List<Storefront> Search(Storefront p_IC, string p_search){
+        public List<Store> Search(Store p_IC, string p_search){
             return _repo.Search(p_IC, p_search);
         }
 
 
         //Order
-        public Order Add(Order p_IC){
-            return _repo.Add(p_IC);       
+        public void Add(Order p_IC){
+            _repo.Add(p_IC);       
         }
-        public List<Order> GetAll(Order p_IC, bool? p_Active = true){
-            return _repo.GetAll(p_IC, p_Active);
+        public List<Order> GetAll(Order p_IC){
+            return _repo.GetAll(p_IC);
         }
         public void Delete(Order p_IC){
             _repo.Delete(p_IC);       
@@ -66,8 +66,8 @@ namespace BusinessLogic
 
 
         //LineItem
-        public LineItem Add(LineItem p_IC){
-            return _repo.Add(p_IC);       
+        public void Add(LineItem p_IC){
+            _repo.Add(p_IC);       
         }
         public List<LineItem> GetAll(LineItem p_IC){
             return _repo.GetAll(p_IC);
@@ -81,8 +81,8 @@ namespace BusinessLogic
 
 
         //Product
-        public Product Add(Product p_IC){
-            return _repo.Add(p_IC);       
+        public void Add(Product p_IC){
+            _repo.Add(p_IC);       
         }
         public List<Product> GetAll(Product p_IC){
             return _repo.GetAll(p_IC);
@@ -99,7 +99,7 @@ namespace BusinessLogic
         public Customer Get(Customer p_IC){
             return _repo.Get(p_IC);
         }
-        public Storefront Get(Storefront p_IC){
+        public Store Get(Store p_IC){
             return _repo.Get(p_IC);
         }
         public Order Get(Order p_IC){
@@ -117,7 +117,7 @@ namespace BusinessLogic
         public void Update(Customer p_IC){
             _repo.Update(p_IC);
         }
-        public void Update(Storefront p_IC){
+        public void Update(Store p_IC){
             _repo.Update(p_IC);
         }
         public void Update(Order p_IC){

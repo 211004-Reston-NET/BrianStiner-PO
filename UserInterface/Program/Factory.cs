@@ -26,71 +26,71 @@ namespace UserInterface{
 
                 //Customer
                 case MenuType.Customer:
-                    return new CustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
+                    return new CustomerMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options)))); 
 
                 case MenuType.ShowAllCustomers:
-                    return new ShowAllCustomersMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));
+                    return new ShowAllCustomersMenu(new Business(new RepositorySQL( new revaturedatabaseContext(options.Options))));
                 case MenuType.AddCustomer:
-                    return new AddCustomerMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));
+                    return new AddCustomerMenu(new Business(new RepositorySQL( new revaturedatabaseContext(options.Options))));
                 case MenuType.DeleteCustomer:
-                    return new DeleteCustomerMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));
+                    return new DeleteCustomerMenu(new Business(new RepositorySQL( new revaturedatabaseContext(options.Options))));
 
                 case MenuType.ModifyCustomer:
-                    return new ModifyCustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+                    return new ModifyCustomerMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options))));
                 case MenuType.SelectCustomer:
-                    return new SelectCustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
+                    return new SelectCustomerMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options)))); 
                 case MenuType.ShowCurrentCustomer:
-                    return new ShowCurrentCustomerMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+                    return new ShowCurrentCustomerMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options))));
                 case MenuType.CustomerOrder:
-                    return new CustomerOrderMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));  
+                    return new CustomerOrderMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options))));  
                 case MenuType.CustomerPastOrder:
-                    return new CustomerPastOrdersMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));   
+                    return new CustomerPastOrdersMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options))));   
 
                 //Storefront
                 case MenuType.Storefront:
-                    return new StorefrontMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+                    return new StorefrontMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options))));
 
                 case MenuType.ShowAllStorefronts:
-                    return new ShowAllStorefrontsMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
+                    return new ShowAllStorefrontsMenu(new Business(new RepositorySQL( new revaturedatabaseContext(options.Options)))); 
                 case MenuType.AddStorefront:
-                    return new AddStorefrontMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
+                    return new AddStorefrontMenu(new Business(new RepositorySQL( new revaturedatabaseContext(options.Options)))); 
                 case MenuType.DeleteStorefront:
-                    return new DeleteStorefrontMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));
+                    return new DeleteStorefrontMenu(new Business(new RepositorySQL( new revaturedatabaseContext(options.Options))));
 
                 case MenuType.ModifyStorefront:
-                    return new ModifyStorefrontMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+                    return new ModifyStorefrontMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options))));
                 case MenuType.SelectStorefront:
-                    return new SelectStorefrontMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
+                    return new SelectStorefrontMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options)))); 
                 case MenuType.ShowStorefront:
-                    return new ShowStorefrontMenu(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
+                    return new ShowStorefrontMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options)))); 
                 case MenuType.StorefrontOrder:
-                    return new StorefrontOrderMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+                    return new StorefrontOrderMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options))));
                 case MenuType.StorefrontPastOrder:
-                    return new StorefrontPastOrdersMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+                    return new StorefrontPastOrdersMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options))));
                 
                 //Product
                 case MenuType.Product:
-                    return new ProductMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));
+                    return new ProductMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options))));
 
                 case MenuType.ShowAllProducts:
-                    return new ShowAllProductsMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
+                    return new ShowAllProductsMenu(new Business(new RepositorySQL( new revaturedatabaseContext(options.Options)))); 
                 case MenuType.AddProduct:
-                    return new AddProductMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));  
+                    return new AddProductMenu(new Business(new RepositorySQL( new revaturedatabaseContext(options.Options))));  
                 case MenuType.ModifyProduct:
-                    return new ModifyProductMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
+                    return new ModifyProductMenu(new Business(new RepositorySQL( new revaturedatabaseContext(options.Options)))); 
                 case MenuType.DeleteProduct:
-                    return new DeleteProductMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
+                    return new DeleteProductMenu(new Business(new RepositorySQL( new revaturedatabaseContext(options.Options)))); 
 
                 //Others
                 case MenuType.Checkout:
-                    return new CheckoutMenu(new Business(new Repository(new revaturedatabaseContext(options.Options))));    
+                    return new CheckoutMenu(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options))));    
                 case MenuType.Exit:
-                    return new ExitMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
+                    return new ExitMenu(new Business(new RepositorySQL( new revaturedatabaseContext(options.Options)))); 
                 case MenuType.RealExit:
-                    return new RealExitMenu(new Business(new Repository( new revaturedatabaseContext(options.Options)))); 
+                    return new RealExitMenu(new Business(new RepositorySQL( new revaturedatabaseContext(options.Options)))); 
                     
                 default:
-                    return new MainMenu(new Business(new Repository( new revaturedatabaseContext(options.Options))));  
+                    return new MainMenu(new Business(new RepositorySQL( new revaturedatabaseContext(options.Options))));  
             }
         }
     }

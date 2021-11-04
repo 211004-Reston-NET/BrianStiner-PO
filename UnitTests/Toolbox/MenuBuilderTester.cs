@@ -23,7 +23,7 @@ namespace UnitTests
                 .UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             revaturedatabaseContext context = new revaturedatabaseContext(options.Options);
 
-            private MenuBuilder builder = new MenuBuilder(new Business(new Repository(new revaturedatabaseContext(options.Options)))); 
+            private MenuBuilder builder = new MenuBuilder(new Business(new RepositorySQL(new revaturedatabaseContext(options.Options)))); 
 
             [TestMethod]
             public void TestEmail()

@@ -24,8 +24,8 @@ namespace DataAccessLogic
             listOfCustomer.Add(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfCustomer, new JsonSerializerOptions{WriteIndented=true});
             File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
-        } public void Add(M.Storefront p_IC){
-            List<M.Storefront> listOfStorefront = GetAll(p_IC);
+        } public void Add(M.Store p_IC){
+            List<M.Store> listOfStorefront = GetAll(p_IC);
             listOfStorefront.Add(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfStorefront, new JsonSerializerOptions{WriteIndented=true});
             File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
@@ -61,13 +61,13 @@ namespace DataAccessLogic
                 return new List<M.Customer>(); 
             }
             
-        }public List<M.Storefront> GetAll(M.Storefront p_IC){  
+        }public List<M.Store> GetAll(M.Store p_IC){  
             try{
                 _jsonString = File.ReadAllText($"{c_filepath}{p_IC.Identify()}s.json"); 
-                return JsonSerializer.Deserialize<List<M.Storefront>>(_jsonString);
+                return JsonSerializer.Deserialize<List<M.Store>>(_jsonString);
             }catch (System.IO.FileNotFoundException){
                 Console.WriteLine($"There is no {c_filepath}{p_IC.Identify()}s.json file");Console.ReadLine();
-                return new List<M.Storefront>(); 
+                return new List<M.Store>(); 
             }
         }public List<M.Order> GetAll(M.Order p_IC){ 
             try{
@@ -103,8 +103,8 @@ namespace DataAccessLogic
             listOfCustomer.Remove(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfCustomer, new JsonSerializerOptions{WriteIndented=true});
             File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
-        }public void Delete(M.Storefront p_IC){
-            List<M.Storefront> listOfStorefront = GetAll(p_IC);
+        }public void Delete(M.Store p_IC){
+            List<M.Store> listOfStorefront = GetAll(p_IC);
             listOfStorefront.Remove(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfStorefront, new JsonSerializerOptions{WriteIndented=true});
             File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);

@@ -14,9 +14,9 @@ namespace UserInterface{
         }
         public void Display(){
             
-            List<Storefront> SelectStorefronts = Builder.Search(new Storefront());      //Search database for Storefront list
+            List<Store> SelectStorefronts = Builder.Search(new Store());      //Search database for Storefront list
 
-            Storefront OurStorefront = Builder.Select(SelectStorefronts);               //Select Storefront from list
+            Store OurStorefront = Builder.Select(SelectStorefronts);               //Select Storefront from list
 
             BL.Delete(OurStorefront);                                                   //Delete Storefront from database
 

@@ -14,7 +14,7 @@ namespace UserInterface{
         }
         public void Display(){
 
-            Builder.ShowAll(BL.GetAll(new Storefront(), true));
+            Builder.ShowAll(BL.GetAll(new Store()));
 
             Builder.Pause();
         }

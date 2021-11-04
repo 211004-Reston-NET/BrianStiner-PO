@@ -13,7 +13,7 @@ namespace UserInterface{
             Builder = new MenuBuilder(BL);
         }
         public void Display(){
-            Current.storefront = Builder.SearchAndSelect(new Storefront());  
+            Current.storefront = Builder.SearchAndSelect(new Store());  
             Builder.Pause($"Store set to {Current.storefront.Name}!");
         }
         public MenuType Choice(){return MenuType.Storefront;}

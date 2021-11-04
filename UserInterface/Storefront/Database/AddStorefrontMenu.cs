@@ -22,7 +22,7 @@ namespace UserInterface{
             string address = Builder.GetAddress();
 
 
-            Storefront newStorefront = new Storefront(name, address);
+            Store newStorefront = new Store(name, address);
 
             BL.Add(newStorefront);
 

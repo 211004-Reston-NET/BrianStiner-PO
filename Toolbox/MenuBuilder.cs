@@ -15,13 +15,11 @@ namespace Toolbox
     {
         
         List<string> menulines = new List<string>();    //This is the list of strings that will be displayed
-        IBusiness BL;                  //This is the business logic object that will be used to interact with the database in Search().
+        IBusiness BL;                                   //This is the business logic object that will be used to interact with the database in Search().
         public MenuBuilder(IBusiness BL)
         {
             this.BL = BL;
         }
-
-
         public void BuildMenu()
         {
             int max = 38;
@@ -200,7 +198,7 @@ namespace Toolbox
         //Methods named Search: Customer p_IC parameter: searchs Customer database List<Customer> that match the search string.
 
         public List<Customer> Search(Customer p_IC){
-            List<Customer> SelectC = BL.GetAll(new Customer(), true);
+            List<Customer> SelectC = BL.GetAll(new Customer());
             if(SelectC.Count == 0){Pause("No Customers to search.");}
             if(SelectC.Count < 5){return SelectC;}
             do{   
@@ -223,8 +221,8 @@ namespace Toolbox
             } while (Choice());
             return SelectC;
         }
-        public List<Storefront> Search(Storefront p_IC){
-            List<Storefront> SelectC = BL.GetAll(new Storefront(), true); 
+        public List<Store> Search(Store p_IC){
+            List<Store> SelectC = BL.GetAll(new Store());
             if(SelectC.Count == 0){Add("No Storefronts to search.");}
             if(SelectC.Count < 5){return SelectC;}
             do{   
@@ -237,7 +235,7 @@ namespace Toolbox
                 else{
                     Add();Add($" Showing {p_IC.Identify()}s");Add();
 
-                    foreach(Storefront c in SelectC){
+                    foreach(Store c in SelectC){
                         Add();Add($" --------------------");
                         Add(c.ToStringList());
                     }
@@ -248,7 +246,7 @@ namespace Toolbox
             return SelectC;
         }
         public List<Order> Search(Order p_IC){
-            List<Order> SelectC = BL.GetAll(new Order(), true); 
+            List<Order> SelectC = BL.GetAll(new Order()); 
             if(SelectC.Count == 0){Add("No Orders to search.");}
             if(SelectC.Count < 5){return SelectC;}
             do{   
@@ -324,10 +322,10 @@ namespace Toolbox
                 Add(ic.ToStringList());
             }
             Add("===================================",'f');
-        }public void ShowAll(List<Storefront> AllIC){
+        }public void ShowAll(List<Store> AllIC){
             Reset($"Show all {AllIC[0].Identify()}s,");
             Add(); int cnt = 0;
-            foreach(Storefront ic in AllIC){
+            foreach(Store ic in AllIC){
                 Add();Add($"[{cnt++}] --------------------");
                 Add(ic.ToStringList());
             }
@@ -410,7 +408,7 @@ namespace Toolbox
             }
             return p_ICList[choice];
         }
-        public Storefront Select(List<Storefront> p_ICList){
+        public Store Select(List<Store> p_ICList){
             ShowAll(p_ICList);
             Add("Enter number for your choice.",'b');
             int choice = GetInt();
@@ -428,7 +426,7 @@ namespace Toolbox
         public LineItem SearchAndSelect(LineItem p_IC){return Select(Search(p_IC));}
         public Product SearchAndSelect(Product p_IC){return Select(Search(p_IC));}
         public Customer SearchAndSelect(Customer p_IC){return Select(Search(p_IC));}
-        public Storefront SearchAndSelect(Storefront p_IC){return Select(Search(p_IC));}
+        public Store SearchAndSelect(Store p_IC){return Select(Search(p_IC));}
 
 
         //Method CreateOrder: Creates an Order. Calls CreateLineItem() in a loop
@@ -438,22 +436,22 @@ namespace Toolbox
         public Order CreateOrder(string p_Location){
             Order o = new Order();
             LineItem li = new LineItem();
-            o.Location = p_Location;    
+            o.Address = p_Location;    
                         
             do{
                 li = CreateLineItem();
 
-                if(o.OrderLineItems.Find(x => x.ProductId == li.ProductId) == null){                    //if the product is not already in the order
-                    o.OrderLineItems.Add(li);
+                if(o.OrdersLineItems.Find(x => x.LineItem.ProductId == li.ProductId) == null){                    //if the product is not already in the order
+                    o.OrdersLineItems.Add(new OrdersLineItem(li, o));                                            //add it to the order
                 }else{
                     Add("Merged items in your order.");
-                    o.OrderLineItems.Find(x => x.ProductId == li.ProductId).Quantity += li.Quantity;    //add the quantity to the existing item
+                    o.OrdersLineItems.Find(x => x.LineItem.ProductId == li.ProductId).LineItem.Quantity += li.Quantity;    //add the quantity to the existing item
                 }
                 
                 Add("Another Lineitem?", 'b');
             }while(Choice());
 
-            o = BL.Add(o);
+            BL.Add(o);
             return o;
         }
 
@@ -467,20 +465,61 @@ namespace Toolbox
 
             p = SearchAndSelect(p);
             Add();Add(p.Name,'b');
-            li.LineProduct = p;
+            li.Product = p;
             Add("How many of this product do you want?", 'b');
             li.Quantity = GetInt();
             li.ProductId = p.Id;
 
-            li = BL.Add(li);
+            BL.Add(li);
             return li;
         }
 
-        //Method to reset face to a new value
-        public int AssignFace(){
-            FaceFarm f = new FaceFarm();
-            return f.AssignFace();
+        // Store buying All orders from distributor and adding to inventory
+        public void TransactStoreOrders(Store s){
+            ResetPause(s.ToStringList());
+            foreach(StoreOrder so in  s.StoreOrders){
+                if(so.Orders.Active){
+                foreach(OrdersLineItem oli in so.Orders.OrdersLineItems){
+                    s.Expenses += oli.LineItem.Total*.7M;                                                                                       //Stores get a discount from the distributor
+                    if(s.Inventory.Find(inv => inv.LineItemId == oli.LineItemId) != null){                                                      //Does it exist?
+                    s.Inventory.Find(inv => inv.LineItem.ProductId == oli.LineItem.ProductId).LineItem.Quantity += oli.LineItem.Quantity;       //Add if it does by merging
+                    }else{s.Inventory.Add(new Inventory(oli.LineItem, s));}                                                                     //Add if it doesn't by adding
+                }
+                }   
+                so.Orders.Active = false;
+                Add($"Order {so.Id} with {so.Orders.OrdersLineItems.Count} items complete.");     
+            }
+            BL.Update(s);
         }
+        
+        
+        
+        
+        // Customer buying from store, increasing store revanue, decreasing store inventory, and increasing customer's totalspent
+        public void TransactCustomerOrders(Customer c, Store s){
+            bool orderFailure = false;
+            ResetPause(c.ToStringList());
+            foreach(CustomerOrder co in  c.CustomerOrders){
+                if(co.Orders.Active){
+                foreach(OrdersLineItem oli in co.Orders.OrdersLineItems){
+                    if(s.Inventory.Find(inv => inv.LineItem.ProductId == oli.LineItem.ProductId) != null){                                            // if it exists,
+                    if(s.Inventory.Find(inv => inv.LineItem.ProductId == oli.LineItem.ProductId).LineItem.Quantity >= oli.LineItem.Quantity){        // if it has enough,
+                        s.Inventory.Find(inv => inv.LineItem.ProductId == oli.LineItem.ProductId).LineItem.Quantity -= oli.LineItem.Quantity;        // remove from store
+                        s.Revenue += oli.LineItem.Total;                                                                            // add to store revenue 
+                        c.TotalSpent += oli.LineItem.Total;                                                                         // add to customer spent                                               
+                    }else{
+                        ResetPause(new List<string>()
+                        {"Sorry, we don't have enough of",
+                        $"{oli.LineItem.Product.Name} to complete your order"});  
+                        orderFailure = true; break;
+                    }}}     
+                Add($"Order {co.Id} with {co.Orders.OrdersLineItems.Count} items complete.");     
+                co.Orders.Active = !orderFailure;
+                }
+                }
+            BL.Update(c);
+            BL.Update(s);
+            }      
     }
     //----------------------------------------------------------------------------------------------------------------------
 }

@@ -26,8 +26,7 @@ namespace UserInterface{
                     "[1] - Name",
                     "[2] - Address",
                     "[3] - Email",
-                    "[4] - Phone Number",
-                    "[5] - Face"},'f');
+                    "[4] - Phone Number"},'f');
 
                 int choice = Builder.GetInt();
                 Builder.Add("Enter the new value:",'f');
@@ -40,11 +39,9 @@ namespace UserInterface{
                         Current.customer.Email = Builder.GetEmail(); break;
                     case 4:
                         Current.customer.Phone = Builder.GetPhoneNumber(); break;
-                    case 5:
-                        Current.customer.Picture = Builder.AssignFace(); break;
                     default:
                         Builder.Reset(new List<string>(){
-                           $"Invalid Choice, only 1-5 are valid options",
+                           $"Invalid Choice, only 1-4 are valid options",
                            $"You have not updated {Current.customer.Name}",
                            $"Please try again."});
                         break;

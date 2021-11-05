@@ -21,41 +21,41 @@ namespace UserInterface{
             var s = Current.storefront;
 
             // Store buying All orders from distributor and adding to Inventory
-            if(s.StoreOrders.Count > 0){
+            if(s.Orders.Count > 0){
                 Builder.ResetPause(s.ToStringList());
-                foreach(StoreOrder so in  s.StoreOrders){
-                    if(so.Orders.Active){
-                    foreach(OrdersLineItem oli in so.Orders.OrdersLineItems){
-                        s.Expenses += oli.LineItem.Total*.7M;                                                                                       //Stores get a discount from the distributor
-                        if(s.Inventory.Find(inv => inv.LineItem.ProductId == oli.LineItem.ProductId) != null){                                      //does it exist?
-                        s.Inventory.Find(inv => inv.LineItem.ProductId == oli.LineItem.ProductId).LineItem.Quantity += oli.LineItem.Quantity;       //add if it does by merging
-                        }else{s.Inventory.Add(new Inventory(oli.LineItem, s));}                                                                      //add if it doesn't by adding
+                foreach(Order o in  s.Orders){
+                    if(o.Active){
+                    foreach(LineItem li in o.LineItems){
+                        s.Expenses += li.Total*.7M;                                                                                       //Stores get a discount from the distributor
+                        if(s.Inventory.Find(inv => inv.ProductId == li.ProductId) != null){                                      //does it exist?
+                        s.Inventory.Find(inv => inv.ProductId == li.ProductId).Quantity += li.Quantity;       //add if it does by merging
+                        }else{s.Inventory.Add(li);}                                                                      //add if it doesn't by adding
                     }
                     }   
-                    so.Orders.Active = false;
-                    Builder.Add($"Order {so.Id} with {so.Orders.OrdersLineItems.Count} items complete.");     
+                    o.Active = false;
+                    Builder.Add($"Order {o.Id} with {o.LineItems.Count} items complete.");     
                 } 
             }
             // Customer buying from store, increasing store revanue, decreasing store Inventory, and increasing customer's totalspent
             bool orderSuccess = true;
-            if(c.CustomerOrders.Count > 0){
+            if(c.Orders.Count > 0){
                 Builder.ResetPause(c.ToStringList());
-                foreach(CustomerOrder co in  c.CustomerOrders){
-                if(co.Orders.Active){
-                foreach(OrdersLineItem oli in co.Orders.OrdersLineItems){
-                    if(s.Inventory.Find(inv => inv.LineItem.ProductId == oli.LineItem.ProductId) != null){                                           // if it exists,
-                    if(s.Inventory.Find(inv => inv.LineItem.ProductId == oli.LineItem.ProductId).LineItem.Quantity >= oli.LineItem.Quantity){        // if it has enough,
-                        s.Inventory.Find(inv => inv.LineItem.ProductId == oli.LineItem.ProductId).LineItem.Quantity -= oli.LineItem.Quantity;        // remove from store
-                        s.Revenue += oli.LineItem.Total;                                                                                             // add to store revenue 
-                        c.TotalSpent += oli.LineItem.Total;                                                                                          // add to customer spent                                               
+                foreach(Order o in  c.Orders){
+                if(o.Active){
+                foreach(LineItem li in o.LineItems){
+                    if(s.Inventory.Find(inv => inv.ProductId == li.ProductId) != null){                                           // if it exists,
+                    if(s.Inventory.Find(inv => inv.ProductId == li.ProductId).Quantity >= li.Quantity){        // if it has enough,
+                        s.Inventory.Find(inv => inv.ProductId == li.ProductId).Quantity -= li.Quantity;        // remove from store
+                        s.Revenue += li.Total;                                                                                             // add to store revenue 
+                        c.TotalSpent += li.Total;                                                                                          // add to customer spent                                               
                     }else{
                         Builder.ResetPause(new List<string>()
                         {"Sorry, we don't have enough of",
-                        $"{oli.LineItem.Product.Name} to complete your order"});  
+                        $"{li.Product.Name} to complete your order"});  
                         orderSuccess = false; break;
                     }}}                                                                                     
-                Builder.Add($"Order {co.Id} with {co.Orders.OrdersLineItems.Count} items complete.");                                                        // if it doesn't exist,
-                co.Orders.Active = !orderSuccess;
+                Builder.Add($"Order {o.Id} with {o.LineItems.Count} items complete.");                                                        // if it doesn't exist,
+                o.Active = !orderSuccess;
                 }}   
             }
             

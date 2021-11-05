@@ -15,14 +15,10 @@ namespace DataAccessLogic.Entity
             : base(options) {}
 
         public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<CustomerOrder> CustomerOrders { get; set; }
-        public virtual DbSet<Inventory> Inventories { get; set; }
         public virtual DbSet<LineItem> LineItems { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrdersLineItem> OrdersLineitems { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Store> Storefronts { get; set; }
-        public virtual DbSet<StoreOrder> StorefrontOrders { get; set; }
+        public virtual DbSet<Store> Stores { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -65,51 +61,6 @@ namespace DataAccessLogic.Entity
                     .HasColumnName("total");
             });
 
-            modelBuilder.Entity<CustomerOrder>(entity =>
-            {
-                entity.ToTable("Customer_Orders");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.CustomerId).HasColumnName("Customer_ID");
-
-                entity.Property(e => e.OrdersId).HasColumnName("Orders_ID");
-
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.CustomerOrders)
-                    .HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Customer___Custo__2EDAF651");
-
-                entity.HasOne(d => d.Orders)
-                    .WithMany(p => p.CustomerOrders)
-                    .HasForeignKey(d => d.OrdersId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Customer___Order__2FCF1A8A");
-            });
-
-            modelBuilder.Entity<Inventory>(entity =>
-            {
-                entity.ToTable("Inventory");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.LineItemId).HasColumnName("Lineitem_ID");
-
-                entity.Property(e => e.StoreId).HasColumnName("Storefront_ID");
-
-                entity.HasOne(d => d.LineItem)
-                    .WithMany(p => p.Inventories)
-                    .HasForeignKey(d => d.LineItemId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Inventory__Linei__282DF8C2");
-
-                entity.HasOne(d => d.Store)
-                    .WithMany(p => p.Inventory)
-                    .HasForeignKey(d => d.StoreId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Inventory__Store__2739D489");
-            });
 
             modelBuilder.Entity<LineItem>(entity =>
             {
@@ -146,29 +97,6 @@ namespace DataAccessLogic.Entity
                     .HasColumnName("total");
             });
 
-            modelBuilder.Entity<OrdersLineItem>(entity =>
-            {
-                entity.ToTable("Orders_Lineitem");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.LineItemId).HasColumnName("LineItem_ID");
-
-                entity.Property(e => e.OrdersId).HasColumnName("Orders_ID");
-
-                entity.HasOne(d => d.LineItem)
-                    .WithMany(p => p.OrdersLineitems)
-                    .HasForeignKey(d => d.LineItemId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Orders_Li__LineI__2BFE89A6");
-
-                entity.HasOne(d => d.Orders)
-                    .WithMany(p => p.OrdersLineItems)
-                    .HasForeignKey(d => d.OrdersId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Orders_Li__Order__2B0A656D");
-            });
-
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product");
@@ -200,7 +128,7 @@ namespace DataAccessLogic.Entity
 
             modelBuilder.Entity<Store>(entity =>
             {
-                entity.ToTable("Storefront");
+                entity.ToTable("Stores");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -223,29 +151,6 @@ namespace DataAccessLogic.Entity
                 entity.Property(e => e.Revenue)
                     .HasColumnType("decimal(19, 2)")
                     .HasColumnName("revenue");
-            });
-
-            modelBuilder.Entity<StoreOrder>(entity =>
-            {
-                entity.ToTable("Storefront_Orders");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.OrdersId).HasColumnName("Orders_ID");
-
-                entity.Property(e => e.StoreId).HasColumnName("Storefront_ID");
-
-                entity.HasOne(d => d.Orders)
-                    .WithMany(p => p.StoreOrders)
-                    .HasForeignKey(d => d.OrdersId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Store__Order__339FAB6E");
-
-                entity.HasOne(d => d.Stores)
-                    .WithMany(p => p.StoreOrders)
-                    .HasForeignKey(d => d.StoreId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Store__Store__32AB8735");
             });
 
             OnModelCreatingPartial(modelBuilder);

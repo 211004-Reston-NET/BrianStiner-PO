@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using Models;
 using M = Models;
 
 /* The logic to perform CRUD operations on the models.
@@ -11,7 +12,7 @@ Contains repository specific logic on storing and accessing data
 namespace DataAccessLogic
 {
     //Access the json files where data is stored.
-    public class RepositoryJson //: IRepository
+    public class RepositoryJson : IRepository
     {
         private const string c_filepath = "./../DataAccessLogic/Database/";
         private string _jsonString;
@@ -123,6 +124,81 @@ namespace DataAccessLogic
             listOfProduct.Remove(p_IC);
             _jsonString = JsonSerializer.Serialize(listOfProduct, new JsonSerializerOptions{WriteIndented=true});
             File.WriteAllText($"{c_filepath}{p_IC.Identify()}s.json", _jsonString);
+        }
+
+        public Customer Get(Customer p_IC)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Store Get(Store p_IC)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Order Get(Order p_IC)
+        {
+            throw new NotImplementedException();
+        }
+
+        public LineItem Get(LineItem p_IC)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Product Get(Product p_IC)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Customer p_IC)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Store p_IC)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Order p_IC)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(LineItem p_IC)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Product p_IC)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Customer> Search(Customer p_IC, string p_Search)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Store> Search(Store p_IC, string p_Search)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Order> Search(Order p_IC, string p_Search)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<LineItem> Search(LineItem p_IC, string p_Search)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Product> Search(Product p_IC, string p_Search)
+        {
+            throw new NotImplementedException();
         }
     }
 }

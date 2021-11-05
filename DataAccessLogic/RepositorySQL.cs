@@ -66,7 +66,7 @@ namespace DataAccessLogic
             return _context.Customers.ToList();
         }
         public List<Store> GetAll(Store p_IC){
-            return _context.Storefronts.ToList();   
+            return _context.Stores.ToList();   
         }
         public List<Order> GetAll(Order p_IC){
             return _context.Orders.ToList();    
@@ -84,7 +84,7 @@ namespace DataAccessLogic
             return _context.Customers.Where(x => x.Id == p_IC.Id).FirstOrDefault();  
         }
         public Store Get(Store p_IC){
-            return _context.Storefronts.Where(x => x.Id == p_IC.Id).FirstOrDefault();
+            return _context.Stores.Where(x => x.Id == p_IC.Id).FirstOrDefault();
         }
         public Order Get(Order p_IC){
             return _context.Orders.Where(x => x.Id == p_IC.Id).FirstOrDefault();
@@ -125,7 +125,7 @@ namespace DataAccessLogic
             return _context.Customers.Where(IC => IC.Name.Contains(p_Search) || IC.Email.Contains(p_Search) || IC.Phone.Contains(p_Search) || IC.Address.Contains(p_Search)).ToList();
         }
         public List<Store> Search(Store p_IC, string p_Search){
-            return _context.Storefronts.Where(IC => IC.Name.Contains(p_Search) || IC.Address.Contains(p_Search)).ToList(); 
+            return _context.Stores.Where(IC => IC.Name.Contains(p_Search) || IC.Address.Contains(p_Search)).ToList(); 
         }
         public List<Order> Search(Order p_IC, string p_search){
             return _context.Orders.Where(IC => IC.Address.Contains(p_search)).ToList();

@@ -1,9 +1,8 @@
 using Xunit;
-using DataAccessLogic;
 using System.Collections.Generic;
 using Models;
 
-namespace DataAccessLogic.Tests
+namespace UnitTests
 {
     public class Datatest
     {
@@ -11,7 +10,7 @@ namespace DataAccessLogic.Tests
 
         public Datatest()
         {
-            _options = new DbContextOptionsBuilder<revaturedatabaseContext>() //In memory database
+            _options = new DbContextOptionsBuilder<revaturedatabaseContext>() //In-memory database
                 .UseSqlite("Filename = TestingDatabase.Db"); 
             Seed();
         }

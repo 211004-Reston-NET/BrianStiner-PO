@@ -131,9 +131,10 @@ namespace Models
         //Variables -----------------------------------------------------------------------------
         [Key]
         public int Id { get; set; }
-        [Required] 
+        [Required]
         public string Address { get; set; }
         [Required]
+        [HasMaxLength(10)]
         public bool Active { get; set; }
         public decimal Total { get => CalculateTotalPrice(); }
 
